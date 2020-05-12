@@ -1,0 +1,8 @@
+# java
+/target/
+*.class
+*.jar
+
+# !
+## .idea
+/.idea/
