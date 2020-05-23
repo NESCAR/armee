@@ -26,6 +26,8 @@ $ emqx_ctl status
 
 ## 3.Kafka
 
+需要安装JDK 1.8来启动。
+
 ### 3.1 安装
 
 * **下载**
@@ -54,3 +56,23 @@ $ emqx_ctl status
 ### 3.2 配置
 
 在`./config/`内配置`zookeeper.properties`和`server.properties`，可以配置多个server。
+
+* **如何配置公网访问Kakfa**
+
+  一般情况下将应用和Kafka部署在局域网内，`advertised.listeners`不需要配置（注释掉）。
+
+  ```properties
+  # server.properties文件
+  listeners=PLAINTEXT://[Kafka-Host-Name]:9094
+  # kafka服务器的/etc/hosts
+  [内网IP] Kafka-Host-Name
+  # kafka客户端的/etc/hosts
+  [公网IP] Kafka-Host-Name
+  ```
+
+## 4.Java
+### 4.1 openjdk
+```bash
+$ yum search java | jdk
+$ yum install java-1.8.0-openjdk
+```
