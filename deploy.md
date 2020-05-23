@@ -76,3 +76,39 @@ $ emqx_ctl status
 $ yum search java | jdk
 $ yum install java-1.8.0-openjdk
 ```
+
+
+
+## 5.Redis
+
+### 5.1 安装
+
+* **安装包安装**
+
+  ```bash
+  $ wget http://download.redis.io/releases/redis-5.0.5.tar.gz
+  $ tar xzf redis-5.0.5.tar.gz
+  $ cd redis-5.0.5
+  $ yum install gcc
+  # 官网直接make，需要jealloc
+  # 此处make MALLOC=libc可以避免以上问题
+  $ make MALLOC=libc
+  ```
+
+* **yum安装**
+
+  yum只能按照早期的版本。
+
+  ```bash
+  $ yum install redis
+  ```
+
+### 5.2 启动
+
+```bash
+# 安装包启动方式
+$ src/redis-server
+# yum安装启动方式
+$ systemclt start redis
+```
+
