@@ -77,8 +77,6 @@ $ yum search java | jdk
 $ yum install java-1.8.0-openjdk
 ```
 
-
-
 ## 5.Redis
 
 ### 5.1 安装
@@ -110,5 +108,35 @@ $ yum install java-1.8.0-openjdk
 $ src/redis-server
 # yum安装启动方式
 $ systemclt start redis
+```
+
+## 6.MySQL
+
+### 6.1 安装
+
+需要先卸载MariaDB，再安装MySQL。
+
+```bash
+$ sudo wget -i -c http://dev.mysql.com/get/mysql57-community-release-el7-10.noarch.rpm
+$ sudo yum -y install mysql57-community-release-el7-10.noarch.rpm
+$ sudo yum -y install mysql-community-server
+```
+
+### 6.2 配置和启动
+
+```bash
+# 配置为远程链接
+$ sudo echo "bind-address=0.0.0.0" >> /etc/my.cnf
+# 启动
+$ systemctl start mysqld
+# 查看初始密码
+$ grep 'temporary password' /var/log/mysqld.log | awk '{print $NF}'
+# 登录
+$ mysql -u root -p
+# 更改密码
+$ mysql> SET PASSWORD FOR 'root'@'localhost' = PASSWORD('[新密码]');
+# 设置root用户可以用于外部访问
+$ use mysql;
+$ mysql > update user set host = '%' where user = 'root';
 ```
 
