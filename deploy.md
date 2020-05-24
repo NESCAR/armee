@@ -63,7 +63,7 @@ $ emqx_ctl status
 
 * **如何配置公网访问Kakfa**
 
-  一般情况下将应用和Kafka部署在局域网内，`advertised.listeners`不需要配置（注释掉）。
+  `advertised.listeners`用于ZooKeeper向外部发布Broker的listner信息，只有发布的listener才会被外部使用。`advertised.listeners`默认和listeners相同，不需要配置。
 
   ```properties
   # server.properties文件
