@@ -6,3 +6,7 @@
 # !
 ## .idea
 /.idea/
+
+# page
+_config.yml
+CNAME
