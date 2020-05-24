@@ -1,6 +1,8 @@
 # 部署
 ## 1.EMQ
 
+版本：4.0.7
+
 ### 1.1 安装
 
 [安装流程](https://docs.emqx.io/broker/latest/cn/getting-started/install.html##shell)
@@ -25,6 +27,8 @@ $ emqx_ctl status
 ## 2.Apollo
 
 ## 3.Kafka
+
+版本：Scala 2.12-Kafka 2.3.0
 
 需要安装JDK 1.8来启动。
 
@@ -71,6 +75,9 @@ $ emqx_ctl status
   ```
 
 ## 4.Java
+
+版本：JDK 1.8
+
 ### 4.1 openjdk
 ```bash
 $ yum search java | jdk
@@ -78,6 +85,8 @@ $ yum install java-1.8.0-openjdk
 ```
 
 ## 5.Redis
+
+版本：3.2.12（yum安装）或者5.0.5（安装包安装）
 
 ### 5.1 安装
 
@@ -111,6 +120,8 @@ $ systemclt start redis
 ```
 
 ## 6.MySQL
+
+版本：5.7
 
 ### 6.1 安装
 

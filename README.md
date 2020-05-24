@@ -69,3 +69,5 @@ EMQX是开源的MQTT接入方案。
 ## 2.项目部署
 ### 2.1 第三方部署
 [部署方式](./deploy.md)
+
+**本项目中顶层文件夹可能包含Github的Page设置文件，如`CNAME`、`_config.yml`，可以删除。**
