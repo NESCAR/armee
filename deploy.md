@@ -13,13 +13,13 @@
 # 启动
 ## 直接启动
 $ emqx start
-EMQ X v4.0.0 is started successfully!
+EMQ X v4.0.7 is started successfully!
 ## systemctl 启动
 $ sudo systemctl start emqx
-EMQ X v4.0.0 is started successfully!
+EMQ X v4.0.7 is started successfully!
 ## service 启动
 $ sudo service emqx start
-EMQ X v4.0.0 is started successfully!
+EMQ X v4.0.7 is started successfully!
 # 查看启动状态
 $ emqx_ctl status
 ```
