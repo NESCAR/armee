@@ -26,6 +26,84 @@ $ emqx_ctl status
 
 ## 2.Apollo
 
+Apollo版本使用[1.6.1](https://github.com/ctripcorp/apollo/releases/tag/v1.6.1).
+
+[Github仓库](https://github.com/ctripcorp/apollo/)
+
+### 2.1 部署说明
+
+Apollo目前支持以下环境：
+
+* DEV
+  开发环境
+* FAT
+  测试环境，相当于alpha环境(功能测试)
+* UAT
+  集成环境，相当于beta环境（回归测试）
+* PRO
+  生产环境
+
+协程的部署策略为：
+
+![分布式架构](./img/apollo-deployment.png)
+
+### 2.2 安装
+
+| 环境     | 版本    |
+| -------- | ------- |
+| JDK      | 1.8 +   |
+| 操作系统 | CentOS7 |
+| MySQL    | 5.6.5+  |
+
+* **数据库初始化**
+
+  （1）[ApolloPortalDB](https://github.com/ctripcorp/apollo/blob/master/scripts/sql/apolloportaldb.sql)
+
+  ```bash
+  mysql> source /PATH/TO/ApolloPortalDB/apolloportaldb.sql
+  ```
+
+  验证
+
+  ```bash
+  mysql> select `Id`, `Key`, `Value`, `Comment` from `ApolloPortalDB`.`ServerConfig` limit 1;
+  ```
+
+  ```
+  +----+--------------------+-------+--------------------------+
+  | Id | Key                | Value | Comment                  |
+  +----+--------------------+-------+--------------------------+
+  |  1 | apollo.portal.envs | dev   | 可支持的环境列表            |
+  +----+--------------------+-------+--------------------------+
+  1 row in set (0.00 sec)
+  
+  ```
+
+  > 注：ApolloPortalDB只需要在生产环境部署一个即可
+
+  （2）[apolloconfigdb.sql](https://github.com/ctripcorp/apollo/blob/master/scripts/sql/apolloconfigdb.sql)
+
+  ```bash
+  mysql> mysql> source /PATH/TO/ApolloPortalDB/apolloconfigdb.sql
+  ```
+
+  验证
+
+  ```bash
+  mysql> select `Id`, `Key`, `Value`, `Comment` from `ApolloConfigDB`.`ServerConfig` limit 1;
+  ```
+
+  ```
+  +----+--------------------+-------------------------------+------------------------------------------------------+
+  | Id | Key                | Value                         | Comment                                              |
+  +----+--------------------+-------------------------------+------------------------------------------------------+
+  |  1 | eureka.service.url | http://localhost:8080/eureka/ | Eureka服务Url，多个service以英文逗号分隔             |
+  +----+--------------------+-------------------------------+------------------------------------------------------+
+  1 row in set (0.00 sec)
+  ```
+
+  > 注：ApolloConfigDB需要在每个环境部署一套，如fat、uat和pro分别部署3套ApolloConfigDB
+
 ## 3.Kafka
 
 版本：Scala 2.12-Kafka 2.3.0

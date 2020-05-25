@@ -10,3 +10,7 @@
 # page
 _config.yml
 CNAME
+
+# apollo pack
+apollo-*.zip
+apollo-*.sha1
