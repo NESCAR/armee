@@ -47,6 +47,8 @@ Apollo目前支持以下环境：
 
 ![分布式架构](./img/apollo-deployment.png)
 
+
+
 ### 2.2 安装
 
 | 环境     | 版本    |
@@ -103,6 +105,30 @@ Apollo目前支持以下环境：
   ```
 
   > 注：ApolloConfigDB需要在每个环境部署一套，如fat、uat和pro分别部署3套ApolloConfigDB
+
+* **安装包依赖数据库配置**
+
+  将每个安装包（portal、adminserver、configserver）的`config/application-github.properties`文件填写正确的DB信息。比如，
+
+  ```properties
+  spring.datasource.url = jdbc:mysql://localhost:3306/ApolloPortalDB?characterEncoding=utf8
+  spring.datasource.username = root
+  spring.datasource.password = Root123456@
+  ```
+
+* **apollo-portal的meta service配置**
+
+  Apollo Portal需要在不同的环境访问不同的meta service(apollo-configservice)地址，所以我们需要在配置中提供这些信息。默认情况下，meta service和config service是部署在同一个JVM进程，所以meta service的地址就是config service的地址。
+
+  `config/apollo-env.properties`文件内配置meta service。
+
+### 2.3 启动
+
+分别调用configerserver、adminserver、portal的`scripts/startup.sh`（需要根据服务器情况修改对应的JVM参数）。
+
+* **JVM配置**
+
+  
 
 ## 3.Kafka
 
