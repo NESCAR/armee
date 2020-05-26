@@ -1,7 +1,7 @@
 # java
-/target/
-*.class
-*.jar
+target/
+#*.class
+#*.jar
 
 # !
 ## .idea

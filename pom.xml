@@ -10,6 +10,7 @@
     <version>1.0-SNAPSHOT</version>
     <modules>
         <module>enginee</module>
+        <module>app-ris</module>
     </modules>
     <parent>
         <groupId>org.springframework.boot</groupId>
@@ -22,7 +23,6 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <java.version>1.8</java.version>
-        <docker.repository>115.159.154.160:2375</docker.repository>
     </properties>
 
 </project>
