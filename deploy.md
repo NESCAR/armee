@@ -13,13 +13,13 @@
 # 启动
 ## 直接启动
 $ emqx start
-EMQ X v4.0.0 is started successfully!
+EMQ X v4.0.7 is started successfully!
 ## systemctl 启动
 $ sudo systemctl start emqx
-EMQ X v4.0.0 is started successfully!
+EMQ X v4.0.7 is started successfully!
 ## service 启动
 $ sudo service emqx start
-EMQ X v4.0.0 is started successfully!
+EMQ X v4.0.7 is started successfully!
 # 查看启动状态
 $ emqx_ctl status
 ```
@@ -167,7 +167,7 @@ Apollo目前支持以下环境：
 
 * **如何配置公网访问Kakfa**
 
-  一般情况下将应用和Kafka部署在局域网内，`advertised.listeners`不需要配置（注释掉）。
+  `advertised.listeners`用于ZooKeeper向外部发布Broker的listner信息，只有发布的listener才会被外部使用。`advertised.listeners`默认和listeners相同，不需要配置。
 
   ```properties
   # server.properties文件
