@@ -7,6 +7,9 @@ target/
 ## .idea
 /.idea/
 
+# log
+*.log
+
 # page
 _config.yml
 CNAME
