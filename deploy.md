@@ -88,7 +88,7 @@ Apollo目前支持以下环境：
   （2）[apolloconfigdb.sql](https://github.com/ctripcorp/apollo/blob/master/scripts/sql/apolloconfigdb.sql)
 
   ```bash
-  mysql> mysql> source /PATH/TO/ApolloPortalDB/apolloconfigdb.sql
+  mysql> source /PATH/TO/ApolloPortalDB/apolloconfigdb.sql
   ```
 
   验证
