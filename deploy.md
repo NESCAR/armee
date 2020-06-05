@@ -26,6 +26,8 @@ $ emqx_ctl status
 
 ## 2.Apollo
 
+**目前服务器部署的Apollo有问题，可以暂时使用协程的[demo](http://106.54.227.205/)。**
+
 Apollo版本使用[1.6.1](https://github.com/ctripcorp/apollo/releases/tag/v1.6.1).
 
 [Github仓库](https://github.com/ctripcorp/apollo/)
