@@ -13,13 +13,25 @@ import org.springframework.test.context.junit4.SpringRunner;
 @RunWith(SpringRunner.class)
 @SpringBootTest
 public class TestApolloConfiger {
-    public static final Logger logger = LoggerFactory.getLogger(TestApolloConfiger.class);
 
     @Autowired
     ApolloConfiger configer;
     @Test
     public void testApolloConfiger () {
-        System.out.println(configer.len);
+        int wait = 10;
+        while (true) {
+            wait --;
+            if (wait < 0) {
+                break;
+            }
+            System.out.println(configer.len);
+            try {
+                Thread.sleep(1000);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+        }
     }
 
 
