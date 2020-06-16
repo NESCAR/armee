@@ -11,6 +11,11 @@
     <modules>
         <module>enginee</module>
         <module>app-ris</module>
+        <module>jet</module>
+        <module>jet</module>
+        <module>app-dh</module>
+        <module>app-dal</module>
+        <module>app-dal</module>
     </modules>
     <parent>
         <groupId>org.springframework.boot</groupId>
