@@ -6,6 +6,7 @@ target/
 # !
 ## .idea
 /.idea/
+*.iml
 
 # log
 *.log
