@@ -13,6 +13,7 @@ import java.util.Map;
  *   --url http://localhost:9999/api/v2/write?org=my-org&bucket=example-bucket \
  *   --header 'Authorization: Token YOURAUTHTOKEN'
  * </pre>
+ * @deprecated
  * @author neyzoter
  */
 public class InfluxPoster {
@@ -106,7 +107,7 @@ public class InfluxPoster {
                 sb.append(MULTI_LINE_SPLITER);
             }
         }
-        return httpClient.doPost(url, token, token);
+        return httpClient.doPost(url, token, sb.toString());
     }
 
     /**
