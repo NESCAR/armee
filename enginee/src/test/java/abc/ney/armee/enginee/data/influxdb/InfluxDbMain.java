@@ -12,6 +12,9 @@ public class InfluxDbMain {
         testInfluxConnection();
     }
 
+    /**
+     * 测试InfluxConnection
+     */
     public static void testInfluxConnection() {
         String measurement = "iwatch";
         InfluxConnection influxConnection = new InfluxConnection(null, null,"http://influxdb:8086", "ris",null);
@@ -32,6 +35,10 @@ public class InfluxDbMain {
             }
         }
     }
+
+    /**
+     * 测试InfluxPoster
+     */
     public static void testInfluxPoster() {
         String token = "9awRYjBTnFxXVFRjwhxNugaonkOQQ_x22IYBh9RnLE-0uZU_UZsB2kmYMM_ucvo0L2tSqpYLjMjMtE75dzwwtw==";
         String org = "zju";
