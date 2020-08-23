@@ -5,6 +5,7 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.data.redis.core.ZSetOperations;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import java.io.Serializable;
@@ -35,20 +36,19 @@ public class RedisTester {
     @Test
     public void testZset() {
         long time = System.currentTimeMillis();
-//        strRedisTemplate.opsForZSet().add("imei", "{data:{123,1232}}", 10);
-//        strRedisTemplate.opsForZSet().add("imei", "{data:{321,41}}", 2);
-//        strRedisTemplate.opsForZSet().add("imei", "{data:{1,2}}", 3);
-//        strRedisTemplate.opsForZSet().add("imei", "{data:{1,221231231213213}}", time);
-        Set<String> set = strRedisTemplate.opsForZSet().range("imei", 0, time + 1);
+        strRedisTemplate.opsForZSet().add("imei", "{data:{123,1232}}", 10);
+        strRedisTemplate.opsForZSet().add("imei", "{data:{321,41}}", 2);
+        strRedisTemplate.opsForZSet().add("imei", "{data:{1,2}}", 3);
+        strRedisTemplate.opsForZSet().add("imei", "{data:{1,221231231213213}}", time);
+        Set<ZSetOperations.TypedTuple<String>> set = strRedisTemplate.opsForZSet().rangeByScoreWithScores("imei", 0, time + 1);
         if (set != null) {
-            for (String val : set) {
-                System.out.println("Read from Redis : " + val);
+            for (ZSetOperations.TypedTuple<String> val : set) {
+                System.out.println("Read from Redis , Score : " + val.getScore() + " Value : " + val.getValue());
             }
             System.out.println("Get " + set.size() + " datas..");
         } else {
             System.err.println("ERROR!!");
         }
-
     }
     @Test
     public void testSerializable() {

@@ -1,6 +1,9 @@
 package abc.ney.armee.enginee.data.influxdb;
 
+import org.influxdb.dto.QueryResult;
+
 import java.util.HashMap;
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -21,7 +24,7 @@ public class InfluxDbMain {
         HashMap<String, String> tag = new HashMap<>();
         tag.put("imei", "1232123EF");
         HashMap<String, Object> field = new HashMap<>();
-        for (int i = 0; i < 1000; i++) {
+        for (int i = 0; i < 0; i++) {
             long time = System.currentTimeMillis();
             field.clear();
             field.put("heartbeat", Math.abs(70 * Math.sin((double) time)));
@@ -34,6 +37,29 @@ public class InfluxDbMain {
                 e.printStackTrace();
             }
         }
+        QueryResult qr = influxConnection.query("select * from iwatch where \"imei\" = '1232123EF' and \"time\" > '2020-08-21T14:01:54.494Z'");
+        List<QueryResult.Result> list = qr.getResults();
+        System.out.println("QueryResult Size : " + list.size());
+        for (QueryResult.Result r : list) {
+            System.out.println(r);
+        }
+        System.out.println();
+
+        int resultNum = 0;
+        for (QueryResult.Result r : list) {
+            resultNum++;
+            System.out.println("-------- " + resultNum + " --------");
+            List<QueryResult.Series> l = r.getSeries();
+            System.out.println("List Size : " + list.size());
+            System.out.println(l);
+            System.out.println();
+
+            for (QueryResult.Series s : l) {
+                System.out.println(s);
+            }
+        }
+
+
     }
 
     /**
