@@ -25,17 +25,30 @@ public class RedisTester {
 
     @Test
     public void testString() {
-        strRedisTemplate.opsForValue().set("key", "val");
+        /**
+         * 说明：只会保留一个值
+         */
+        strRedisTemplate.opsForValue().set("key", "val2");
+        strRedisTemplate.opsForValue().set("key", "val2");
         System.out.println("Read from Redis : " + strRedisTemplate.opsForValue().get("key"));
     }
     @Test
     public void testHmSet() {
-        strRedisTemplate.opsForHash().put("imei4Hm", "hashkey", "hashvalue");
+        /**
+         * 说明：只会保留一个值
+         */
+        strRedisTemplate.opsForHash().put("imei4Hm", "hashkey", "hashvalue1");
+        strRedisTemplate.opsForHash().put("imei4Hm", "hashkey", "hashvalue2");
         System.out.println("Read from Redis : " + strRedisTemplate.opsForHash().get("imei4Hm", "hashkey"));
     }
     @Test
     public void testZset() {
         long time = System.currentTimeMillis();
+        /**
+         * 说明：
+         * ZSet会基于Score进行排序，每个元素都是K-V结构
+         * 虽然key相同，但是Score不同，所以不会把旧的数据覆盖
+         */
         strRedisTemplate.opsForZSet().add("imei", "{data:{123,1232}}", 10);
         strRedisTemplate.opsForZSet().add("imei", "{data:{321,41}}", 2);
         strRedisTemplate.opsForZSet().add("imei", "{data:{1,2}}", 3);

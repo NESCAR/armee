@@ -15,8 +15,8 @@ import java.lang.reflect.Field;
  * @author Charles Song
  * @date 2020-5-26
  */
-//@Configuration
-//@EnableApolloConfig({"dev"})
+@Configuration
+@EnableApolloConfig({"dev"})
 public class ApolloConfiger implements Configer {
     private static final Logger logger = LoggerFactory.getLogger(ApolloConfiger.class);
 

@@ -31,7 +31,8 @@ public class InfluxConnection {
      */
     private String database;
     /**
-     * 保留策略
+     * 保留策略<br>
+     * 首先需要在influxdb中创建策略，如create retention policy "ONE_DAY" on "ris" duration 1d replication 1 default
      */
     private String retentionPolicy;
 
@@ -169,6 +170,7 @@ public class InfluxConnection {
             builder.time(time, timeUnit);
         }
         influxDB.write(database, retentionPolicy, builder.build());
+//        influxDB.write(database, retentionPolicy, pointBuilder(measurement, time, tags, fields));
     }
 
     /**

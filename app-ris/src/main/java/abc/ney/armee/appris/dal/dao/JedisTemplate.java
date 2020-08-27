@@ -17,6 +17,10 @@ import redis.clients.jedis.JedisPoolConfig;
 import java.io.Serializable;
 import java.time.Duration;
 
+/**
+ * Redis
+ * @author neyzoter
+ */
 @Configuration
 public class JedisTemplate {
 
@@ -61,8 +65,8 @@ public class JedisTemplate {
     /**
      * Jedis 连接
      *
-     * @param jedisPoolConfig
-     * @return
+     * @param jedisPoolConfig Jedis 连接池配置
+     * @return Jedis连接工厂
      */
     @Bean
     public JedisConnectionFactory jedisConnectionFactory(JedisPoolConfig jedisPoolConfig) {
@@ -78,8 +82,8 @@ public class JedisTemplate {
     /**
      * 缓存管理器
      *
-     * @param redisConnectionFactory
-     * @return
+     * @param redisConnectionFactory Jedis 连接池配置
+     * @return Redis Cache管理器
      */
     @Bean
     public RedisCacheManager cacheManager(RedisConnectionFactory redisConnectionFactory) {

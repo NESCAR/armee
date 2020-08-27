@@ -20,11 +20,11 @@ public class InfluxDbMain {
      */
     public static void testInfluxConnection() {
         String measurement = "iwatch";
-        InfluxConnection influxConnection = new InfluxConnection(null, null,"http://influxdb:8086", "ris",null);
+        InfluxConnection influxConnection = new InfluxConnection(null, null,"http://influxdb:8086", "ris","ONE_DAY");
         HashMap<String, String> tag = new HashMap<>();
         tag.put("imei", "1232123EF");
         HashMap<String, Object> field = new HashMap<>();
-        for (int i = 0; i < 0; i++) {
+        for (int i = 0; i < 3; i++) {
             long time = System.currentTimeMillis();
             field.clear();
             field.put("heartbeat", Math.abs(70 * Math.sin((double) time)));
