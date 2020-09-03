@@ -1,7 +1,6 @@
 package abc.ney.armee.appris.dal.mapper;
 
 import io.github.hylexus.jt.data.msg.MsgType;
-import io.github.hylexus.jt808.msg.RequestMsgBody;
 
 import java.util.Collections;
 import java.util.Map;
@@ -12,12 +11,19 @@ import java.util.Set;
  * @author neyzoter
  */
 public interface InfluxMapper {
+
     /**
      * 从消息中解析出数据
      * @param msg 消息
-     * @return 数据Map
+     * @return map数据
      */
-    Map<String, Object> fields(Object msg);
+    Map<String, Object> mapFields(Object msg);
+    /**
+     * 从消息中解析出数据
+     * @param msg 消息
+     * @return json数据
+     */
+    String jsonFields(Object msg);
 
     /**
      * 获取时间

@@ -1,6 +1,5 @@
 package abc.ney.armee.appris.config;
 
-import abc.ney.armee.appris.dal.mapper.InfluxMapper;
 import abc.ney.armee.appris.dal.mapper.InfluxMapperRegister;
 import abc.ney.armee.appris.dal.mapper.LocationUploadRequestMsgBodyMapper;
 import icu.nescar.armee.jet.broker.config.Jt808MsgType;

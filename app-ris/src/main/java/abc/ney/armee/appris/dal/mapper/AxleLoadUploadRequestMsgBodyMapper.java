@@ -1,18 +1,21 @@
 package abc.ney.armee.appris.dal.mapper;
 
 import icu.nescar.armee.jet.broker.config.Jt808MsgType;
+import icu.nescar.armee.jet.broker.msg.req.AxleLoadUploadRequestMsgBody;
 import icu.nescar.armee.jet.broker.msg.req.LocationUploadRequestMsgBody;
 import io.github.hylexus.jt.data.msg.MsgType;
+import io.github.hylexus.jt808.msg.RequestMsgBody;
 
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
 /**
- * 位置信息上传映射器
+ * AxleLoadUploadRequestMsgBody的映射器
  * @author neyzoter
  */
-public class LocationUploadRequestMsgBodyMapper implements InfluxMapper {
+public class AxleLoadUploadRequestMsgBodyMapper implements InfluxMapper {
+
     @Override
     public Map<String, Object> mapFields(Object msg) {
         checkType(msg);
@@ -26,21 +29,21 @@ public class LocationUploadRequestMsgBodyMapper implements InfluxMapper {
     }
 
     @Override
-    public String getTime(Object msg) throws ClassCastException {
+    public String getTime(Object msg) {
         checkType(msg);
-        return ((LocationUploadRequestMsgBody)msg).getTime();
+        return ((AxleLoadUploadRequestMsgBody)msg).getTime();
     }
 
     @Override
     public Set<MsgType> getSupportedMsgTypes() {
         Set<MsgType> set = new HashSet<>();
-        set.add(Jt808MsgType.CLIENT_LOCATION_INFO_UPLOAD);
+        set.add(Jt808MsgType.CLIENT_AXLE_LOAD_INFO_UPLOAD);
         return set;
     }
 
     private void checkType(Object msg) throws ClassCastException {
-        if (! (msg instanceof LocationUploadRequestMsgBody)) {
-            throw new ClassCastException("LocationUploadRequestMsgBody required");
+        if (! (msg instanceof AxleLoadUploadRequestMsgBody)) {
+            throw new ClassCastException("AxleLoadUploadRequestMsgBody required");
         }
     }
 }

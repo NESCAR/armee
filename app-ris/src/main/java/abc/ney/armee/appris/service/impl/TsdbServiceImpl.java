@@ -71,7 +71,7 @@ public class TsdbServiceImpl implements TsdbService {
             Optional<InfluxMapper> imOptional = influxMapperRegister.getMapper(mt.get());
             if (imOptional.isPresent()) {
                 InfluxMapper im = imOptional.get();
-                Map<String, Object> fields = im.fields(o);
+                Map<String, Object> fields = im.mapFields(o);
                 Map<String, String> tags = new HashMap<>();
                 long t = Long.parseLong(im.getTime(o));
                 tags.put(TERMINAL_ID_TAG, mk.getTerminalId());
