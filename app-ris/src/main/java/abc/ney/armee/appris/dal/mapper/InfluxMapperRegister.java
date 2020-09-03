@@ -1,8 +1,6 @@
 package abc.ney.armee.appris.dal.mapper;
 
-import icu.nescar.armee.jet.broker.ext.producer.kafka.msg.KafkaMsgKey;
 import io.github.hylexus.jt.data.msg.MsgType;
-import io.github.hylexus.jt808.codec.BytesEncoder;
 import io.github.hylexus.jt808.support.MsgHandlerMapping;
 import lombok.NonNull;
 import org.slf4j.Logger;

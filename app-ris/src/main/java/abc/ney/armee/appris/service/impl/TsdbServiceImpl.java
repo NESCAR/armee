@@ -42,6 +42,11 @@ public class TsdbServiceImpl implements TsdbService {
     public static final TimeUnit TIME_UNIT = TimeUnit.MILLISECONDS;
 
     /**
+     * 数据只保留传感数据，而不要把时间等信息作为fields写入到influx
+     */
+    public static final boolean REMAIN_FIELDS_ONLY = true;
+
+    /**
      * influxdb 连接池
      */
     public static ThreadLocal<InfluxConnection> threadLocal4Influx = new ThreadLocal<InfluxConnection>() {
@@ -71,7 +76,7 @@ public class TsdbServiceImpl implements TsdbService {
             Optional<InfluxMapper> imOptional = influxMapperRegister.getMapper(mt.get());
             if (imOptional.isPresent()) {
                 InfluxMapper im = imOptional.get();
-                Map<String, Object> fields = im.mapFields(o);
+                Map<String, Object> fields = im.fields(o, REMAIN_FIELDS_ONLY);
                 Map<String, String> tags = new HashMap<>();
                 long t = Long.parseLong(im.getTime(o));
                 tags.put(TERMINAL_ID_TAG, mk.getTerminalId());

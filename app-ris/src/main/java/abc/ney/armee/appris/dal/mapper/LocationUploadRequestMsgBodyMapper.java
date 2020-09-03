@@ -13,16 +13,16 @@ import java.util.Set;
  * @author neyzoter
  */
 public class LocationUploadRequestMsgBodyMapper implements InfluxMapper {
+    public static final String time = "time";
     @Override
-    public Map<String, Object> mapFields(Object msg) {
+    public Map<String, Object> fields(Object msg, boolean of) {
         checkType(msg);
+        Map<String, Object> map = MapMsgConvertUtils.objectToMap(msg);
+        // 移除 传感数据外的无关数据
+        if (of) {
+            map.remove(time);
+        }
         return MapMsgConvertUtils.objectToMap(msg);
-    }
-
-    @Override
-    public String jsonFields(Object msg) {
-        checkType(msg);
-        return MapMsgConvertUtils.objectToJson(msg);
     }
 
     @Override

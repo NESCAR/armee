@@ -11,8 +11,6 @@ import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.ZSetOperations;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import java.io.Serializable;
-import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
 
@@ -34,7 +32,7 @@ public class LocationUploadRequestMsgBodyMapperTester {
         body.setStatus(10);body.setSpeed((short) 70);body.setLng(30.0);
         body.setLat(23.0);body.setHeight((short) 12);body.setDirection((short) 12);
         body.setWarningFlag(0);
-        String json = mapper.jsonFields(body);
+        String json = MapMsgConvertUtils.objectToJson(body);
         String time = mapper.getTime(body);
         Optional<MsgType> jt808MsgType = Jt808MsgType.CLIENT_AUTH.parseFromInt(512);
         String key;

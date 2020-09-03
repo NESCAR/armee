@@ -15,15 +15,10 @@ public interface InfluxMapper {
     /**
      * 从消息中解析出数据
      * @param msg 消息
+     * @param of only fields，只包含传感数据，而不包含其他的数据（比如时间）
      * @return map数据
      */
-    Map<String, Object> mapFields(Object msg);
-    /**
-     * 从消息中解析出数据
-     * @param msg 消息
-     * @return json数据
-     */
-    String jsonFields(Object msg);
+    Map<String, Object> fields(Object msg, boolean of);
 
     /**
      * 获取时间
