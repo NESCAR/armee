@@ -37,7 +37,7 @@ public class InfluxDbMain {
                 e.printStackTrace();
             }
         }
-        QueryResult qr = influxConnection.query("select * from iwatch where \"imei\" = '1232123EF' and \"time\" > '2020-08-21T14:01:54.494Z'");
+        QueryResult qr = influxConnection.query("select * from iwatch where \"imei\" = '1232123EF' and \"time\" > '2020-08-21T14:01:54.494Z' tz('Asia/Shanghai')");
         List<QueryResult.Result> list = qr.getResults();
         System.out.println("QueryResult Size : " + list.size());
         for (QueryResult.Result r : list) {
