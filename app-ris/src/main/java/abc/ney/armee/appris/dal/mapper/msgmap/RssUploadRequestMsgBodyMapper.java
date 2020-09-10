@@ -1,7 +1,7 @@
-package abc.ney.armee.appris.dal.mapper;
+package abc.ney.armee.appris.dal.mapper.msgmap;
 
 import icu.nescar.armee.jet.broker.config.Jt808MsgType;
-import icu.nescar.armee.jet.broker.msg.req.LocationUploadRequestMsgBody;
+import icu.nescar.armee.jet.broker.msg.req.RssUploadRequestMsgBody;
 import io.github.hylexus.jt.data.msg.MsgType;
 
 import java.util.HashSet;
@@ -9,10 +9,11 @@ import java.util.Map;
 import java.util.Set;
 
 /**
- * 位置信息上传映射器
+ * RssUploadRequestMsgBody的映射器
  * @author neyzoter
  */
-public class LocationUploadRequestMsgBodyMapper implements InfluxMapper {
+public class RssUploadRequestMsgBodyMapper implements InfluxMapper {
+
     public static final String time = "time";
     @Override
     public Map<String, Object> fields(Object msg, boolean of) {
@@ -22,25 +23,25 @@ public class LocationUploadRequestMsgBodyMapper implements InfluxMapper {
         if (of) {
             map.remove(time);
         }
-        return MapMsgConvertUtils.objectToMap(msg);
+        return map;
     }
 
     @Override
-    public String getTime(Object msg) throws ClassCastException {
+    public String getTime(Object msg) {
         checkType(msg);
-        return ((LocationUploadRequestMsgBody)msg).getTime();
+        return ((RssUploadRequestMsgBody)msg).getTime();
     }
 
     @Override
     public Set<MsgType> getSupportedMsgTypes() {
         Set<MsgType> set = new HashSet<>();
-        set.add(Jt808MsgType.CLIENT_LOCATION_INFO_UPLOAD);
+        set.add(Jt808MsgType.CLIENT_RSSEVENT_INFO_UPLOAD);
         return set;
     }
 
     private void checkType(Object msg) throws ClassCastException {
-        if (! (msg instanceof LocationUploadRequestMsgBody)) {
-            throw new ClassCastException("LocationUploadRequestMsgBody required");
+        if (! (msg instanceof RssUploadRequestMsgBody)) {
+            throw new ClassCastException("RssUploadRequestMsgBody required");
         }
     }
 }

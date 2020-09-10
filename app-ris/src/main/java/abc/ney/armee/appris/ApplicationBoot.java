@@ -6,7 +6,6 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 /**
  * 应用
  * @author Charles Song
- * @date 2020-5-26
  */
 @SpringBootApplication
 public class ApplicationBoot {

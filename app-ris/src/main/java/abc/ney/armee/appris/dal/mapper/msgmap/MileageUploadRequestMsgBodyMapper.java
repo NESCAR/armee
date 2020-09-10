@@ -1,7 +1,7 @@
-package abc.ney.armee.appris.dal.mapper;
+package abc.ney.armee.appris.dal.mapper.msgmap;
 
 import icu.nescar.armee.jet.broker.config.Jt808MsgType;
-import icu.nescar.armee.jet.broker.msg.req.TEBSAcceptRequestMsgBody;
+import icu.nescar.armee.jet.broker.msg.req.MileageUploadRequestMsgBody;
 import io.github.hylexus.jt.data.msg.MsgType;
 
 import java.util.HashSet;
@@ -9,10 +9,11 @@ import java.util.Map;
 import java.util.Set;
 
 /**
- * TEBSAcceptRequestMsgBody消息映射器
+ * MileageUploadRequestMsgBody的映射器
  * @author neyzoter
  */
-public class TEBSAcceptRequestMsgBodyMapper implements InfluxMapper {
+public class MileageUploadRequestMsgBodyMapper implements InfluxMapper {
+
     public static final String time = "time";
     @Override
     public Map<String, Object> fields(Object msg, boolean of) {
@@ -28,19 +29,19 @@ public class TEBSAcceptRequestMsgBodyMapper implements InfluxMapper {
     @Override
     public String getTime(Object msg) {
         checkType(msg);
-        return ((TEBSAcceptRequestMsgBody)msg).getTime();
+        return ((MileageUploadRequestMsgBody)msg).getTime();
     }
 
     @Override
     public Set<MsgType> getSupportedMsgTypes() {
         Set<MsgType> set = new HashSet<>();
-        set.add(Jt808MsgType.CLIENT_TEBS_ACCEPT_REPLY);
+        set.add(Jt808MsgType.CLIENT_MILEAGE_INFO_UPLOAD);
         return set;
     }
 
     private void checkType(Object msg) throws ClassCastException {
-        if (! (msg instanceof TEBSAcceptRequestMsgBody)) {
-            throw new ClassCastException("TEBSAcceptRequestMsgBody required");
+        if (! (msg instanceof MileageUploadRequestMsgBody)) {
+            throw new ClassCastException("MileageUploadRequestMsgBody required");
         }
     }
 }

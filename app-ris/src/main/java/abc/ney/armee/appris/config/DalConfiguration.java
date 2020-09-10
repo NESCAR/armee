@@ -1,6 +1,6 @@
 package abc.ney.armee.appris.config;
 
-import abc.ney.armee.appris.dal.mapper.*;
+import abc.ney.armee.appris.dal.mapper.msgmap.*;
 import icu.nescar.armee.jet.broker.config.Jt808MsgType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -28,5 +28,10 @@ public class DalConfiguration {
         imr.registerMapper(Jt808MsgType.CLIENT_MILEAGE_INFO_UPLOAD, new MileageUploadRequestMsgBodyMapper());
         imr.registerMapper(Jt808MsgType.CLIENT_RSSEVENT_INFO_UPLOAD, new RssUploadRequestMsgBodyMapper());
         imr.registerMapper(Jt808MsgType.CLIENT_TEBS_STATUS_INFO_UPLOAD, new TEBStatusRequestMsgBodyMapper());
+        imr.registerMapper(Jt808MsgType.CLIENT_ALARM_INFO_UPLOAD, new AlarmUploadRequestMsgBodyMapper());
+        imr.registerMapper(Jt808MsgType.CLIENT_BINDING_INFO_UPLOAD, new BindingUploadRequestMsgBodyMapper());
+        imr.registerMapper(Jt808MsgType.CLIENT_LOCK_INFO_UPLOAD, new LockUploadRequestMsgBodyMapper());
+        imr.registerMapper(Jt808MsgType.CLIENT_TEBS_ACCEPT_REPLY, new TEBSAcceptRequestMsgBodyMapper());
+        imr.registerMapper(Jt808MsgType.CLIENT_UNLOCK_INFO_UPLOAD, new UnlockUploadRequestMsgBodyMapper());
     }
 }

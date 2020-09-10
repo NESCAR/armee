@@ -14,6 +14,7 @@
     <properties>
         <hylexus.version>1.0.3-RELEASE</hylexus.version>
         <jet.version>1.0-SNAPSHOT</jet.version>
+        <swagger.version>2.5.0</swagger.version>
     </properties>
 
     <dependencies>
@@ -72,6 +73,18 @@
             <groupId>icu.nescar.armee</groupId>
             <artifactId>jet808-samples-customized</artifactId>
             <version>${jet.version}</version>
+        </dependency>
+
+        <!--swagger2依赖，构建API文档-->
+        <dependency>
+            <groupId>io.springfox</groupId>
+            <artifactId>springfox-swagger2</artifactId>
+            <version>${swagger.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>io.springfox</groupId>
+            <artifactId>springfox-swagger-ui</artifactId>
+            <version>${swagger.version}</version>
         </dependency>
 
         <!--必须指定版本，不然会造成冲突-->

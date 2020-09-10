@@ -1,4 +1,4 @@
-package abc.ney.armee.appris.dal.mapper;
+package abc.ney.armee.appris.dal.mapper.msgmap;
 
 import io.github.hylexus.jt.data.msg.MsgType;
 
