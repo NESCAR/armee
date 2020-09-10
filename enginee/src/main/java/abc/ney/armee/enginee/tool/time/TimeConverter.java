@@ -27,6 +27,13 @@ public class TimeConverter {
         }
         return time;
     }
+    /**
+     * RCF3339转化为Double
+     * @return Double时间
+     */
+    public static double rcf3339ToDouble(String rcf) {
+        return (double) rcf3339ToLong(rcf);
+    }
 
     /**
      * Long转化为RCF3339
@@ -37,5 +44,14 @@ public class TimeConverter {
         SimpleDateFormat df = new SimpleDateFormat(RCF3339_FORMAT);
         Date date = new Date(time);
         return df.format(date);
+    }
+
+    /**
+     * Double转化为RCF3339
+     * @param time double时间
+     * @return RCF3339时间
+     */
+    public static String doubleToRcf3339(double time) {
+        return longToRcf3339((long) time);
     }
 }
