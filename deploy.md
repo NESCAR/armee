@@ -257,3 +257,10 @@ $ use mysql;
 $ mysql > update user set host = '%' where user = 'root';
 ```
 
+## 7.InfluxDB
+### 7.1 安装
+安装链接：
+
+https://portal.influxdata.com/downloads/
+
+
