@@ -35,6 +35,7 @@ public class LocationUploadRequestMsgBodyMapperTester {
         body.setLat(23.0);body.setHeight((short) 12);body.setDirection((short) 12);
         body.setWarningFlag(0);
         String json = MapMsgConvertUtils.objectToJson(body);
+        System.out.println("json : " + json);
         String time = mapper.getTime(body);
         Optional<MsgType> jt808MsgType = Jt808MsgType.CLIENT_AUTH.parseFromInt(512);
         String key;

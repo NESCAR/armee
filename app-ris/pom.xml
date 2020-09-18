@@ -12,7 +12,7 @@
     <artifactId>app-ris</artifactId>
     <packaging>jar</packaging>
     <properties>
-        <hylexus.version>1.0.3-RELEASE</hylexus.version>
+        <hylexus.version>1.0.4-RELEASE</hylexus.version>
         <jet.version>1.0-SNAPSHOT</jet.version>
         <swagger.version>2.5.0</swagger.version>
     </properties>

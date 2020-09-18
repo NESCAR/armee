@@ -17,15 +17,15 @@ public class SouthwardCmdServiceImpl implements SouthwardCmdService {
     Producer<KafkaMsgKey, Object> producer;
     ReentrantLock lock;
     public SouthwardCmdServiceImpl() {
-        producer = new KafkaProducerImpl<>(ConfArguments.KAFKA_TOPIC_CMD, false);
+        producer = new KafkaProducerImpl<>(ConfArguments.KAFKA_TOPIC_DATA, false);
         lock = new ReentrantLock();
     }
     @Override
     public void sendLockInfo(String carId, String driverId, String psw, String st, String et) {
         RespLockInfoSettings rlis = new RespLockInfoSettings();
         // TODO
-        rlis.setCarID(1);rlis.setDriverID(1);
-//        rlis.setCarID(carId);rlis.setDriverID(driverId);
+//        rlis.setCarID("1");rlis.setDriverID("1");
+        rlis.setCarID(carId);rlis.setDriverID(driverId);
         rlis.setLockTimeStart(st);rlis.setLockTimeEnd(et);rlis.setPassword(psw);
         lock.lock();
         try {
