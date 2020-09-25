@@ -23,8 +23,6 @@ public class SouthwardCmdServiceImpl implements SouthwardCmdService {
     @Override
     public void sendLockInfo(String carId, String driverId, String psw, String st, String et) {
         RespLockInfoSettings rlis = new RespLockInfoSettings();
-        // TODO
-//        rlis.setCarID("1");rlis.setDriverID("1");
         rlis.setCarID(carId);rlis.setDriverID(driverId);
         rlis.setLockTimeStart(st);rlis.setLockTimeEnd(et);rlis.setPassword(psw);
         lock.lock();

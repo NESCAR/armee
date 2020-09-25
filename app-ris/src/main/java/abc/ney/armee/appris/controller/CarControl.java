@@ -14,10 +14,10 @@ import org.springframework.web.bind.annotation.*;
  * @author neyzoter
  */
 @RestController
-@RequestMapping(value = "car")
-public class CarController {
+@RequestMapping(value = "carControl")
+public class CarControl {
 
-    private static String urlPrefix = "car";
+    private static final String PREFIX = "carControl";
 
     @Autowired
     SouthwardCmdService southwardCmdService;
