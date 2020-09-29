@@ -15,6 +15,7 @@
         <hylexus.version>1.0.4-RELEASE</hylexus.version>
         <jet.version>1.0-SNAPSHOT</jet.version>
         <swagger.version>2.5.0</swagger.version>
+        <spring-security-oauth.version>2.3.6.RELEASE</spring-security-oauth.version>
     </properties>
 
     <dependencies>
@@ -24,6 +25,11 @@
             <artifactId>enginee</artifactId>
             <version>${project.version}</version>
         </dependency>
+        <!-- 安全 -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-security</artifactId>
+        </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
@@ -31,6 +37,20 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.security.oauth</groupId>
+            <artifactId>spring-security-oauth2</artifactId>
+            <version>${spring-security-oauth.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-jdbc</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+            <scope>runtime</scope>
         </dependency>
         <!-- Redis -->
         <dependency>

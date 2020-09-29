@@ -1,5 +1,6 @@
 package abc.ney.armee.appris.controller;
 
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -9,7 +10,6 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @RestController
 @RequestMapping(value = "userManage")
+@PreAuthorize("hasRole('ROLE_SUPER_ADMIN')")
 public class UserManage {
-    public static final String MANAGER_PREFIX = "userManage/manager";
-    public static final String COMMON_STAFF_PREFIX = "userManage/commonStaff";
 }
