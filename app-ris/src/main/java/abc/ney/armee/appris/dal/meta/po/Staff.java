@@ -1,5 +1,7 @@
 package abc.ney.armee.appris.dal.meta.po;
 
+import abc.ney.armee.appris.dal.meta.dto.StaffCredentialsDto;
+
 import java.io.Serializable;
 import java.util.Date;
 
@@ -20,7 +22,21 @@ public class Staff implements Serializable {
 
     private Date gmtUpdate;
 
+    private String telArea;
+
     private static final long serialVersionUID = 1L;
+
+    public Staff() {
+
+    }
+
+    public Staff(StaffCredentialsDto staffCredentialsDto) {
+        realName = staffCredentialsDto.getRealName();
+        no = staffCredentialsDto.getNo();
+        position = staffCredentialsDto.getPosition();
+        telArea = staffCredentialsDto.getTelArea();
+        tel = staffCredentialsDto.getTel();
+    }
 
     public Long getGid() {
         return gid;
@@ -84,5 +100,32 @@ public class Staff implements Serializable {
 
     public void setGmtUpdate(Date gmtUpdate) {
         this.gmtUpdate = gmtUpdate;
+    }
+
+    public String getTelArea() {
+        return telArea;
+    }
+
+    public void setTelArea(String telArea) {
+        this.telArea = telArea == null ? null : telArea.trim();
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append(getClass().getSimpleName());
+        sb.append(" [");
+        sb.append("Hash = ").append(hashCode());
+        sb.append(", gid=").append(gid);
+        sb.append(", realName=").append(realName);
+        sb.append(", no=").append(no);
+        sb.append(", position=").append(position);
+        sb.append(", tel=").append(tel);
+        sb.append(", email=").append(email);
+        sb.append(", gmtCreate=").append(gmtCreate);
+        sb.append(", gmtUpdate=").append(gmtUpdate);
+        sb.append(", telArea=").append(telArea);
+        sb.append("]");
+        return sb.toString();
     }
 }

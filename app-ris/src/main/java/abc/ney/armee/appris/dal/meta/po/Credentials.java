@@ -1,5 +1,7 @@
 package abc.ney.armee.appris.dal.meta.po;
 
+import abc.ney.armee.appris.dal.meta.dto.StaffCredentialsDto;
+
 import java.io.Serializable;
 
 public class Credentials implements Serializable {
@@ -14,6 +16,16 @@ public class Credentials implements Serializable {
     private Integer version;
 
     private static final long serialVersionUID = 1L;
+
+    public Credentials() {
+
+    }
+    public Credentials(StaffCredentialsDto staffCredentialsDto) {
+        enabled = true;
+        name = staffCredentialsDto.getName();
+        password = staffCredentialsDto.getPassword();
+        version = PoConstant.CREDENTIALS_VERSION;
+    }
 
     public Long getId() {
         return id;
@@ -53,5 +65,20 @@ public class Credentials implements Serializable {
 
     public void setVersion(Integer version) {
         this.version = version;
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append(getClass().getSimpleName());
+        sb.append(" [");
+        sb.append("Hash = ").append(hashCode());
+        sb.append(", id=").append(id);
+        sb.append(", enabled=").append(enabled);
+        sb.append(", name=").append(name);
+        sb.append(", password=").append(password);
+        sb.append(", version=").append(version);
+        sb.append("]");
+        return sb.toString();
     }
 }

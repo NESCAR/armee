@@ -9,6 +9,11 @@ public class OauthClientDetailsStaff implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
+    public OauthClientDetailsStaff(Long cid, Long sid) {
+        this.credentialId = cid;
+        this.staffId = sid;
+    }
+
     public Long getCredentialId() {
         return credentialId;
     }

@@ -115,4 +115,25 @@ public class Device implements Serializable {
     public void setGmtUpdate(Date gmtUpdate) {
         this.gmtUpdate = gmtUpdate;
     }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append(getClass().getSimpleName());
+        sb.append(" [");
+        sb.append("Hash = ").append(hashCode());
+        sb.append(", gid=").append(gid);
+        sb.append(", imei=").append(imei);
+        sb.append(", imsi=").append(imsi);
+        sb.append(", psw=").append(psw);
+        sb.append(", lockStatus=").append(lockStatus);
+        sb.append(", lockStartTime=").append(lockStartTime);
+        sb.append(", lockEndTime=").append(lockEndTime);
+        sb.append(", licensePlate=").append(licensePlate);
+        sb.append(", driverGid=").append(driverGid);
+        sb.append(", gmtCreate=").append(gmtCreate);
+        sb.append(", gmtUpdate=").append(gmtUpdate);
+        sb.append("]");
+        return sb.toString();
+    }
 }

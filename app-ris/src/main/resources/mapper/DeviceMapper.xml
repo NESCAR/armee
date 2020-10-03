@@ -28,22 +28,19 @@
     delete from device
     where gid = #{gid,jdbcType=BIGINT}
   </delete>
-  <insert id="insert" parameterType="abc.ney.armee.appris.dal.meta.po.Device">
-    insert into device (gid, imei, imsi, 
-      psw, lock_status, lock_start_time, 
-      lock_end_time, license_plate, driver_gid, 
-      gmt_create, gmt_update)
-    values (#{gid,jdbcType=BIGINT}, #{imei,jdbcType=VARCHAR}, #{imsi,jdbcType=VARCHAR}, 
-      #{psw,jdbcType=VARCHAR}, #{lockStatus,jdbcType=INTEGER}, #{lockStartTime,jdbcType=TIMESTAMP}, 
-      #{lockEndTime,jdbcType=TIMESTAMP}, #{licensePlate,jdbcType=VARCHAR}, #{driverGid,jdbcType=BIGINT}, 
-      #{gmtCreate,jdbcType=TIMESTAMP}, #{gmtUpdate,jdbcType=TIMESTAMP})
+  <insert id="insert" keyColumn="gid" keyProperty="gid" parameterType="abc.ney.armee.appris.dal.meta.po.Device" useGeneratedKeys="true">
+    insert into device (imei, imsi, psw, 
+      lock_status, lock_start_time, lock_end_time, 
+      license_plate, driver_gid, gmt_create, 
+      gmt_update)
+    values (#{imei,jdbcType=VARCHAR}, #{imsi,jdbcType=VARCHAR}, #{psw,jdbcType=VARCHAR}, 
+      #{lockStatus,jdbcType=INTEGER}, #{lockStartTime,jdbcType=TIMESTAMP}, #{lockEndTime,jdbcType=TIMESTAMP}, 
+      #{licensePlate,jdbcType=VARCHAR}, #{driverGid,jdbcType=BIGINT}, #{gmtCreate,jdbcType=TIMESTAMP}, 
+      #{gmtUpdate,jdbcType=TIMESTAMP})
   </insert>
-  <insert id="insertSelective" parameterType="abc.ney.armee.appris.dal.meta.po.Device">
+  <insert id="insertSelective" keyColumn="gid" keyProperty="gid" parameterType="abc.ney.armee.appris.dal.meta.po.Device" useGeneratedKeys="true">
     insert into device
     <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="gid != null">
-        gid,
-      </if>
       <if test="imei != null">
         imei,
       </if>
@@ -76,9 +73,6 @@
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="gid != null">
-        #{gid,jdbcType=BIGINT},
-      </if>
       <if test="imei != null">
         #{imei,jdbcType=VARCHAR},
       </if>

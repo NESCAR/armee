@@ -1,10 +1,7 @@
 package abc.ney.armee.appris.biz.task;
 
-import abc.ney.armee.appris.dal.mapper.msgmap.InfluxMapper;
-import abc.ney.armee.appris.dal.mapper.msgmap.InfluxMapperRegister;
 import abc.ney.armee.appris.service.TsdbService;
-import abc.ney.armee.appris.service.impl.AuthService;
-import abc.ney.armee.appris.service.impl.TsdbServiceImpl;
+import abc.ney.armee.appris.service.impl.AdminServiceImpl;
 import icu.nescar.armee.jet.broker.config.Jt808MsgType;
 import icu.nescar.armee.jet.broker.ext.conf.ConfArguments;
 import icu.nescar.armee.jet.broker.ext.consumer.kafka.KafkaConsumerImpl;
@@ -34,8 +31,6 @@ public class KafkaConsumer extends KafkaConsumerImpl<ConsumerRecord<MsgKey, byte
     private boolean start = false;
     TsdbService tsi;
     @Autowired
-    AuthService authService;
-    @Autowired
     public KafkaConsumer(TsdbService tsdbService) {
         super(ConfArguments.KAFKA_TOPIC_DATA);
         tsi = tsdbService;
@@ -45,7 +40,6 @@ public class KafkaConsumer extends KafkaConsumerImpl<ConsumerRecord<MsgKey, byte
 
     @Override
     public void run() {
-        authService.test();
         while (start) {
             ConsumerRecords<MsgKey, byte[]> records = (ConsumerRecords<MsgKey, byte[]>)this.receive(Duration.ofSeconds(POLL_DURATION));
             for (TopicPartition partition : records.partitions()) {

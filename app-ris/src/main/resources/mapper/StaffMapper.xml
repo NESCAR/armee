@@ -10,9 +10,10 @@
     <result column="email" jdbcType="VARCHAR" property="email" />
     <result column="gmt_create" jdbcType="TIMESTAMP" property="gmtCreate" />
     <result column="gmt_update" jdbcType="TIMESTAMP" property="gmtUpdate" />
+    <result column="tel_area" jdbcType="VARCHAR" property="telArea" />
   </resultMap>
   <sql id="Base_Column_List">
-    gid, real_name, no, position, tel, email, gmt_create, gmt_update
+    gid, real_name, no, position, tel, email, gmt_create, gmt_update, tel_area
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
     select 
@@ -24,20 +25,17 @@
     delete from staff
     where gid = #{gid,jdbcType=BIGINT}
   </delete>
-  <insert id="insert" parameterType="abc.ney.armee.appris.dal.meta.po.Staff">
-    insert into staff (gid, real_name, no, 
-      position, tel, email, 
-      gmt_create, gmt_update)
-    values (#{gid,jdbcType=BIGINT}, #{realName,jdbcType=VARCHAR}, #{no,jdbcType=VARCHAR}, 
-      #{position,jdbcType=VARCHAR}, #{tel,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR}, 
-      #{gmtCreate,jdbcType=TIMESTAMP}, #{gmtUpdate,jdbcType=TIMESTAMP})
+  <insert id="insert" keyColumn="gid" keyProperty="gid" parameterType="abc.ney.armee.appris.dal.meta.po.Staff" useGeneratedKeys="true">
+    insert into staff (real_name, no, position, 
+      tel, email,tel_area, gmt_create,
+      gmt_update)
+    values (#{realName,jdbcType=VARCHAR}, #{no,jdbcType=VARCHAR}, #{position,jdbcType=VARCHAR}, 
+      #{tel,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR}, #{telArea,jdbcType=VARCHAR},
+            NOW(), NOW())
   </insert>
-  <insert id="insertSelective" parameterType="abc.ney.armee.appris.dal.meta.po.Staff">
+  <insert id="insertSelective" keyColumn="gid" keyProperty="gid" parameterType="abc.ney.armee.appris.dal.meta.po.Staff" useGeneratedKeys="true">
     insert into staff
     <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="gid != null">
-        gid,
-      </if>
       <if test="realName != null">
         real_name,
       </if>
@@ -59,11 +57,11 @@
       <if test="gmtUpdate != null">
         gmt_update,
       </if>
+      <if test="telArea != null">
+        tel_area,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="gid != null">
-        #{gid,jdbcType=BIGINT},
-      </if>
       <if test="realName != null">
         #{realName,jdbcType=VARCHAR},
       </if>
@@ -84,6 +82,9 @@
       </if>
       <if test="gmtUpdate != null">
         #{gmtUpdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="telArea != null">
+        #{telArea,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -111,6 +112,9 @@
       <if test="gmtUpdate != null">
         gmt_update = #{gmtUpdate,jdbcType=TIMESTAMP},
       </if>
+      <if test="telArea != null">
+        tel_area = #{telArea,jdbcType=VARCHAR},
+      </if>
     </set>
     where gid = #{gid,jdbcType=BIGINT}
   </update>
@@ -122,7 +126,8 @@
       tel = #{tel,jdbcType=VARCHAR},
       email = #{email,jdbcType=VARCHAR},
       gmt_create = #{gmtCreate,jdbcType=TIMESTAMP},
-      gmt_update = #{gmtUpdate,jdbcType=TIMESTAMP}
+      gmt_update = #{gmtUpdate,jdbcType=TIMESTAMP},
+      tel_area = #{telArea,jdbcType=VARCHAR}
     where gid = #{gid,jdbcType=BIGINT}
   </update>
 </mapper>
