@@ -13,6 +13,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import javax.annotation.Resource;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
@@ -56,7 +57,6 @@ public class TsdbServiceImpl implements TsdbService {
     public String password;
     public String openurl;
     public String database;
-    public String retentionPolicy;
     private InfluxMapperRegister influxMapperRegister;
     @Autowired
     public TsdbServiceImpl(ApolloConfiger ac, InfluxMapperRegister imr) {

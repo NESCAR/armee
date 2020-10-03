@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="abc.ney.armee.appris.dal.mapper.tms.StaffMapper">
+  <resultMap id="BaseResultMap" type="abc.ney.armee.appris.dal.meta.po.Staff">
+    <id column="gid" jdbcType="BIGINT" property="gid" />
+    <result column="real_name" jdbcType="VARCHAR" property="realName" />
+    <result column="no" jdbcType="VARCHAR" property="no" />
+    <result column="position" jdbcType="VARCHAR" property="position" />
+    <result column="tel" jdbcType="VARCHAR" property="tel" />
+    <result column="email" jdbcType="VARCHAR" property="email" />
+    <result column="gmt_create" jdbcType="TIMESTAMP" property="gmtCreate" />
+    <result column="gmt_update" jdbcType="TIMESTAMP" property="gmtUpdate" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    gid, real_name, no, position, tel, email, gmt_create, gmt_update
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from staff
+    where gid = #{gid,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from staff
+    where gid = #{gid,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="abc.ney.armee.appris.dal.meta.po.Staff">
+    insert into staff (gid, real_name, no, 
+      position, tel, email, 
+      gmt_create, gmt_update)
+    values (#{gid,jdbcType=BIGINT}, #{realName,jdbcType=VARCHAR}, #{no,jdbcType=VARCHAR}, 
+      #{position,jdbcType=VARCHAR}, #{tel,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR}, 
+      #{gmtCreate,jdbcType=TIMESTAMP}, #{gmtUpdate,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="abc.ney.armee.appris.dal.meta.po.Staff">
+    insert into staff
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="gid != null">
+        gid,
+      </if>
+      <if test="realName != null">
+        real_name,
+      </if>
+      <if test="no != null">
+        no,
+      </if>
+      <if test="position != null">
+        position,
+      </if>
+      <if test="tel != null">
+        tel,
+      </if>
+      <if test="email != null">
+        email,
+      </if>
+      <if test="gmtCreate != null">
+        gmt_create,
+      </if>
+      <if test="gmtUpdate != null">
+        gmt_update,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="gid != null">
+        #{gid,jdbcType=BIGINT},
+      </if>
+      <if test="realName != null">
+        #{realName,jdbcType=VARCHAR},
+      </if>
+      <if test="no != null">
+        #{no,jdbcType=VARCHAR},
+      </if>
+      <if test="position != null">
+        #{position,jdbcType=VARCHAR},
+      </if>
+      <if test="tel != null">
+        #{tel,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null">
+        #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="gmtCreate != null">
+        #{gmtCreate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="gmtUpdate != null">
+        #{gmtUpdate,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="abc.ney.armee.appris.dal.meta.po.Staff">
+    update staff
+    <set>
+      <if test="realName != null">
+        real_name = #{realName,jdbcType=VARCHAR},
+      </if>
+      <if test="no != null">
+        no = #{no,jdbcType=VARCHAR},
+      </if>
+      <if test="position != null">
+        position = #{position,jdbcType=VARCHAR},
+      </if>
+      <if test="tel != null">
+        tel = #{tel,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null">
+        email = #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="gmtCreate != null">
+        gmt_create = #{gmtCreate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="gmtUpdate != null">
+        gmt_update = #{gmtUpdate,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where gid = #{gid,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="abc.ney.armee.appris.dal.meta.po.Staff">
+    update staff
+    set real_name = #{realName,jdbcType=VARCHAR},
+      no = #{no,jdbcType=VARCHAR},
+      position = #{position,jdbcType=VARCHAR},
+      tel = #{tel,jdbcType=VARCHAR},
+      email = #{email,jdbcType=VARCHAR},
+      gmt_create = #{gmtCreate,jdbcType=TIMESTAMP},
+      gmt_update = #{gmtUpdate,jdbcType=TIMESTAMP}
+    where gid = #{gid,jdbcType=BIGINT}
+  </update>
+</mapper>
