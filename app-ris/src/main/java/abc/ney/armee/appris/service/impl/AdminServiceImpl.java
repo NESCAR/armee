@@ -4,6 +4,7 @@ import abc.ney.armee.appris.dal.mapper.tms.*;
 import abc.ney.armee.appris.dal.meta.dto.StaffCredentialsDto;
 import abc.ney.armee.appris.dal.meta.po.*;
 import abc.ney.armee.appris.service.AdminService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
@@ -13,11 +14,10 @@ import javax.annotation.Resource;
 import java.util.HashMap;
 import java.util.Map;
 
+@Slf4j
 @Service
 public class AdminServiceImpl implements AdminService {
     private final BCryptPasswordEncoder encoder;
-    @Resource
-    AuthorityMapper authorityMapper;
     @Resource
     CredentialsAuthoritiesMapper credentialsAuthoritiesMapper;
     @Resource
@@ -40,7 +40,18 @@ public class AdminServiceImpl implements AdminService {
     @Transactional(propagation = Propagation.REQUIRED)
     @Override
     public Map<String, Boolean> insertAdmin(StaffCredentialsDto staffCredentialsDto) {
+        return staffCredDtoHandler(staffCredentialsDto, AuthorityRole.ROLE_ADMIN);
+    }
+
+    @Transactional(propagation = Propagation.REQUIRED)
+    @Override
+    public Map<String, Boolean> insertDriver(StaffCredentialsDto staffCredentialsDto) {
+        return staffCredDtoHandler(staffCredentialsDto, AuthorityRole.ROLE_COMMON_STAFF);
+    }
+
+    private Map<String, Boolean> staffCredDtoHandler(StaffCredentialsDto staffCredentialsDto, AuthorityRole ar) {
         Map<String, Boolean> map = new HashMap<>();
+        map.put(staffCredentialsDto.getName(), true);
         if (exist(staffCredentialsDto.getName())) {
             map.put(staffCredentialsDto.getName(), false);
             return map;
@@ -59,7 +70,7 @@ public class AdminServiceImpl implements AdminService {
             return map;
         }
         if (credentialsAuthoritiesMapper.insert(new CredentialsAuthorities(
-                credentials.getId(),ServiceConstant.AUTHORITY_ROLE_ADMIN_ID)) == ServiceConstant.MYSQL_OP_ERR_RTN) {
+                credentials.getId(), ar.getId())) == ServiceConstant.MYSQL_OP_ERR_RTN) {
             map.put(staffCredentialsDto.getName(), false);
             return map;
         }
@@ -68,8 +79,8 @@ public class AdminServiceImpl implements AdminService {
             map.put(staffCredentialsDto.getName(), false);
             return map;
         }
-        System.out.println("Credentials : " + credentials.getId());
-        System.out.println("Staff : " + staff.getGid());
+        log.info("Credentials : " + credentials.getId());
+        log.info("Staff : " + staff.getGid());
         return map;
     }
 }

@@ -81,11 +81,11 @@ public class ResourcesServerConfig extends ResourceServerConfigurerAdapter {
                 .logoutSuccessHandler(logoutSuccessHandler)
                 .and()
                 .authorizeRequests()
-                .antMatchers("/**").authenticated();
-//                // 配置不需要token的path
-//                .antMatchers("/test/hello").permitAll()
-//                // 配置需要token的path
-//                .antMatchers("/test/**").authenticated();
+                //匹配需要验证的api
+                //如果直接/**可能造成swagger无法使用
+                .antMatchers("/userManage/**").authenticated()
+                .antMatchers("/carInfo/**").authenticated()
+                .antMatchers("/carControl/**").authenticated();
     }
 
     @Autowired

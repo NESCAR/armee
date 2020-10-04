@@ -18,4 +18,11 @@ public interface AdminService {
      * @return 插入结果
      */
     Map<String, Boolean> insertAdmin(StaffCredentialsDto staffCredentialsDto);
+
+    /**
+     * 插入司机
+     * @param staffCredentialsDto 司机信息
+     * @return 插入结果
+     */
+    Map<String, Boolean> insertDriver(StaffCredentialsDto staffCredentialsDto);
 }

@@ -14,7 +14,7 @@
     <properties>
         <hylexus.version>1.0.4-RELEASE</hylexus.version>
         <jet.version>1.0-SNAPSHOT</jet.version>
-        <swagger.version>2.5.0</swagger.version>
+        <swagger.version>2.9.2</swagger.version>
         <spring-security-oauth.version>2.3.6.RELEASE</spring-security-oauth.version>
         <mybatis-generator.version>1.4.0</mybatis-generator.version>
         <mysql-conn.version>5.1.39</mysql-conn.version>
@@ -110,21 +110,21 @@
         </dependency>
 
         <!--swagger2依赖，构建API文档-->
+<!--        <dependency>-->
+<!--            <groupId>com.spring4all</groupId>-->
+<!--            <artifactId>spring-boot-starter-swagger</artifactId>-->
+<!--            <version>1.5.1.RELEASE</version>-->
+<!--        </dependency>-->
         <dependency>
-            <groupId>com.spring4all</groupId>
-            <artifactId>spring-boot-starter-swagger</artifactId>
-            <version>1.5.1.RELEASE</version>
+            <groupId>io.springfox</groupId>
+            <artifactId>springfox-swagger2</artifactId>
+            <version>${swagger.version}</version>
         </dependency>
-<!--        <dependency>-->
-<!--            <groupId>io.springfox</groupId>-->
-<!--            <artifactId>springfox-swagger2</artifactId>-->
-<!--            <version>${swagger.version}</version>-->
-<!--        </dependency>-->
-<!--        <dependency>-->
-<!--            <groupId>io.springfox</groupId>-->
-<!--            <artifactId>springfox-swagger-ui</artifactId>-->
-<!--            <version>${swagger.version}</version>-->
-<!--        </dependency>-->
+        <dependency>
+            <groupId>io.springfox</groupId>
+            <artifactId>springfox-swagger-ui</artifactId>
+            <version>${swagger.version}</version>
+        </dependency>
 
         <!--必须指定版本，不然会造成冲突-->
         <!--Springboot 本身指定了2.9版本-->
