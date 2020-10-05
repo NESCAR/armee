@@ -7,7 +7,7 @@ package abc.ney.armee.appris.service;
 public interface SouthwardCmdService {
     /**
      * 下发上锁信息
-     * @param carId 汽车id
+     * @param carId 汽车设备imei
      * @param driverId 司机id
      * @param psw 密码
      * @param st 开始时间

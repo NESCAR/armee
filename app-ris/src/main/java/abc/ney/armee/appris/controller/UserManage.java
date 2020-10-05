@@ -31,28 +31,25 @@ public class UserManage {
         this.adminService = adminService;
     }
 
-    @ApiOperation(value = "添加普通管理员", tags = {"管理员"}, notes = "添加管理管理员")
-    @ApiImplicitParams({
-            @ApiImplicitParam(name = "StaffCredentialsDto", value = "管理员", required = true)
-    })
+    @ApiOperation(value = "添加普通管理员", tags = {"用户管理"}, notes = "添加管理管理员")
     @ApiResponses({
             @ApiResponse(code = 200, message = "驾驶员插入成功"),
             @ApiResponse(code = 406, message = "管理员未全部插入")
     })
     @PreAuthorize("hasRole('ROLE_SUPER_ADMIN')")
     @PostMapping("/addAdmin")
-    public BaseResp<Map<String, Boolean>> addAdmin(@RequestBody StaffCredentialsDto staffCredentialDtos) {
-        Map<String, Boolean> rtn = adminService.insertAdmin(staffCredentialDtos);
-        if (rtn.get(staffCredentialDtos.getName())) {
+    public BaseResp<Map<String, Boolean>> addAdmin(@RequestBody StaffCredentialsDto staffCredentialDto) {
+        Map<String, Boolean> rtn = adminService.insertAdmin(staffCredentialDto);
+        if (rtn.get(staffCredentialDto.getName())) {
             return new BaseResp<>(ResultStatus.http_status_ok, "管理员插入成功", rtn);
         } else {
             return new BaseResp<>(ResultStatus.http_status_not_acceptable, "管理员不可插入", rtn);
         }
     }
-    @ApiOperation(value = "批量添加普通管理员", tags = {"管理员"}, notes = "添加管理管理员")
-    @ApiImplicitParams({
-            @ApiImplicitParam(name = "StaffCredentialsDto列表", value = "管理员", required = true)
-    })
+    @ApiOperation(value = "批量添加普通管理员", tags = {"用户管理"}, notes = "添加管理管理员")
+//    @ApiImplicitParams({
+//            @ApiImplicitParam(name = "StaffCredentialsDto列表", value = "管理员", required = true)
+//    })
     @ApiResponses({
             @ApiResponse(code = 200, message = "驾驶员插入成功"),
             @ApiResponse(code = 406, message = "管理员未全部插入")
@@ -77,7 +74,7 @@ public class UserManage {
             return new BaseResp<>(ResultStatus.http_status_not_acceptable, "管理员未全部插入", rtn);
         }
     }
-    @ApiOperation(value = "添加驾驶员", tags = {"驾驶员"}, notes = "添加驾驶员")
+    @ApiOperation(value = "添加驾驶员", tags = {"用户管理"}, notes = "添加驾驶员")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "StaffCredentialsDto", value = "驾驶员", required = true)
     })
@@ -87,9 +84,9 @@ public class UserManage {
     })
     @PreAuthorize("hasAnyRole('ROLE_SUPER_ADMIN', 'ROLE_ADMIN')")
     @PostMapping("/addDriver")
-    public BaseResp<Map<String, Boolean>> addDriver(@RequestBody StaffCredentialsDto staffCredentialDtos) {
-        Map<String, Boolean> rtn = adminService.insertDriver(staffCredentialDtos);
-        if (rtn.get(staffCredentialDtos.getName())) {
+    public BaseResp<Map<String, Boolean>> addDriver(@RequestBody StaffCredentialsDto staffCredentialDto) {
+        Map<String, Boolean> rtn = adminService.insertDriver(staffCredentialDto);
+        if (rtn.get(staffCredentialDto.getName())) {
             return new BaseResp<>(ResultStatus.http_status_ok, "驾驶员插入成功", rtn);
         } else {
             return new BaseResp<>(ResultStatus.http_status_not_acceptable, "驾驶员不可插入", rtn);
