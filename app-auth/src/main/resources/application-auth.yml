@@ -1,0 +1,28 @@
+server:
+  port: 8085
+spring:
+  datasource:
+    hikari:
+      connection-test-query: SELECT 1
+      minimum-idle: 1
+      maximum-pool-size: 5
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    # 第二个mysql需要在hosts文件中设置对应的ip
+    # 也可以直接替换为IP
+    # url: jdbc:mysql://1.1.1.1:3306/platform_base?serverTimezone=UTC&useUnicode=true&characterEncoding=utf-8&allowMultiQueries=true&useSSL=false
+    # tms  数据库名
+    url: jdbc:mysql://mysql:3306/tms?serverTimezone=UTC&useUnicode=true&characterEncoding=utf-8&allowMultiQueries=true&useSSL=false
+    username: root
+    password: Root123456@
+    initialization-mode: always
+  mvc:
+    servlet:
+      load-on-startup: 1
+  redis:
+    host: redis
+    database: 0
+    port: 6379
+security:
+  oauth2:
+    authorization:
+      check-token-access: true

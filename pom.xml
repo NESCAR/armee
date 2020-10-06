@@ -13,6 +13,7 @@
         <module>app-ris</module>
         <module>app-dh</module>
         <module>app-dal</module>
+        <module>app-auth</module>
     </modules>
     <parent>
         <groupId>org.springframework.boot</groupId>

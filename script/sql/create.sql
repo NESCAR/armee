@@ -19,8 +19,8 @@ COMMIT;
 # UPDATE authority SET authority = 'ROLE_ADMIN' where id = 2;
 # UPDATE authority SET authority = 'ROLE_COMMON_STAFF' where id = 3;
 
-DROP TABLE IF EXISTS `credentials`;
-CREATE TABLE `credentials` (
+DROP TABLE IF EXISTS `credentialsAuthority`;
+CREATE TABLE `credentialsAuthority` (
    `id` BIGINT(20) NOT NULL COMMENT '凭证id',
    `enabled` TINYINT(1) NOT NULL COMMENT '是否可用',
    `name` VARCHAR(255) NOT NULL COMMENT '用户名',
@@ -30,9 +30,9 @@ CREATE TABLE `credentials` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 BEGIN;
 # 创建oauth用户，密码是"user"经过加密的结果
-INSERT INTO `credentials` VALUES (1, 1, 'super_admin', '$2a$10$BurTWIy5NTF9GJJH4magz.9Bd4bBurWYG8tmXxeQh1vs7r/wnCFG2', 0);
-INSERT INTO `credentials` VALUES (2, 1, 'admin', '$2a$10$BurTWIy5NTF9GJJH4magz.9Bd4bBurWYG8tmXxeQh1vs7r/wnCFG2', 0);
-INSERT INTO `credentials` VALUES (3, 1, 'common_staff', '$2a$10$BurTWIy5NTF9GJJH4magz.9Bd4bBurWYG8tmXxeQh1vs7r/wnCFG2', 0);
+INSERT INTO `credentialsAuthority` VALUES (1, 1, 'super_admin', '$2a$10$BurTWIy5NTF9GJJH4magz.9Bd4bBurWYG8tmXxeQh1vs7r/wnCFG2', 0);
+INSERT INTO `credentialsAuthority` VALUES (2, 1, 'admin', '$2a$10$BurTWIy5NTF9GJJH4magz.9Bd4bBurWYG8tmXxeQh1vs7r/wnCFG2', 0);
+INSERT INTO `credentialsAuthority` VALUES (3, 1, 'common_staff', '$2a$10$BurTWIy5NTF9GJJH4magz.9Bd4bBurWYG8tmXxeQh1vs7r/wnCFG2', 0);
 COMMIT;
 
 DROP TABLE IF EXISTS `credentials_authorities`;
@@ -40,7 +40,7 @@ DROP TABLE IF EXISTS `credentials_authorities`;
 CREATE TABLE `credentials_authorities` (
    `credentials_id` BIGINT(20) NOT NULL COMMENT '凭证id',
    `authorities_id` BIGINT(20) NOT NULL COMMENT '权限id',
-    CONSTRAINT credentials_id_cons FOREIGN KEY (credentials_id) REFERENCES credentials(id),
+    CONSTRAINT credentials_id_cons FOREIGN KEY (credentials_id) REFERENCES credentialsAuthority(id),
     CONSTRAINT authorities_id_cons FOREIGN KEY (authorities_id) REFERENCES authority(id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 BEGIN;

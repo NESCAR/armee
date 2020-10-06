@@ -1,6 +1,5 @@
 package abc.ney.armee.appris.controller;
 
-import abc.ney.armee.appris.dal.mapper.tms.StaffVoMapper;
 import abc.ney.armee.appris.dal.meta.dto.StaffCredentialsDto;
 import abc.ney.armee.appris.dal.meta.vo.StaffVo;
 import abc.ney.armee.appris.service.AdminService;
@@ -41,9 +40,6 @@ public class UserManage {
         }
     }
     @ApiOperation(value = "批量添加普通管理员", tags = {"用户管理"}, notes = "添加管理管理员")
-//    @ApiImplicitParams({
-//            @ApiImplicitParam(name = "StaffCredentialsDto列表", value = "管理员", required = true)
-//    })
     @ApiResponses({
             @ApiResponse(code = 200, message = "驾驶员插入成功"),
             @ApiResponse(code = 406, message = "管理员未全部插入")
