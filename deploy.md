@@ -1,5 +1,5 @@
 # 部署
-## 1.EMQ
+## 1.EMQ（取消使用）
 
 版本：4.0.7
 
@@ -24,7 +24,7 @@ EMQ X v4.0.7 is started successfully!
 $ emqx_ctl status
 ```
 
-## 2.Apollo
+## 2.Apollo（取消使用）
 
 **目前服务器部署的Apollo有问题，可以暂时使用协程的[demo](http://106.54.227.205/)。**
 
@@ -257,10 +257,20 @@ $ use mysql;
 $ mysql > update user set host = '%' where user = 'root';
 ```
 
+### 6.3 数据库初始化
+
+运行初始化SQL文件。
+
 ## 7.InfluxDB
 ### 7.1 安装
 安装链接：
 
 https://portal.influxdata.com/downloads/
+
+## 7.SMS短信服务
+### 7.1 阿里云SMS开通
+
+### 7.2 接口设置
+
 
 

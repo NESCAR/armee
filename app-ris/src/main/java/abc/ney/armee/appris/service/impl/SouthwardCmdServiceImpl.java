@@ -9,10 +9,11 @@ import icu.nescar.armee.jet.broker.ext.producer.kafka.KafkaProducerImpl;
 import icu.nescar.armee.jet.broker.ext.producer.kafka.msg.KafkaMsgKey;
 import icu.nescar.armee.jet.broker.msg.resp.RespLockInfoSettings;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 import java.util.concurrent.locks.ReentrantLock;
 
-@Component
+@Service
 public class SouthwardCmdServiceImpl implements SouthwardCmdService {
     Producer<KafkaMsgKey, Object> producer;
     ReentrantLock lock;

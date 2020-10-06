@@ -14,3 +14,31 @@ sudo vim /etc/hosts
 redis：redis服务器地址
 
 ctripcorp-apollo：Apollo配置中心
+
+### 1.2 启动配置
+
+```
+# 本节点ID
+-Dbroker.id=20 
+# 生产目的
+-Dproduce.to=kafka
+# 生产目的url
+-Dkafka.producer.server.url=kafka-1
+# 生产目的端口
+-Dkafka.producer.server.port=9092
+# 消费源头
+-Dconsume.from=kafka 
+# 消费源头url
+-Dkafka.consumer.server.url=Kafka-1 
+# 消费源头端口
+-Dkafka.consumer.server.port=9092
+# 阿里云短信服务的标签，效果【ARMEE物流管理】
+-Dsms.sign.name=ARMEE物流管理
+# 阿里云短信模版编号
+-Dsms.template.code=SMS_204111562
+# 阿里云accesskey id
+-Daliyun.accesskey.id=XXXX
+# 阿里云accesskey secret
+-Daliyun.accesskey.secret=XXXX
+```
+

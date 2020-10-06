@@ -6,5 +6,11 @@ package abc.ney.armee.appris.service;
  */
 public interface SmsService {
 
-    boolean send(String tel, String msg);
+    /**
+     * 发送验证码
+     * @param tel 手机号
+     * @param code 验证码
+     * @return 是否成功发送
+     */
+    boolean sendValidateCode(String tel, String code);
 }
