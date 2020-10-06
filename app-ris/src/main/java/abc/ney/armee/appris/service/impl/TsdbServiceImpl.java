@@ -1,21 +1,20 @@
 package abc.ney.armee.appris.service.impl;
 
 import abc.ney.armee.appris.config.ApolloConfiger;
-import abc.ney.armee.appris.dal.mapper.InfluxMapper;
-import abc.ney.armee.appris.dal.mapper.InfluxMapperRegister;
+import abc.ney.armee.appris.dal.mapper.msgmap.InfluxMapper;
+import abc.ney.armee.appris.dal.mapper.msgmap.InfluxMapperRegister;
 import abc.ney.armee.appris.service.TsdbService;
 import abc.ney.armee.enginee.data.influxdb.InfluxConnection;
 import icu.nescar.armee.jet.broker.config.Jt808MsgType;
 import icu.nescar.armee.jet.broker.ext.producer.MsgKey;
-import icu.nescar.armee.jet.broker.ext.producer.kafka.msg.KafkaMsgKey;
+import icu.nescar.armee.jet.broker.util.TimeConverter;
 import io.github.hylexus.jt.data.msg.MsgType;
 import lombok.extern.slf4j.Slf4j;
-import org.omg.CORBA.TIMEOUT;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
-import java.sql.Time;
+import javax.annotation.Resource;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
@@ -25,7 +24,7 @@ import java.util.concurrent.TimeUnit;
  * TSDB服务实例
  * @author neyzoter
  */
-@Component
+@Service
 @Slf4j
 public class TsdbServiceImpl implements TsdbService {
     /**
@@ -59,7 +58,6 @@ public class TsdbServiceImpl implements TsdbService {
     public String password;
     public String openurl;
     public String database;
-    public String retentionPolicy;
     private InfluxMapperRegister influxMapperRegister;
     @Autowired
     public TsdbServiceImpl(ApolloConfiger ac, InfluxMapperRegister imr) {
@@ -67,23 +65,29 @@ public class TsdbServiceImpl implements TsdbService {
     }
     @Override
     public void insert(MsgKey mk, Object o) {
-//        InfluxConnection ic = threadLocal4Influx.get();
-        InfluxConnection ic = new InfluxConnection(null, null, "http://influxdb:8086",
-                "ris","ONE_DAY");
+        InfluxConnection ic = threadLocal4Influx.get();
+//        InfluxConnection ic = new InfluxConnection(null, null, "http://influxdb:8086",
+//                "ris","ONE_DAY");
         int msgid = mk.getMsgId();
         Optional<MsgType> mt = Jt808MsgType.CLIENT_AUTH.parseFromInt(msgid);
         if (mt.isPresent()) {
-            Optional<InfluxMapper> imOptional = influxMapperRegister.getMapper(mt.get());
-            if (imOptional.isPresent()) {
-                InfluxMapper im = imOptional.get();
-                Map<String, Object> fields = im.fields(o, REMAIN_FIELDS_ONLY);
-                Map<String, String> tags = new HashMap<>();
-                long t = Long.parseLong(im.getTime(o));
-                tags.put(TERMINAL_ID_TAG, mk.getTerminalId());
-                ic.insert(MEASUREMENT, tags, fields, t, TIME_UNIT);
-            } else {
-                log.warn("Influx Mapper Not Found");
+            try {
+                Optional<InfluxMapper> imOptional = influxMapperRegister.getMapper(mt.get());
+                if (imOptional.isPresent()) {
+                    InfluxMapper im = imOptional.get();
+                    Map<String, Object> fields = im.fields(o, REMAIN_FIELDS_ONLY);
+                    Map<String, String> tags = new HashMap<>();
+//                    long t = Long.parseLong(im.getTime(o));
+                    long t = TimeConverter.rcf3339ToLong(im.getTime(o));
+                    tags.put(TERMINAL_ID_TAG, mk.getTerminalId());
+                    ic.insert(MEASUREMENT, tags, fields, t, TIME_UNIT);
+                } else {
+                    log.warn("Influx Mapper Not Found");
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
             }
+
         } else {
             log.warn("MsgType Not Found");
         }

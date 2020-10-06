@@ -1,4 +1,4 @@
-package abc.ney.armee.appris.dal.mapper;
+package abc.ney.armee.appris.dal.mapper.msgmap;
 
 import io.github.hylexus.jt.data.msg.MsgType;
 import io.github.hylexus.jt808.support.MsgHandlerMapping;
@@ -62,15 +62,20 @@ public class InfluxMapperRegister {
         return this;
     }
 
-    public Optional<InfluxMapper> getMapper(MsgType msgType) {
-        InfluxMapper mapper = this.register.get(msgType.getMsgId());
+    public Optional<InfluxMapper> getMapper(Integer msgId) throws Exception {
+        if (msgId == null) {
+            throw new Exception("Msg Id Null");
+        }
+        InfluxMapper mapper = this.register.get(msgId);
         if (mapper != null) {
             return Optional.of(mapper);
         } else {
             return this.defaultInfluxMapperSupplier == null ? Optional.empty() : Optional.ofNullable(this.defaultInfluxMapperSupplier.get());
         }
     }
-
+    public Optional<InfluxMapper> getMapper(MsgType msgType) throws Exception {
+        return getMapper(msgType.getMsgId());
+    }
     public Map<Integer, InfluxMapper> getHandlerMappings() {
         return Collections.unmodifiableMap(this.register);
     }

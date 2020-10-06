@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="abc.ney.armee.appris.dal.mapper.tms.OauthRefreshTokenMapper">
+  <resultMap id="BaseResultMap" type="abc.ney.armee.appris.dal.meta.po.OauthRefreshToken">
+    <result column="token_id" jdbcType="VARCHAR" property="tokenId" />
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="abc.ney.armee.appris.dal.meta.po.OauthRefreshToken">
+    <result column="token" jdbcType="LONGVARBINARY" property="token" />
+    <result column="authentication" jdbcType="LONGVARBINARY" property="authentication" />
+  </resultMap>
+  <sql id="Blob_Column_List">
+    token, authentication
+  </sql>
+  <insert id="insert" parameterType="abc.ney.armee.appris.dal.meta.po.OauthRefreshToken">
+    insert into oauth_refresh_token (token_id, token, authentication
+      )
+    values (#{tokenId,jdbcType=VARCHAR}, #{token,jdbcType=LONGVARBINARY}, #{authentication,jdbcType=LONGVARBINARY}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="abc.ney.armee.appris.dal.meta.po.OauthRefreshToken">
+    insert into oauth_refresh_token
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="tokenId != null">
+        token_id,
+      </if>
+      <if test="token != null">
+        token,
+      </if>
+      <if test="authentication != null">
+        authentication,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="tokenId != null">
+        #{tokenId,jdbcType=VARCHAR},
+      </if>
+      <if test="token != null">
+        #{token,jdbcType=LONGVARBINARY},
+      </if>
+      <if test="authentication != null">
+        #{authentication,jdbcType=LONGVARBINARY},
+      </if>
+    </trim>
+  </insert>
+</mapper>

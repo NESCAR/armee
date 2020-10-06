@@ -1,5 +1,7 @@
 package abc.ney.armee.appris.dal.mapper;
 
+import abc.ney.armee.appris.dal.mapper.msgmap.LocationUploadRequestMsgBodyMapper;
+import abc.ney.armee.appris.dal.mapper.msgmap.MapMsgConvertUtils;
 import icu.nescar.armee.jet.broker.config.Jt808MsgType;
 import icu.nescar.armee.jet.broker.msg.req.LocationUploadRequestMsgBody;
 import io.github.hylexus.jt.data.msg.MsgType;
@@ -33,6 +35,7 @@ public class LocationUploadRequestMsgBodyMapperTester {
         body.setLat(23.0);body.setHeight((short) 12);body.setDirection((short) 12);
         body.setWarningFlag(0);
         String json = MapMsgConvertUtils.objectToJson(body);
+        System.out.println("json : " + json);
         String time = mapper.getTime(body);
         Optional<MsgType> jt808MsgType = Jt808MsgType.CLIENT_AUTH.parseFromInt(512);
         String key;

@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="abc.ney.armee.appris.dal.mapper.tms.DeviceMapper">
+  <resultMap id="BaseResultMap" type="abc.ney.armee.appris.dal.meta.po.Device">
+    <id column="gid" jdbcType="BIGINT" property="gid" />
+    <result column="imei" jdbcType="VARCHAR" property="imei" />
+    <result column="imsi" jdbcType="VARCHAR" property="imsi" />
+    <result column="psw" jdbcType="VARCHAR" property="psw" />
+    <result column="lock_status" jdbcType="INTEGER" property="lockStatus" />
+    <result column="lock_start_time" jdbcType="TIMESTAMP" property="lockStartTime" />
+    <result column="lock_end_time" jdbcType="TIMESTAMP" property="lockEndTime" />
+    <result column="license_plate" jdbcType="VARCHAR" property="licensePlate" />
+    <result column="driver_gid" jdbcType="BIGINT" property="driverGid" />
+    <result column="gmt_create" jdbcType="TIMESTAMP" property="gmtCreate" />
+    <result column="gmt_update" jdbcType="TIMESTAMP" property="gmtUpdate" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    gid, imei, imsi, psw, lock_status, lock_start_time, lock_end_time, license_plate, 
+    driver_gid, gmt_create, gmt_update
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from device
+    where gid = #{gid,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from device
+    where gid = #{gid,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" keyColumn="gid" keyProperty="gid" parameterType="abc.ney.armee.appris.dal.meta.po.Device" useGeneratedKeys="true">
+    insert into device (imei, imsi, psw, 
+      lock_status, lock_start_time, lock_end_time, 
+      license_plate, driver_gid, gmt_create, 
+      gmt_update)
+    values (#{imei,jdbcType=VARCHAR}, #{imsi,jdbcType=VARCHAR}, #{psw,jdbcType=VARCHAR}, 
+      #{lockStatus,jdbcType=INTEGER}, #{lockStartTime,jdbcType=TIMESTAMP}, #{lockEndTime,jdbcType=TIMESTAMP}, 
+      #{licensePlate,jdbcType=VARCHAR}, #{driverGid,jdbcType=BIGINT}, #{gmtCreate,jdbcType=TIMESTAMP}, 
+      #{gmtUpdate,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" keyColumn="gid" keyProperty="gid" parameterType="abc.ney.armee.appris.dal.meta.po.Device" useGeneratedKeys="true">
+    insert into device
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="imei != null">
+        imei,
+      </if>
+      <if test="imsi != null">
+        imsi,
+      </if>
+      <if test="psw != null">
+        psw,
+      </if>
+      <if test="lockStatus != null">
+        lock_status,
+      </if>
+      <if test="lockStartTime != null">
+        lock_start_time,
+      </if>
+      <if test="lockEndTime != null">
+        lock_end_time,
+      </if>
+      <if test="licensePlate != null">
+        license_plate,
+      </if>
+      <if test="driverGid != null">
+        driver_gid,
+      </if>
+      <if test="gmtCreate != null">
+        gmt_create,
+      </if>
+      <if test="gmtUpdate != null">
+        gmt_update,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="imei != null">
+        #{imei,jdbcType=VARCHAR},
+      </if>
+      <if test="imsi != null">
+        #{imsi,jdbcType=VARCHAR},
+      </if>
+      <if test="psw != null">
+        #{psw,jdbcType=VARCHAR},
+      </if>
+      <if test="lockStatus != null">
+        #{lockStatus,jdbcType=INTEGER},
+      </if>
+      <if test="lockStartTime != null">
+        #{lockStartTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lockEndTime != null">
+        #{lockEndTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="licensePlate != null">
+        #{licensePlate,jdbcType=VARCHAR},
+      </if>
+      <if test="driverGid != null">
+        #{driverGid,jdbcType=BIGINT},
+      </if>
+      <if test="gmtCreate != null">
+        #{gmtCreate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="gmtUpdate != null">
+        #{gmtUpdate,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="abc.ney.armee.appris.dal.meta.po.Device">
+    update device
+    <set>
+      <if test="imei != null">
+        imei = #{imei,jdbcType=VARCHAR},
+      </if>
+      <if test="imsi != null">
+        imsi = #{imsi,jdbcType=VARCHAR},
+      </if>
+      <if test="psw != null">
+        psw = #{psw,jdbcType=VARCHAR},
+      </if>
+      <if test="lockStatus != null">
+        lock_status = #{lockStatus,jdbcType=INTEGER},
+      </if>
+      <if test="lockStartTime != null">
+        lock_start_time = #{lockStartTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lockEndTime != null">
+        lock_end_time = #{lockEndTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="licensePlate != null">
+        license_plate = #{licensePlate,jdbcType=VARCHAR},
+      </if>
+      <if test="driverGid != null">
+        driver_gid = #{driverGid,jdbcType=BIGINT},
+      </if>
+      <if test="gmtCreate != null">
+        gmt_create = #{gmtCreate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="gmtUpdate != null">
+        gmt_update = #{gmtUpdate,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where gid = #{gid,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="abc.ney.armee.appris.dal.meta.po.Device">
+    update device
+    set imei = #{imei,jdbcType=VARCHAR},
+      imsi = #{imsi,jdbcType=VARCHAR},
+      psw = #{psw,jdbcType=VARCHAR},
+      lock_status = #{lockStatus,jdbcType=INTEGER},
+      lock_start_time = #{lockStartTime,jdbcType=TIMESTAMP},
+      lock_end_time = #{lockEndTime,jdbcType=TIMESTAMP},
+      license_plate = #{licensePlate,jdbcType=VARCHAR},
+      driver_gid = #{driverGid,jdbcType=BIGINT},
+      gmt_create = #{gmtCreate,jdbcType=TIMESTAMP},
+      gmt_update = #{gmtUpdate,jdbcType=TIMESTAMP}
+    where gid = #{gid,jdbcType=BIGINT}
+  </update>
+
+  <update id="updatePswByPrimaryKey">
+    update device set psw = #{psw,jdbcType=VARCHAR} where gid = #{gid, jdbc=BIGINT}
+  </update>
+</mapper>

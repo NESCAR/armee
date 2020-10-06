@@ -10,6 +10,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import java.io.Serializable;
 import java.util.Set;
+import java.util.concurrent.TimeUnit;
 
 /**
  * Redis测试
@@ -39,7 +40,15 @@ public class RedisTester {
          */
         strRedisTemplate.opsForHash().put("imei4Hm", "hashkey", "hashvalue1");
         strRedisTemplate.opsForHash().put("imei4Hm", "hashkey", "hashvalue2");
+        strRedisTemplate.expire("imei4Hm", 5, TimeUnit.SECONDS);
         System.out.println("Read from Redis : " + strRedisTemplate.opsForHash().get("imei4Hm", "hashkey"));
+        try {
+            Thread.sleep(5000);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        System.out.println("Read from Redis : " + strRedisTemplate.opsForHash().get("imei4Hm", "hashkey"));
+
     }
     @Test
     public void testZset() {
@@ -53,6 +62,7 @@ public class RedisTester {
         strRedisTemplate.opsForZSet().add("imei", "{data:{321,41}}", 2);
         strRedisTemplate.opsForZSet().add("imei", "{data:{1,2}}", 3);
         strRedisTemplate.opsForZSet().add("imei", "{data:{1,221231231213213}}", time);
+        strRedisTemplate.expire("imei", 5, TimeUnit.SECONDS);
         Set<ZSetOperations.TypedTuple<String>> set = strRedisTemplate.opsForZSet().rangeByScoreWithScores("imei", 0, time + 1);
         if (set != null) {
             for (ZSetOperations.TypedTuple<String> val : set) {
@@ -62,6 +72,28 @@ public class RedisTester {
         } else {
             System.err.println("ERROR!!");
         }
+        /**
+         * 这些数据会被一块删除
+         */
+        strRedisTemplate.opsForZSet().add("imei", "{data:{123,1232}}", 10);
+        strRedisTemplate.opsForZSet().add("imei", "{data:{321,41}}", 2);
+        strRedisTemplate.opsForZSet().add("imei", "{data:{1,2}}", 3);
+        strRedisTemplate.opsForZSet().add("imei", "{data:{1,221231231213213}}", time);
+        try {
+            Thread.sleep(5000);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        Set<String> s = strRedisTemplate.opsForZSet().rangeByScore("imei", 0, time + 1, 1 ,1);
+        if (set != null) {
+            for (String val : s) {
+                System.out.println("Read from Redis , Score : " + val);
+            }
+            System.out.println("Get " + set.size() + " datas..");
+        } else {
+            System.err.println("ERROR!!");
+        }
+
     }
     @Test
     public void testSerializable() {
