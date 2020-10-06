@@ -1,7 +1,9 @@
 package abc.ney.armee.appris.service;
 
 import abc.ney.armee.appris.dal.meta.dto.StaffCredentialsDto;
+import abc.ney.armee.appris.dal.meta.vo.StaffVo;
 
+import java.util.List;
 import java.util.Map;
 
 public interface AdminService {
@@ -25,4 +27,15 @@ public interface AdminService {
      * @return 插入结果
      */
     Map<String, Boolean> insertDriver(StaffCredentialsDto staffCredentialsDto);
+
+    /**
+     * 查询管理员
+     * @return 管理员列表
+     */
+    List<StaffVo> queryAdmin();
+    /**
+     * 查询司机
+     * @return 司机列表
+     */
+    List<StaffVo> queryDriver();
 }

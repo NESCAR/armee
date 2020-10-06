@@ -3,6 +3,7 @@ package abc.ney.armee.appris.service.impl;
 import abc.ney.armee.appris.dal.mapper.tms.*;
 import abc.ney.armee.appris.dal.meta.dto.StaffCredentialsDto;
 import abc.ney.armee.appris.dal.meta.po.*;
+import abc.ney.armee.appris.dal.meta.vo.StaffVo;
 import abc.ney.armee.appris.service.AdminService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -12,6 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @Slf4j
@@ -26,6 +28,8 @@ public class AdminServiceImpl implements AdminService {
     StaffMapper staffMapper;
     @Resource
     OauthClientDetailsStaffMapper oauthClientDetailsStaffMapper;
+    @Resource
+    StaffVoMapper staffVoMapper;
 
     public AdminServiceImpl() {
         encoder = new BCryptPasswordEncoder();
@@ -47,6 +51,19 @@ public class AdminServiceImpl implements AdminService {
     @Override
     public Map<String, Boolean> insertDriver(StaffCredentialsDto staffCredentialsDto) {
         return staffCredDtoHandler(staffCredentialsDto, AuthorityRole.ROLE_COMMON_STAFF);
+    }
+
+    @Override
+    public List<StaffVo> queryAdmin() {
+        List<StaffVo> superAdminList = staffVoMapper.selectStaffVoByAuthorityId(ServiceConstant.AUTHORITY_ROLE_SUPER_ADMIN_ID);
+        List<StaffVo> adminList = staffVoMapper.selectStaffVoByAuthorityId(ServiceConstant.AUTHORITY_ROLE_ADMIN_ID);
+        superAdminList.addAll(adminList);
+        return superAdminList;
+    }
+    @Override
+    public List<StaffVo> queryDriver() {
+        List<StaffVo> driverList = staffVoMapper.selectStaffVoByAuthorityId(ServiceConstant.AUTHORITY_ROLE_COMMON_STAFF);
+        return driverList;
     }
 
     private Map<String, Boolean> staffCredDtoHandler(StaffCredentialsDto staffCredentialsDto, AuthorityRole ar) {

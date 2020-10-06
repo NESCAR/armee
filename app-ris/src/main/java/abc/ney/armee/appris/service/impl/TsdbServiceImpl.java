@@ -60,7 +60,7 @@ public class TsdbServiceImpl implements TsdbService {
     public String database;
     private InfluxMapperRegister influxMapperRegister;
     @Autowired
-    public TsdbServiceImpl(ApolloConfiger ac, InfluxMapperRegister imr) {
+    public TsdbServiceImpl(InfluxMapperRegister imr) {
         influxMapperRegister = imr;
     }
     @Override

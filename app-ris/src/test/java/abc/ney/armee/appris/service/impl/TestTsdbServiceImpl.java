@@ -18,7 +18,7 @@ public class TestTsdbServiceImpl {
     public static void main(String[] args) {
         InfluxMapperRegister imr = new InfluxMapperRegister();
         imr.registerMapper(Jt808MsgType.CLIENT_LOCATION_INFO_UPLOAD, new LocationUploadRequestMsgBodyMapper());
-        TsdbService tsdbService = new TsdbServiceImpl(null, imr);
+        TsdbService tsdbService = new TsdbServiceImpl( imr);
         MsgKey mk = new KafkaMsgKey("SE12309", Jt808MsgType.CLIENT_LOCATION_INFO_UPLOAD.getMsgId());
         LocationUploadRequestMsgBody msg = new LocationUploadRequestMsgBody();
         msg.setDirection((short)1);

@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="abc.ney.armee.appris.dal.mapper.tms.StaffVoMapper">
+  <resultMap id="BaseResultMap" type="abc.ney.armee.appris.dal.meta.vo.StaffVo">
+    <id column="credentialId" jdbcType="BIGINT" property="credentialId" />
+    <result column="credentialEnable" jdbcType="TINYINT" property="credentialEnable" />
+    <result column="credentialName" jdbcType="VARCHAR" property="credentialName" />
+    <result column="staffGid" jdbcType="BIGINT" property="staffGid" />
+    <result column="staffRealName" jdbcType="VARCHAR" property="staffRealName" />
+    <result column="staffNo" jdbcType="VARCHAR" property="staffNo" />
+    <result column="staffPosition" jdbcType="VARCHAR" property="staffPosition" />
+    <result column="staffTelArea" jdbcType="VARCHAR" property="staffTelArea" />
+    <result column="staffTel" jdbcType="VARCHAR" property="staffTel" />
+    <result column="staffEmail" jdbcType="VARCHAR" property="staffEmail" />
+  </resultMap>
+  <select id="selectStaffVoByAuthorityId" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select f.id credentialId, f.enabled credentialEnable, f.name credentialName, g.gid staffGid, g.real_name staffRealName, g.no staffNo, g.position staffPosition, g.tel_area staffTelArea, g.tel staffTel, g.email staffEmail from
+      ((select d.id, d.enabled, d.name, e.staff_id from
+        ((select c.* from
+          (select a.credentials_id from credentials_authorities a where authorities_id = #{id,jdbcType=BIGINT}) b
+            left join credentials c on b.credentials_id = c.id) d)
+          left join credentials_staff e on d.id = e.credential_id) f)
+        left join staff g on g.gid = f.staff_id;
+  </select>
+
+</mapper>

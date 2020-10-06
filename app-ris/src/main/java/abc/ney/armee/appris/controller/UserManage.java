@@ -1,16 +1,15 @@
 package abc.ney.armee.appris.controller;
 
+import abc.ney.armee.appris.dal.mapper.tms.StaffVoMapper;
 import abc.ney.armee.appris.dal.meta.dto.StaffCredentialsDto;
+import abc.ney.armee.appris.dal.meta.vo.StaffVo;
 import abc.ney.armee.appris.service.AdminService;
 import abc.ney.armee.enginee.net.http.ResultStatus;
 import io.swagger.annotations.*;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
 import java.util.List;
@@ -25,11 +24,6 @@ import java.util.Map;
 @RequestMapping(value = "userManage")
 public class UserManage {
     AdminService adminService;
-
-    @Autowired
-    public UserManage(AdminService adminService) {
-        this.adminService = adminService;
-    }
 
     @ApiOperation(value = "添加普通管理员", tags = {"用户管理"}, notes = "添加管理管理员")
     @ApiResponses({
@@ -91,5 +85,25 @@ public class UserManage {
         } else {
             return new BaseResp<>(ResultStatus.http_status_not_acceptable, "驾驶员不可插入", rtn);
         }
+    }
+
+    @ApiOperation(value = "查询管理员", tags = {"用户管理"}, notes = "查询管理员")
+    @PreAuthorize("hasRole('ROLE_SUPER_ADMIN')")
+    @GetMapping("/queryAdmin")
+    public BaseResp<List<StaffVo>> queryAdmin() {
+        List<StaffVo> adminList = adminService.queryAdmin();
+        return new BaseResp<>(ResultStatus.http_status_ok, "管理员信息", adminList);
+    }
+
+    @ApiOperation(value = "查询司机", tags = {"用户管理"}, notes = "查询管理员")
+    @PreAuthorize("hasAnyRole('ROLE_SUPER_ADMIN', 'ROLE_ADMIN')")
+    @GetMapping("/queryDriver")
+    public BaseResp<List<StaffVo>> queryDriver() {
+        List<StaffVo> driverList = adminService.queryDriver();
+        return new BaseResp<>(ResultStatus.http_status_ok, "司机信息", driverList);
+    }
+    @Autowired
+    private void setAdminService(AdminService adminService) {
+        this.adminService = adminService;
     }
 }

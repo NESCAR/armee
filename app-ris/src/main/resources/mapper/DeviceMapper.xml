@@ -157,6 +157,6 @@
   </update>
 
   <update id="updatePswByPrimaryKey">
-    update device set psw = #{psw,jdbcType=VARCHAR} where gid = #{gid, jdbc=BIGINT}
+    update device set psw = #{psw,jdbcType=VARCHAR} where gid = #{gid, jdbcType=BIGINT}
   </update>
 </mapper>
