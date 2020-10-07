@@ -145,7 +145,7 @@ public class InfluxConnection {
      *
      * @param command
      * 查询语句
-     * @return
+     * @return 查询结果
      */
     public QueryResult query(String command) {
         return influxDB.query(new Query(command, database));

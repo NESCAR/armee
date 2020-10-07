@@ -9,6 +9,11 @@ import icu.nescar.armee.jet.broker.ext.producer.kafka.msg.KafkaMsgKey;
 import icu.nescar.armee.jet.broker.msg.req.LocationUploadRequestMsgBody;
 import lombok.extern.slf4j.Slf4j;
 
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Map;
+import java.util.Set;
+
 /**
  * 测试TsdbServiceImpl
  * @author neyzoter
@@ -16,6 +21,14 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class TestTsdbServiceImpl {
     public static void main(String[] args) {
+        TestTsdbServiceImpl impl = new TestTsdbServiceImpl();
+        impl.testSqlGen();
+    }
+
+    /**
+     * 测试插入
+     */
+    public void testInsert() {
         InfluxMapperRegister imr = new InfluxMapperRegister();
         imr.registerMapper(Jt808MsgType.CLIENT_LOCATION_INFO_UPLOAD, new LocationUploadRequestMsgBodyMapper());
         TsdbService tsdbService = new TsdbServiceImpl( imr);
@@ -38,6 +51,20 @@ public class TestTsdbServiceImpl {
                 e.printStackTrace();
             }
         }
+    }
 
+    /**
+     * 测试SQL语句生成
+     */
+    public void testSqlGen() {
+        TsdbServiceImpl tsdbServiceImpl = new TsdbServiceImpl(new InfluxMapperRegister());
+        Set<String> fields = new HashSet<>();fields.add("fi");fields.add("bi");
+        Map<String, String> tags = new HashMap<>();tags.put("imei", "1232123EF");
+        String st = "2020-08-21T14:01:54.494+08:00";
+        String et = "2020-08-22T14:01:54.494+08:00";
+        String retentionPolicy = "ONE_MONTH";
+        String sql = tsdbServiceImpl.sqlGen(null, null, null, null, null);
+        System.out.println(sql);
+//        "select * from iwatch where \"imei\" = '1232123EF' and \"time\" > '2020-08-21T14:01:54.494Z' tz('Asia/Shanghai')"
     }
 }

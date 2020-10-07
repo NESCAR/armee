@@ -10,14 +10,13 @@ import icu.nescar.armee.jet.broker.ext.producer.MsgKey;
 import icu.nescar.armee.jet.broker.util.TimeConverter;
 import io.github.hylexus.jt.data.msg.MsgType;
 import lombok.extern.slf4j.Slf4j;
+import org.influxdb.dto.QueryResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -51,7 +50,7 @@ public class TsdbServiceImpl implements TsdbService {
     public static ThreadLocal<InfluxConnection> threadLocal4Influx = new ThreadLocal<InfluxConnection>() {
         @Override
         public InfluxConnection initialValue () {
-            return new InfluxConnection(null, null, "http://influxdb:8086", "ris","ONE_DAY");
+            return new InfluxConnection(null, null, "http://influxdb:8086", "ris","ONE_MONTH");
         }
     };
     public String username;
@@ -91,5 +90,76 @@ public class TsdbServiceImpl implements TsdbService {
         } else {
             log.warn("MsgType Not Found");
         }
+    }
+
+    @Override
+    public QueryResult query(Set<String> fields, Map<String, String> tag, String retentionPolicy, String st, String et) {
+        String sql = sqlGen(fields, tag, retentionPolicy, st, et);
+        log.info("Query SQL : " + sql);
+        InfluxConnection ic = threadLocal4Influx.get();
+        QueryResult qr = ic.query(sql);
+        return qr;
+//        List<QueryResult.Result> res = qr.getResults();
+//        for (QueryResult.Result r : res) {
+//            List<QueryResult.Series> series = r.getSeries();
+//            for (QueryResult.Series s : series) {
+//                series.
+//            }
+//        }
+//        System.out.println(qr.toString());
+    }
+
+    /**
+     * 生成SQL语句
+     * @param fields 查询的数据
+     * @param tag 标签
+     * @param retentionPolicy 数据保留策略
+     * @param st 开始时间，可以设置为null
+     * @param et 结束时间，可以设置为null
+     * @return SQL语句
+     */
+    public String sqlGen(Set<String> fields, Map<String, String> tag, String retentionPolicy, String st, String et) {
+        StringBuilder sb = new StringBuilder();
+        if (fields == null || fields.isEmpty()) {
+            sb.append("*");
+        } else {
+            for (String f : fields) {
+                sb.append(f).append(",");
+            }
+            // 删掉最后一个逗号
+            sb.deleteCharAt(sb.length() - 1);
+        }
+        String fieldStr = sb.toString();
+        sb = new StringBuilder();
+        if (tag != null) {
+            Set<Map.Entry<String, String>> entrySet = tag.entrySet();
+            int entrySize = entrySet.size();
+            for (Map.Entry<String, String> entry : entrySet) {
+                // 只要是时间约束不是null，入口还不是最后一个
+                if (entrySize > 1 || st != null || et != null) {
+                    sb.append("\"").append(entry.getKey()).append("\"").append(" = ")
+                            .append("'").append(entry.getValue()).append("'").append(" and ");
+                } else {
+                    sb.append("\"").append(entry.getKey()).append("\"").append(" = ")
+                            .append("'").append(entry.getValue()).append("'").append(" ");
+                }
+                entrySize--;
+            }
+        }
+        if (st != null) {
+            sb.append("\"time\" > ").append("'").append(st).append("'");
+        }
+        if (et != null) {
+            if (st != null) {
+                sb.append(" and ");
+            }
+            sb.append("\"time\" < ").append("'").append(et).append("'");
+        }
+        if (st != null || et != null) {
+            sb.append(" tz('Asia/Shanghai')");
+        }
+        String cons = sb.length() > 0 ? "where " + sb.toString() : "";
+        retentionPolicy = retentionPolicy == null || retentionPolicy.equals("") ? "" : String.format("\"%s\".", retentionPolicy);
+        return String.format("select %s from %s%s %s", fieldStr, retentionPolicy, TsdbServiceImpl.MEASUREMENT, cons);
     }
 }

@@ -19,12 +19,12 @@ public class InfluxDbMain {
      * 测试InfluxConnection
      */
     public static void testInfluxConnection() {
-        String measurement = "iwatch";
-        InfluxConnection influxConnection = new InfluxConnection(null, null,"http://influxdb:8086", "ris","ONE_DAY");
+        String measurement = "Trailer";
+        InfluxConnection influxConnection = new InfluxConnection(null, null,"http://influxdb:8086", "ris","ONE_MONTH");
         HashMap<String, String> tag = new HashMap<>();
         tag.put("imei", "1232123EF");
         HashMap<String, Object> field = new HashMap<>();
-        for (int i = 0; i < 3; i++) {
+        for (int i = 0; i < 10; i++) {
             long time = System.currentTimeMillis();
             field.clear();
             field.put("heartbeat", Math.abs(70 * Math.sin((double) time)));
@@ -32,12 +32,12 @@ public class InfluxDbMain {
             System.out.println("Millis : " + time);
             influxConnection.insert(measurement, tag, field, time, TimeUnit.MILLISECONDS);
             try {
-                Thread.sleep(1000);
+                Thread.sleep(200);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
         }
-        QueryResult qr = influxConnection.query("select * from iwatch where \"imei\" = '1232123EF' and \"time\" > '2020-08-21T14:01:54.494Z' tz('Asia/Shanghai')");
+        QueryResult qr = influxConnection.query("select * from \"ONE_DAY\".iwatch"); //  where \"imei\" = '1232123EF' and \"time\" > '2020-10-05T18:01:54.494+08:00' tz('Asia/Shanghai')"
         List<QueryResult.Result> list = qr.getResults();
         System.out.println("QueryResult Size : " + list.size());
         for (QueryResult.Result r : list) {
@@ -55,7 +55,10 @@ public class InfluxDbMain {
             System.out.println();
 
             for (QueryResult.Series s : l) {
-                System.out.println(s);
+                System.out.println("name : " + s.getName());
+                System.out.println("columns : " + s.getColumns());
+                System.out.println("tags : " + s.getTags());
+                System.out.println("values : " + s.getValues());
             }
         }
 
