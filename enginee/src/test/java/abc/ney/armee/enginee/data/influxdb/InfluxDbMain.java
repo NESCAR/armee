@@ -20,47 +20,52 @@ public class InfluxDbMain {
      */
     public static void testInfluxConnection() {
         String measurement = "Trailer";
-        InfluxConnection influxConnection = new InfluxConnection(null, null,"http://influxdb:8086", "ris","ONE_MONTH");
+        InfluxConnection influxConnection = new InfluxConnection(null, null,"http://influxdb:8086", "ris",null);
         HashMap<String, String> tag = new HashMap<>();
         tag.put("imei", "1232123EF");
         HashMap<String, Object> field = new HashMap<>();
-        for (int i = 0; i < 10; i++) {
+        int j = 0;
+        for (int i = 0; i < 10000; i++) {
             long time = System.currentTimeMillis();
             field.clear();
-            field.put("heartbeat", Math.abs(70 * Math.sin((double) time)));
-            field.put("speed", Math.abs(100 * Math.cos((double) time)));
+            field.put("panel", Math.abs(j * 0.1 + Math.random() * 5));
+            field.put("speed", Math.abs(j * 0.04  + Math.random() * 5));
+            field.put("moment", Math.abs(j * 0.08 + Math.random() * 5));
+            if (j++ > 1000) {
+                j--;
+            }
             System.out.println("Millis : " + time);
             influxConnection.insert(measurement, tag, field, time, TimeUnit.MILLISECONDS);
             try {
-                Thread.sleep(200);
+                Thread.sleep(10);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
         }
-        QueryResult qr = influxConnection.query("select * from \"ONE_DAY\".iwatch"); //  where \"imei\" = '1232123EF' and \"time\" > '2020-10-05T18:01:54.494+08:00' tz('Asia/Shanghai')"
-        List<QueryResult.Result> list = qr.getResults();
-        System.out.println("QueryResult Size : " + list.size());
-        for (QueryResult.Result r : list) {
-            System.out.println(r);
-        }
-        System.out.println();
-
-        int resultNum = 0;
-        for (QueryResult.Result r : list) {
-            resultNum++;
-            System.out.println("-------- " + resultNum + " --------");
-            List<QueryResult.Series> l = r.getSeries();
-            System.out.println("List Size : " + list.size());
-            System.out.println(l);
-            System.out.println();
-
-            for (QueryResult.Series s : l) {
-                System.out.println("name : " + s.getName());
-                System.out.println("columns : " + s.getColumns());
-                System.out.println("tags : " + s.getTags());
-                System.out.println("values : " + s.getValues());
-            }
-        }
+//        QueryResult qr = influxConnection.query("select * from \"ONE_DAY\".iwatch"); //  where \"imei\" = '1232123EF' and \"time\" > '2020-10-05T18:01:54.494+08:00' tz('Asia/Shanghai')"
+//        List<QueryResult.Result> list = qr.getResults();
+//        System.out.println("QueryResult Size : " + list.size());
+//        for (QueryResult.Result r : list) {
+//            System.out.println(r);
+//        }
+//        System.out.println();
+//
+//        int resultNum = 0;
+//        for (QueryResult.Result r : list) {
+//            resultNum++;
+//            System.out.println("-------- " + resultNum + " --------");
+//            List<QueryResult.Series> l = r.getSeries();
+//            System.out.println("List Size : " + list.size());
+//            System.out.println(l);
+//            System.out.println();
+//
+//            for (QueryResult.Series s : l) {
+//                System.out.println("name : " + s.getName());
+//                System.out.println("columns : " + s.getColumns());
+//                System.out.println("tags : " + s.getTags());
+//                System.out.println("values : " + s.getValues());
+//            }
+//        }
 
 
     }
