@@ -75,6 +75,9 @@ public class UserManage {
     @PreAuthorize("hasAnyRole('ROLE_SUPER_ADMIN', 'ROLE_ADMIN')")
     @PostMapping("/addDriver")
     public BaseResp<Map<String, Boolean>> addDriver(@RequestBody StaffCredentialsDto staffCredentialDto) {
+        if (staffCredentialDto.getIcCode() == null) {
+            return new BaseResp<>(ResultStatus.http_status_not_acceptable, "驾驶员信息缺失--IC卡");
+        }
         Map<String, Boolean> rtn = adminService.insertDriver(staffCredentialDto);
         if (rtn.get(staffCredentialDto.getName())) {
             return new BaseResp<>(ResultStatus.http_status_ok, "驾驶员插入成功", rtn);

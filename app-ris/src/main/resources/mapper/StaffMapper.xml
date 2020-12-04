@@ -5,6 +5,7 @@
     <id column="gid" jdbcType="BIGINT" property="gid" />
     <result column="real_name" jdbcType="VARCHAR" property="realName" />
     <result column="no" jdbcType="VARCHAR" property="no" />
+    <result column="ic_code" jdbcType="VARCHAR" property="icCode"/>
     <result column="position" jdbcType="VARCHAR" property="position" />
     <result column="tel" jdbcType="VARCHAR" property="tel" />
     <result column="email" jdbcType="VARCHAR" property="email" />
@@ -26,10 +27,10 @@
     where gid = #{gid,jdbcType=BIGINT}
   </delete>
   <insert id="insert" keyColumn="gid" keyProperty="gid" parameterType="abc.ney.armee.appris.dal.meta.po.Staff" useGeneratedKeys="true">
-    insert into staff (real_name, no, position, 
+    insert into staff (real_name, no, ic_code, position,
       tel, email,tel_area, gmt_create,
       gmt_update)
-    values (#{realName,jdbcType=VARCHAR}, #{no,jdbcType=VARCHAR}, #{position,jdbcType=VARCHAR}, 
+    values (#{realName,jdbcType=VARCHAR}, #{no,jdbcType=VARCHAR}, #{icCode,jdbcType=VARCHAR}, #{position,jdbcType=VARCHAR},
       #{tel,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR}, #{telArea,jdbcType=VARCHAR},
             NOW(), NOW())
   </insert>
@@ -41,6 +42,9 @@
       </if>
       <if test="no != null">
         no,
+      </if>
+      <if test="icCode != null">
+        ic_code,
       </if>
       <if test="position != null">
         position,
@@ -67,6 +71,9 @@
       </if>
       <if test="no != null">
         #{no,jdbcType=VARCHAR},
+      </if>
+      <if test="icCode != null">
+        #{icCode,jdbcType=VARCHAR},
       </if>
       <if test="position != null">
         #{position,jdbcType=VARCHAR},
@@ -97,6 +104,9 @@
       <if test="no != null">
         no = #{no,jdbcType=VARCHAR},
       </if>
+      <if test="icCode != null">
+        ic_code = #{icCode, jdbtType=VARCHAR},
+      </if>
       <if test="position != null">
         position = #{position,jdbcType=VARCHAR},
       </if>
@@ -122,6 +132,7 @@
     update staff
     set real_name = #{realName,jdbcType=VARCHAR},
       no = #{no,jdbcType=VARCHAR},
+      ic_code = #{icCode, jdbcType=VARCHAR},
       position = #{position,jdbcType=VARCHAR},
       tel = #{tel,jdbcType=VARCHAR},
       email = #{email,jdbcType=VARCHAR},

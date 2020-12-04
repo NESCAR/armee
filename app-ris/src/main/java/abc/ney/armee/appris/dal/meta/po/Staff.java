@@ -24,6 +24,8 @@ public class Staff implements Serializable {
 
     private String telArea;
 
+    private String icCode;
+
     private static final long serialVersionUID = 1L;
 
     public Staff() {
@@ -110,6 +112,13 @@ public class Staff implements Serializable {
         this.telArea = telArea == null ? null : telArea.trim();
     }
 
+    public String getIcCode() {
+        return icCode;
+    }
+
+    public void setIcCode(String icCode) {
+        this.icCode = icCode;
+    }
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
@@ -119,6 +128,7 @@ public class Staff implements Serializable {
         sb.append(", gid=").append(gid);
         sb.append(", realName=").append(realName);
         sb.append(", no=").append(no);
+        sb.append(",icCode=").append(icCode);
         sb.append(", position=").append(position);
         sb.append(", tel=").append(tel);
         sb.append(", email=").append(email);

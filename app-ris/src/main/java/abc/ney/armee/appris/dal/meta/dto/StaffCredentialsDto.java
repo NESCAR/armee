@@ -20,6 +20,10 @@ public class StaffCredentialsDto implements Serializable {
      */
     private String no;
     /**
+     * IC卡，如果有的话
+     */
+    private String icCode;
+    /**
      * 职位
      */
     private String position;
