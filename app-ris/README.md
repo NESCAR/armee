@@ -35,7 +35,10 @@ ctripcorp-apollo：Apollo配置中心
 # 阿里云短信服务的标签，效果【ARMEE物流管理】
 -Dsms.sign.name=ARMEE物流管理
 # 阿里云短信模版编号
--Dsms.template.code=SMS_204111562
+## 用于发送验证码
+-Dsms.template.validate-code=SMS_204111562
+## 用于发送提醒消息
+-Dsms.template.alarm=SMS_206535176
 # 阿里云accesskey id
 -Daliyun.accesskey.id=XXXX
 # 阿里云accesskey secret

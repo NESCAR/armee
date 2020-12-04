@@ -15,9 +15,11 @@ public class ExtConfiger {
      * 短信格式模版 template code，需要从阿里云申请
      * https://dysms.console.aliyun.com/dysms.htm?spm=5176.10695662.1128094.4.27b83583qxIJ2O#/quickStart
      */
-    public static final String SMS_TEMPLATE_CODE = "sms.template.code";
+    public static final String SMS_TEMPLATE_CODE_VALIDATE_CODE = "sms.template.code.validate-code";
     public static final String DEFAULT_SMS_TEMPLATE_CODE = "SMS_204111562";
 
+    public static final String SMS_TEMPLATE_CODE_ALARM = "sms.template.code.alarm";
+    public static final String DEFAULT_SMS_TEMPLATE_CODE_ALARM = "SMS_206535176";
     /**
      * accesskey id : LTAI4FykeyqB176bTzna47mm
      * accesskey secret : 2rd10iVClvX5xbkicLGCD8OzXMInjb

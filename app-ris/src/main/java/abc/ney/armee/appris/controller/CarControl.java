@@ -70,7 +70,7 @@ public class CarControl {
             return new BaseResp<>(ResultStatus.error_update_failed, "设备密码设置失败");
         }
         // 发送短息到司机
-        // TODO
+        // TODO 平台接收到resp后再进行短信发送
         log.info(String.format("!!在部署前请将SMS服务打开，发送可以开锁的信息到司机"));
 //        smsService.sendValidateCode(driver.getTel(), randomSixNum);
         // 发送上锁信息到设备

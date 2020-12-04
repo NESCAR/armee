@@ -19,19 +19,21 @@ public class SmsServiceImpl implements SmsService {
     String accessKeyId;
     String accessSecret;
     String sign;
-    String template;
+    String templateValidateCode;
+    String templateAlarm;
     public SmsServiceImpl() throws Exception {
         accessKeyId = System.getProperty(ExtConfiger.ALIYUN_ACCESSKEY_ID);
         accessSecret = System.getProperty(ExtConfiger.ALIYUN_ACCESSKEY_SECRET);
         sign = System.getProperty(ExtConfiger.SMS_SIGN_NAME);
-        template = System.getProperty(ExtConfiger.SMS_TEMPLATE_CODE);
+        templateValidateCode = System.getProperty(ExtConfiger.SMS_TEMPLATE_CODE_VALIDATE_CODE);
+        templateAlarm = System.getProperty(ExtConfiger.SMS_TEMPLATE_CODE_ALARM);
         if (accessKeyId == null || accessSecret == null) {
             throw new Exception("阿里云AccessKey ID或者AccessKey Secret未配置");
         }
         if (sign == null) {
             throw new Exception("短信标签未配置");
         }
-        if (template == null) {
+        if (templateValidateCode == null) {
             throw new Exception("短信模版未配置");
         }
     }
@@ -50,7 +52,7 @@ public class SmsServiceImpl implements SmsService {
         // 配置好的签名，必须在阿里云配置
         request.putQueryParameter("SignName", sign);
         // 配置好的模版，必须在阿里云配置
-        request.putQueryParameter("TemplateCode", template);
+        request.putQueryParameter("TemplateCode", templateValidateCode);
         // 验证码
         request.putQueryParameter("TemplateParam", genTemplateParam(code));
         try {
@@ -61,6 +63,12 @@ public class SmsServiceImpl implements SmsService {
         } catch (ClientException e) {
             e.printStackTrace();
         }
+        return true;
+    }
+
+    @Override
+    public boolean sendLockInfo(String tel, String start, String end, String license) {
+        // TODO 签名需要企业认证
         return true;
     }
 
