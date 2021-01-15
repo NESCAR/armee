@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="abc.ney.armee.appris.dal.mapper.tms.LockAuthInfoMapper">
+  <resultMap id="BaseResultMap" type="abc.ney.armee.appris.dal.meta.po.LockAuthInfo">
+    <id column="gid" jdbcType="BIGINT" property="gid" />
+    <result column="device_id" jdbcType="BIGINT" property="deviceId" />
+    <result column="start_time" jdbcType="TIMESTAMP" property="startTime" />
+    <result column="end_time" jdbcType="TIMESTAMP" property="endTime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    gid, device_id, start_time, end_time
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from lock_auth_info
+    where gid = #{gid,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from lock_auth_info
+    where gid = #{gid,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" keyColumn="gid" keyProperty="gid" parameterType="abc.ney.armee.appris.dal.meta.po.LockAuthInfo" useGeneratedKeys="true">
+    insert into lock_auth_info (device_id, start_time, end_time
+      )
+    values (#{deviceId,jdbcType=BIGINT}, #{startTime,jdbcType=TIMESTAMP}, #{endTime,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" keyColumn="gid" keyProperty="gid" parameterType="abc.ney.armee.appris.dal.meta.po.LockAuthInfo" useGeneratedKeys="true">
+    insert into lock_auth_info
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="deviceId != null">
+        device_id,
+      </if>
+      <if test="startTime != null">
+        start_time,
+      </if>
+      <if test="endTime != null">
+        end_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="deviceId != null">
+        #{deviceId,jdbcType=BIGINT},
+      </if>
+      <if test="startTime != null">
+        #{startTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="endTime != null">
+        #{endTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="abc.ney.armee.appris.dal.meta.po.LockAuthInfo">
+    update lock_auth_info
+    <set>
+      <if test="deviceId != null">
+        device_id = #{deviceId,jdbcType=BIGINT},
+      </if>
+      <if test="startTime != null">
+        start_time = #{startTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="endTime != null">
+        end_time = #{endTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where gid = #{gid,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="abc.ney.armee.appris.dal.meta.po.LockAuthInfo">
+    update lock_auth_info
+    set device_id = #{deviceId,jdbcType=BIGINT},
+      start_time = #{startTime,jdbcType=TIMESTAMP},
+      end_time = #{endTime,jdbcType=TIMESTAMP}
+    where gid = #{gid,jdbcType=BIGINT}
+  </update>
+</mapper>
