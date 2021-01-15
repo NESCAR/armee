@@ -62,8 +62,8 @@ public class CarControl {
             @ApiImplicitParam(name = "st", value = "开始时间", required = true),
             @ApiImplicitParam(name = "et", value = "结束时间", required = true)
     })
-    @PostMapping(value = "/lock")
-    public BaseResp<String> lock(Long deviceId, String st, String et) {
+    @PostMapping(value = "/addLockInfo")
+    public BaseResp<String> addLockInfo(Long deviceId, String st, String et) {
         Device device = carService.queryDeviceByGid(deviceId);
         Staff driver = carService.queryDriverByGid(device.getDriverGid());
         String icCode = driver.getIcCode();

@@ -16,6 +16,13 @@
     from lock_auth_info
     where gid = #{gid,jdbcType=BIGINT}
   </select>
+  <select id="countCoveredInfo" parameterType="abc.ney.armee.appris.dal.meta.po.LockAuthInfo" resultType="java.lang.Integer">
+    select count(gid) from lock_auth_info
+    where device_id=#{deviceId,jdbcType=BIGINT} and !(
+        DATE_SUB(start_time, INTERVAL 10 MINUTE) > #{endTime,jdbcType=TIMESTAMP} or
+        DATE_ADD(end_time, INTERVAL 10 MINUTE) &lt; #{startTime,jdbcType=TIMESTAMP}
+        )
+  </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
     delete from lock_auth_info
     where gid = #{gid,jdbcType=BIGINT}

@@ -1,14 +1,11 @@
 package abc.ney.armee.appris.service;
 
-import abc.ney.armee.appris.ApplicationBoot;
 import abc.ney.armee.appris.dal.meta.dto.StaffCredentialsDto;
 import abc.ney.armee.appris.dal.meta.po.AuthorityRole;
-import abc.ney.armee.appris.service.impl.AdminServiceImpl;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.test.context.junit4.SpringRunner;

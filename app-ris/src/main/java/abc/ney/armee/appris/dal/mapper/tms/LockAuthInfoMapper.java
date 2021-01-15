@@ -11,6 +11,13 @@ public interface LockAuthInfoMapper {
 
     LockAuthInfo selectByPrimaryKey(Long gid);
 
+    /**
+     * 查询范围覆盖的个数
+     * @param lockAuthInfo 查询的时间范围信息
+     * @return 覆盖个数
+     */
+    int countCoveredInfo(LockAuthInfo lockAuthInfo);
+
     int updateByPrimaryKeySelective(LockAuthInfo record);
 
     int updateByPrimaryKey(LockAuthInfo record);
