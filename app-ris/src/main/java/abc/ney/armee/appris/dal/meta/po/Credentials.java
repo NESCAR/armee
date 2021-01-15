@@ -5,6 +5,7 @@ import abc.ney.armee.appris.dal.meta.dto.StaffCredentialsDto;
 import java.io.Serializable;
 
 public class Credentials implements Serializable {
+
     private Long id;
 
     private Boolean enabled;
@@ -17,6 +18,8 @@ public class Credentials implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
+    public static final int VERSION = 1;
+    public static final Boolean ENABLE = true;
     public Credentials() {
 
     }

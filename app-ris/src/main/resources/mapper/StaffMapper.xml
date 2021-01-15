@@ -5,16 +5,16 @@
     <id column="gid" jdbcType="BIGINT" property="gid" />
     <result column="real_name" jdbcType="VARCHAR" property="realName" />
     <result column="no" jdbcType="VARCHAR" property="no" />
-    <result column="ic_code" jdbcType="VARCHAR" property="icCode"/>
     <result column="position" jdbcType="VARCHAR" property="position" />
     <result column="tel" jdbcType="VARCHAR" property="tel" />
     <result column="email" jdbcType="VARCHAR" property="email" />
     <result column="gmt_create" jdbcType="TIMESTAMP" property="gmtCreate" />
     <result column="gmt_update" jdbcType="TIMESTAMP" property="gmtUpdate" />
     <result column="tel_area" jdbcType="VARCHAR" property="telArea" />
+    <result column="ic_code" jdbcType="VARCHAR" property="icCode" />
   </resultMap>
   <sql id="Base_Column_List">
-    gid, real_name, no, position, tel, email, gmt_create, gmt_update, tel_area
+    gid, real_name, no, position, tel, email, gmt_create, gmt_update, tel_area, ic_code
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
     select 
@@ -27,12 +27,14 @@
     where gid = #{gid,jdbcType=BIGINT}
   </delete>
   <insert id="insert" keyColumn="gid" keyProperty="gid" parameterType="abc.ney.armee.appris.dal.meta.po.Staff" useGeneratedKeys="true">
-    insert into staff (real_name, no, ic_code, position,
-      tel, email,tel_area, gmt_create,
-      gmt_update)
-    values (#{realName,jdbcType=VARCHAR}, #{no,jdbcType=VARCHAR}, #{icCode,jdbcType=VARCHAR}, #{position,jdbcType=VARCHAR},
-      #{tel,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR}, #{telArea,jdbcType=VARCHAR},
-            NOW(), NOW())
+    insert into staff (real_name, no, position, 
+      tel, email, gmt_create, 
+      gmt_update, tel_area, ic_code
+      )
+    values (#{realName,jdbcType=VARCHAR}, #{no,jdbcType=VARCHAR}, #{position,jdbcType=VARCHAR}, 
+      #{tel,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR}, #{gmtCreate,jdbcType=TIMESTAMP}, 
+      #{gmtUpdate,jdbcType=TIMESTAMP}, #{telArea,jdbcType=VARCHAR}, #{icCode,jdbcType=VARCHAR}
+      )
   </insert>
   <insert id="insertSelective" keyColumn="gid" keyProperty="gid" parameterType="abc.ney.armee.appris.dal.meta.po.Staff" useGeneratedKeys="true">
     insert into staff
@@ -42,9 +44,6 @@
       </if>
       <if test="no != null">
         no,
-      </if>
-      <if test="icCode != null">
-        ic_code,
       </if>
       <if test="position != null">
         position,
@@ -64,6 +63,9 @@
       <if test="telArea != null">
         tel_area,
       </if>
+      <if test="icCode != null">
+        ic_code,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="realName != null">
@@ -71,9 +73,6 @@
       </if>
       <if test="no != null">
         #{no,jdbcType=VARCHAR},
-      </if>
-      <if test="icCode != null">
-        #{icCode,jdbcType=VARCHAR},
       </if>
       <if test="position != null">
         #{position,jdbcType=VARCHAR},
@@ -93,6 +92,9 @@
       <if test="telArea != null">
         #{telArea,jdbcType=VARCHAR},
       </if>
+      <if test="icCode != null">
+        #{icCode,jdbcType=VARCHAR},
+      </if>
     </trim>
   </insert>
   <update id="updateByPrimaryKeySelective" parameterType="abc.ney.armee.appris.dal.meta.po.Staff">
@@ -103,9 +105,6 @@
       </if>
       <if test="no != null">
         no = #{no,jdbcType=VARCHAR},
-      </if>
-      <if test="icCode != null">
-        ic_code = #{icCode, jdbtType=VARCHAR},
       </if>
       <if test="position != null">
         position = #{position,jdbcType=VARCHAR},
@@ -125,6 +124,9 @@
       <if test="telArea != null">
         tel_area = #{telArea,jdbcType=VARCHAR},
       </if>
+      <if test="icCode != null">
+        ic_code = #{icCode,jdbcType=VARCHAR},
+      </if>
     </set>
     where gid = #{gid,jdbcType=BIGINT}
   </update>
@@ -132,13 +134,13 @@
     update staff
     set real_name = #{realName,jdbcType=VARCHAR},
       no = #{no,jdbcType=VARCHAR},
-      ic_code = #{icCode, jdbcType=VARCHAR},
       position = #{position,jdbcType=VARCHAR},
       tel = #{tel,jdbcType=VARCHAR},
       email = #{email,jdbcType=VARCHAR},
       gmt_create = #{gmtCreate,jdbcType=TIMESTAMP},
       gmt_update = #{gmtUpdate,jdbcType=TIMESTAMP},
-      tel_area = #{telArea,jdbcType=VARCHAR}
+      tel_area = #{telArea,jdbcType=VARCHAR},
+      ic_code = #{icCode,jdbcType=VARCHAR}
     where gid = #{gid,jdbcType=BIGINT}
   </update>
 </mapper>

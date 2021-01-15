@@ -11,9 +11,9 @@ public interface CredentialsMapper {
 
     int insertSelective(Credentials record);
 
-    List<Credentials> selectByName(String name);
-
     Credentials selectByPrimaryKey(Long id);
+
+    List<Credentials> selectByNameLimit1(String name);
 
     int updateByPrimaryKeySelective(Credentials record);
 

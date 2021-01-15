@@ -9,6 +9,9 @@ public class CredentialsAuthorities implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
+    public CredentialsAuthorities(){
+        super();
+    }
     public CredentialsAuthorities(Long cid, Long aid) {
         this.credentialsId = cid;
         this.authoritiesId = aid;

@@ -18,6 +18,7 @@ public class LocationUploadRequestMsgBodyMapper implements InfluxMapper {
     public Map<String, Object> fields(Object msg, boolean of) {
         checkType(msg);
         Map<String, Object> map = MapMsgConvertUtils.objectToMap(msg);
+        System.out.println(map.toString());
         // 移除 传感数据外的无关数据
         if (of) {
             map.remove(time);

@@ -61,6 +61,8 @@ public class TsdbServiceImpl implements TsdbService {
     @Autowired
     public TsdbServiceImpl(InfluxMapperRegister imr) {
         influxMapperRegister = imr;
+        log.info("TSDB Service Created");
+        log.info("InfluxMapperRegister : " + imr.toString());
     }
     @Override
     public void insert(MsgKey mk, Object o) {
@@ -77,7 +79,7 @@ public class TsdbServiceImpl implements TsdbService {
                     Map<String, Object> fields = im.fields(o, REMAIN_FIELDS_ONLY);
                     Map<String, String> tags = new HashMap<>();
 //                    long t = Long.parseLong(im.getTime(o));
-                    long t = TimeConverter.rcf3339ToLong(im.getTime(o));
+                    long t = TimeConverter.RFC3339ToLong(im.getTime(o));
                     tags.put(TERMINAL_ID_TAG, mk.getTerminalId());
                     ic.insert(MEASUREMENT, tags, fields, t, TIME_UNIT);
                 } else {

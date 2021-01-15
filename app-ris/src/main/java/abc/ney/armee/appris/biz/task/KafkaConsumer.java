@@ -1,7 +1,6 @@
 package abc.ney.armee.appris.biz.task;
 
 import abc.ney.armee.appris.service.TsdbService;
-import abc.ney.armee.appris.service.impl.AdminServiceImpl;
 import icu.nescar.armee.jet.broker.config.Jt808MsgType;
 import icu.nescar.armee.jet.broker.ext.conf.ConfArguments;
 import icu.nescar.armee.jet.broker.ext.consumer.kafka.KafkaConsumerImpl;
@@ -18,7 +17,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.time.Duration;
-import java.util.*;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
+import java.util.Optional;
 
 /**
  * Kafka消费者
@@ -33,6 +35,8 @@ public class KafkaConsumer extends KafkaConsumerImpl<ConsumerRecord<MsgKey, byte
     @Autowired
     public KafkaConsumer(TsdbService tsdbService) {
         super(ConfArguments.KAFKA_TOPIC_DATA);
+        log.info("Creating KafkaConsumer");
+        log.info("TsdbService : " + tsdbService.toString());
         tsi = tsdbService;
         log.info("KafkaConsumer Task Created...");
         start = true;
@@ -77,6 +81,7 @@ public class KafkaConsumer extends KafkaConsumerImpl<ConsumerRecord<MsgKey, byte
         Optional<MsgType> jmt = Jt808MsgType.CLIENT_AUTH.parseFromInt(msgId);
         if (jmt.isPresent()) {
             try {
+                // TODO 把influxdb打开
                 tsi.insert(mk, SerializationUtil.deserialize(byteMsg));
             } catch (Exception e) {
                 e.printStackTrace();

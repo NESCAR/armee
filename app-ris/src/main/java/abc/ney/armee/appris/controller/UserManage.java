@@ -1,6 +1,8 @@
 package abc.ney.armee.appris.controller;
 
 import abc.ney.armee.appris.dal.meta.dto.StaffCredentialsDto;
+import abc.ney.armee.appris.dal.meta.po.Credentials;
+import abc.ney.armee.appris.dal.meta.po.Staff;
 import abc.ney.armee.appris.dal.meta.vo.StaffVo;
 import abc.ney.armee.appris.service.AdminService;
 import abc.ney.armee.enginee.net.http.ResultStatus;
@@ -13,6 +15,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 /**
  * 用户管理Controller
@@ -93,7 +96,6 @@ public class UserManage {
         List<StaffVo> adminList = adminService.queryAdmin();
         return new BaseResp<>(ResultStatus.http_status_ok, "管理员信息", adminList);
     }
-
     @ApiOperation(value = "查询司机", tags = {"用户管理"}, notes = "查询管理员")
     @PreAuthorize("hasAnyRole('ROLE_SUPER_ADMIN', 'ROLE_ADMIN')")
     @GetMapping("/queryDriver")
@@ -101,6 +103,53 @@ public class UserManage {
         List<StaffVo> driverList = adminService.queryDriver();
         return new BaseResp<>(ResultStatus.http_status_ok, "司机信息", driverList);
     }
+
+    @ApiOperation(value = "更新管理员", tags = {"用户管理"}, notes = "更新管理员")
+    @PreAuthorize("hasRole('ROLE_SUPER_ADMIN')")
+    @GetMapping("/updateAdmin")
+    public BaseResp<Map<Long, Boolean>> updateAdmin(@RequestBody StaffCredentialsDto staffCredentialsDto) {
+        Map<Long, Boolean> res = adminService.updateAdmin(staffCredentialsDto);
+        Set<Map.Entry<Long, Boolean>> set = res.entrySet();
+        for (Map.Entry<Long, Boolean> e : set) {
+            // 插入失败
+            if (!e.getValue()) {
+                return new BaseResp<>(ResultStatus.error_update_failed, "修改失败", res);
+            }
+        }
+        return new BaseResp<>(ResultStatus.http_status_ok, "修改成功", res);
+    }
+    @ApiOperation(value = "更新司机", tags = {"用户管理"}, notes = "更新管理员")
+    @PreAuthorize("hasAnyRole('ROLE_SUPER_ADMIN', 'ROLE_ADMIN')")
+    @GetMapping("/updateDriver")
+    public BaseResp<Map<Long, Boolean>> updateDriver(@RequestBody StaffCredentialsDto staffCredentialsDto) {
+        Map<Long, Boolean> res = adminService.updateDriver(staffCredentialsDto);
+        Set<Map.Entry<Long, Boolean>> set = res.entrySet();
+        for (Map.Entry<Long, Boolean> e : set) {
+            // 插入失败
+            if (!e.getValue()) {
+                return new BaseResp<>(ResultStatus.error_update_failed, "修改失败", res);
+            }
+        }
+        return new BaseResp<>(ResultStatus.http_status_ok, "修改成功", res);
+    }
+
+    @ApiOperation(value = "删除管理员", tags = {"用户管理"}, notes = "更新管理员")
+    @PreAuthorize("hasAnyRole('ROLE_SUPER_ADMIN')")
+    @GetMapping("/deleteAdmin")
+    public BaseResp<Map<Long, Boolean>> deleteAdmin(@RequestBody List<Long> deleteId) {
+        Map<Long, Boolean> res = null;
+        return new BaseResp<>(ResultStatus.http_status_ok, "", res);
+    }
+
+
+    @ApiOperation(value = "删除司机", tags = {"用户管理"}, notes = "更新管理员")
+    @PreAuthorize("hasAnyRole('ROLE_SUPER_ADMIN', 'ROLE_ADMIN')")
+    @GetMapping("/deleteDriver")
+    public BaseResp<Map<Long, Boolean>> deleteDrive(@RequestBody List<Long> deleteId) {
+        Map<Long, Boolean> res = null;
+        return new BaseResp<>(ResultStatus.http_status_ok, "", res);
+    }
+
     @Autowired
     private void setAdminService(AdminService adminService) {
         this.adminService = adminService;

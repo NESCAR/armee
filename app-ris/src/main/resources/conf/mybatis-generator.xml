@@ -66,7 +66,7 @@
 <!--               selectByExampleQueryId="false">-->
 <!--            <property name="useActualColumnNames" value="false"/>-->
 <!--        </table>-->
-<!--        <table tableName="credentialsAuthority" domainObjectName="Credentials" enableCountByExample="false"-->
+<!--        <table tableName="credentials" domainObjectName="Credentials" enableCountByExample="false"-->
 <!--               enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false"-->
 <!--               selectByExampleQueryId="false">-->
 <!--            <property name="useActualColumnNames" value="false"/>-->
@@ -93,21 +93,24 @@
 <!--               selectByExampleQueryId="false">-->
 <!--            <property name="useActualColumnNames" value="false"/>-->
 <!--        </table>-->
-<!--        <table tableName="oauth_client_details_staff" domainObjectName="OauthClientDetailsStaff" enableCountByExample="false"-->
+<!--        <table tableName="credentials_staff" domainObjectName="CredentialsStaff" enableCountByExample="false"-->
 <!--               enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false"-->
-<!--               selectByExampleQueryId="false">-->
+<!--               selectByExampleQueryId="false" >-->
+
 <!--            <property name="useActualColumnNames" value="false"/>-->
+<!--            <generatedKey column="credential_id" sqlStatement="JDBC" identity="true"/>-->
 <!--        </table>-->
 <!--        <table tableName="oauth_refresh_token" domainObjectName="OauthRefreshToken" enableCountByExample="false"-->
 <!--               enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false"-->
 <!--               selectByExampleQueryId="false">-->
 <!--            <property name="useActualColumnNames" value="false"/>-->
 <!--        </table>-->
-        <table tableName="staff" domainObjectName="Staff" enableCountByExample="false"
-               enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false"
-               selectByExampleQueryId="false">
-            <property name="useActualColumnNames" value="false"/>
-            <generatedKey column="gid" sqlStatement="JDBC" identity="true"/>
-        </table>
+
+<!--        <table tableName="staff" domainObjectName="Staff" enableCountByExample="false"-->
+<!--               enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false"-->
+<!--               selectByExampleQueryId="false">-->
+<!--            <property name="useActualColumnNames" value="false"/>-->
+<!--            <generatedKey column="gid" sqlStatement="JDBC" identity="true"/>-->
+<!--        </table>-->
     </context>
 </generatorConfiguration>

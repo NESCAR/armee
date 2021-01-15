@@ -3,6 +3,7 @@ package abc.ney.armee.appris.dal.mapper.msgmap;
 import io.github.hylexus.jt.data.msg.MsgType;
 import io.github.hylexus.jt808.support.MsgHandlerMapping;
 import lombok.NonNull;
+import lombok.ToString;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
@@ -18,6 +19,7 @@ import java.util.function.Supplier;
  * @author neyzoter
  */
 @Component
+@ToString
 public class InfluxMapperRegister {
     private static final Logger log = LoggerFactory.getLogger(MsgHandlerMapping.class);
     private final Map<Integer, InfluxMapper> register;

@@ -5,6 +5,7 @@ import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.oauth2.provider.client.JdbcClientDetailsService;
 import org.springframework.stereotype.Service;
 
 /**
@@ -20,7 +21,8 @@ public class JdbcUserDetails implements UserDetailsService {
      */
     @Autowired
     private CredentialsDao credentialsDao;
-
+    // jdbc操作oauth_client_details
+//    JdbcClientDetailsService jdbcClientDetailsService;
     /**
      * 根据用户名来获取User
      * @param username 用户名

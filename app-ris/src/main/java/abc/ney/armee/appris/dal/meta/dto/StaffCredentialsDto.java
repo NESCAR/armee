@@ -1,5 +1,6 @@
 package abc.ney.armee.appris.dal.meta.dto;
 
+import abc.ney.armee.appris.dal.meta.po.Staff;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -11,6 +12,10 @@ import java.io.Serializable;
 @ToString
 public class StaffCredentialsDto implements Serializable {
     private static final long serialVersionUID = 1003738692285975338L;
+    /**
+     * staff 的gid
+     */
+    private Long staffGid;
     /**
      * 真实姓名
      */
@@ -47,4 +52,24 @@ public class StaffCredentialsDto implements Serializable {
      * 密码
      */
     private String password;
+
+    /**
+     * 权限
+     * @see abc.ney.armee.appris.dal.meta.po.AuthorityRole
+     */
+    private String authority;
+
+    /**
+     * 转化为Staff
+     * @return Staff
+     */
+    public Staff toStaff() {
+        Staff staff = new Staff();
+        staff.setTel(this.getTel());staff.setTelArea(this.getTelArea());
+        staff.setRealName(this.getRealName());staff.setIcCode(this.getIcCode());
+        staff.setPosition(this.getPosition());staff.setNo(this.getNo());
+        staff.setGid(this.getStaffGid());staff.setEmail(this.getEmail());
+        System.out.println(staff.toString());
+        return staff;
+    }
 }

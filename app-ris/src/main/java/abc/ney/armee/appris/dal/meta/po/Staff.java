@@ -1,7 +1,5 @@
 package abc.ney.armee.appris.dal.meta.po;
 
-import abc.ney.armee.appris.dal.meta.dto.StaffCredentialsDto;
-
 import java.io.Serializable;
 import java.util.Date;
 
@@ -27,18 +25,6 @@ public class Staff implements Serializable {
     private String icCode;
 
     private static final long serialVersionUID = 1L;
-
-    public Staff() {
-
-    }
-
-    public Staff(StaffCredentialsDto staffCredentialsDto) {
-        realName = staffCredentialsDto.getRealName();
-        no = staffCredentialsDto.getNo();
-        position = staffCredentialsDto.getPosition();
-        telArea = staffCredentialsDto.getTelArea();
-        tel = staffCredentialsDto.getTel();
-    }
 
     public Long getGid() {
         return gid;
@@ -117,8 +103,9 @@ public class Staff implements Serializable {
     }
 
     public void setIcCode(String icCode) {
-        this.icCode = icCode;
+        this.icCode = icCode == null ? null : icCode.trim();
     }
+
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
@@ -128,13 +115,13 @@ public class Staff implements Serializable {
         sb.append(", gid=").append(gid);
         sb.append(", realName=").append(realName);
         sb.append(", no=").append(no);
-        sb.append(",icCode=").append(icCode);
         sb.append(", position=").append(position);
         sb.append(", tel=").append(tel);
         sb.append(", email=").append(email);
         sb.append(", gmtCreate=").append(gmtCreate);
         sb.append(", gmtUpdate=").append(gmtUpdate);
         sb.append(", telArea=").append(telArea);
+        sb.append(", icCode=").append(icCode);
         sb.append("]");
         return sb.toString();
     }

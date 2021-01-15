@@ -17,6 +17,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import java.util.HashMap;
 import java.util.Random;
 
 /**
@@ -54,6 +55,7 @@ public class CarControl {
         southwardCmdService.sendLockInfo(device.getImei(), String.valueOf(driver.getGid()), randomSixNum, st, et);
         return new BaseResp<>(ResultStatus.http_status_ok);
     }
+    // TODO et更改为时间偏移
     @ApiOperation(value = "汽车上锁，需要通过IC卡解锁", tags = {"汽车控制"}, notes = "汽车上锁")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "deviceId", value = "设备gid", required = true),
@@ -65,9 +67,11 @@ public class CarControl {
         Device device = carService.queryDeviceByGid(deviceId);
         Staff driver = carService.queryDriverByGid(device.getDriverGid());
         String icCode = driver.getIcCode();
+        HashMap<String, String> res = new HashMap<>();
+        res.put("deviceId", deviceId.toString());res.put("st", st);res.put("et", et);
         if (!carService.updateDevicePsw(deviceId, icCode)) {
             log.info("设备密码设置失败");
-            return new BaseResp<>(ResultStatus.error_update_failed, "设备密码设置失败");
+            return new BaseResp<>(ResultStatus.error_update_failed, "设备密码设置失败", res.toString());
         }
         // 发送短息到司机
         // TODO 平台接收到resp后再进行短信发送
@@ -75,7 +79,23 @@ public class CarControl {
 //        smsService.sendValidateCode(driver.getTel(), randomSixNum);
         // 发送上锁信息到设备
         southwardCmdService.sendLockInfo(device.getImei(), String.valueOf(driver.getGid()), icCode, st, et);
-        return new BaseResp<>(ResultStatus.http_status_ok);
+        return new BaseResp<>(ResultStatus.http_status_ok, "设备上锁信息下发成功", res.toString());
+    }
+    @ApiOperation(value = "汽车立即上锁，需要通过IC卡解锁", tags = {"汽车控制"}, notes = "汽车上锁")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "deviceId", value = "设备gid", required = true)
+    })
+    @PostMapping(value = "/lockIm")
+    public BaseResp<String> lockIm(Long deviceId) {
+
+        // 发送短息到司机
+        // TODO 平台接收到resp后再进行短信发送
+        log.info(String.format("!!在部署前请将SMS服务打开，发送可以开锁的信息到司机"));
+//        smsService.sendValidateCode(driver.getTel(), randomSixNum);
+        // 发送上锁信息到设备
+//        southwardCmdService.sendLockInfo(device.getImei(), String.valueOf(driver.getGid()), icCode, st, et);
+        return new BaseResp<>(ResultStatus.http_status_ok, "设备ID : " +
+                deviceId);
     }
 
     @Autowired

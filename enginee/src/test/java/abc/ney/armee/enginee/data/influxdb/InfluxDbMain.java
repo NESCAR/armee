@@ -20,7 +20,7 @@ public class InfluxDbMain {
      */
     public static void testInfluxConnection() {
         String measurement = "Trailer";
-        InfluxConnection influxConnection = new InfluxConnection(null, null,"http://influxdb:8086", "ris",null);
+        InfluxConnection influxConnection = new InfluxConnection(null, null,"http://influxdb:8086", "ris","ONE_MONTH");
         HashMap<String, String> tag = new HashMap<>();
         tag.put("imei", "1232123EF");
         HashMap<String, Object> field = new HashMap<>();

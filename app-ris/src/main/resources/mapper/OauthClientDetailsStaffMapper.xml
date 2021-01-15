@@ -28,4 +28,7 @@
       </if>
     </trim>
   </insert>
+  <select id="selectByStaffGid" parameterType="java.lang.Long">
+    select * from oauth_client_details_staff where staff_id = #{staffId, jdbcType=BIGINT} limit 1
+  </select>
 </mapper>

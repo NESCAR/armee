@@ -22,7 +22,7 @@ import java.util.Set;
 public class TestTsdbServiceImpl {
     public static void main(String[] args) {
         TestTsdbServiceImpl impl = new TestTsdbServiceImpl();
-        impl.testSqlGen();
+        impl.testInsert();
     }
 
     /**
