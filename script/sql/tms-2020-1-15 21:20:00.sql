@@ -134,16 +134,16 @@ CREATE TABLE `device` (
   `imsi` varchar(32) NOT NULL COMMENT 'IMSI',
   `psw` varchar(255) DEFAULT NULL COMMENT '设备密码/或者是IC信息，对应到一个挂车',
   `lock_status` int(2) DEFAULT '1' COMMENT '上锁状态，1：上锁；0：未上锁',
-  `lock_start_time` datetime(6) DEFAULT NULL COMMENT '上锁开始时间，只有lock_status为1时有效',
-  `lock_end_time` datetime(6) DEFAULT NULL COMMENT '上锁结束时间，只有lock_status为1时有效',
+  `lock_start_time` timestamp DEFAULT NULL COMMENT '上锁开始时间，只有lock_status为1时有效',
+  `lock_end_time` timestamp DEFAULT NULL COMMENT '上锁结束时间，只有lock_status为1时有效',
   `license_plate` varchar(16) DEFAULT NULL COMMENT '车牌号',
   `driver_gid` bigint(20) unsigned DEFAULT NULL COMMENT '驾驶员唯一id',
-  `gmt_create` datetime(6) DEFAULT NULL COMMENT '创建时间',
-  `gmt_update` datetime(6) DEFAULT NULL COMMENT '更改时间',
+  `gmt_create` timestamp(6) DEFAULT NULL COMMENT '创建时间',
+  `gmt_update` timestamp(6) DEFAULT NULL COMMENT '更改时间',
   PRIMARY KEY (`gid`),
   KEY `driver_gid_cons` (`driver_gid`),
   CONSTRAINT `driver_gid_cons` FOREIGN KEY (`driver_gid`) REFERENCES `staff` (`gid`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -152,6 +152,7 @@ CREATE TABLE `device` (
 
 LOCK TABLES `device` WRITE;
 /*!40000 ALTER TABLE `device` DISABLE KEYS */;
+INSERT INTO `device` VALUES (1,'123','123','123',0,NULL,NULL,'浙A 123456',NULL,'2021-01-15 20:32:34.000000','2021-01-15 20:32:36.000000');
 /*!40000 ALTER TABLE `device` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -170,7 +171,7 @@ CREATE TABLE `lock_auth_info` (
   PRIMARY KEY (`gid`),
   KEY `lock_auth_info_device_cons` (`device_id`),
   CONSTRAINT `lock_auth_info_device_cons` FOREIGN KEY (`device_id`) REFERENCES `device` (`gid`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -179,6 +180,7 @@ CREATE TABLE `lock_auth_info` (
 
 LOCK TABLES `lock_auth_info` WRITE;
 /*!40000 ALTER TABLE `lock_auth_info` DISABLE KEYS */;
+INSERT INTO `lock_auth_info` VALUES (1,1,'2021-01-15 13:31:17','2021-01-15 14:31:24');
 /*!40000 ALTER TABLE `lock_auth_info` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -279,8 +281,8 @@ CREATE TABLE `staff` (
   `position` varchar(255) DEFAULT NULL COMMENT '职位',
   `tel` varchar(32) NOT NULL COMMENT '手机号',
   `email` varchar(128) DEFAULT NULL COMMENT '邮箱',
-  `gmt_create` datetime(6) DEFAULT NULL COMMENT '创建时间',
-  `gmt_update` datetime(6) DEFAULT NULL COMMENT '更新时间',
+  `gmt_create` timestamp(6) DEFAULT NULL COMMENT '创建时间',
+  `gmt_update` timestamp(6) DEFAULT NULL COMMENT '更新时间',
   `tel_area` varchar(16) DEFAULT '86' COMMENT '手机号区号',
   `ic_code` varchar(255) DEFAULT NULL COMMENT 'ic卡信息(如果有的话)',
   PRIMARY KEY (`gid`)
@@ -306,4 +308,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2021-01-15 18:48:04
+-- Dump completed on 2021-01-15 21:25:01
