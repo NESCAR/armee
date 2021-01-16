@@ -32,8 +32,8 @@
       gmt_update, tel_area, ic_code
       )
     values (#{realName,jdbcType=VARCHAR}, #{no,jdbcType=VARCHAR}, #{position,jdbcType=VARCHAR}, 
-      #{tel,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR}, #{gmtCreate,jdbcType=TIMESTAMP}, 
-      #{gmtUpdate,jdbcType=TIMESTAMP}, #{telArea,jdbcType=VARCHAR}, #{icCode,jdbcType=VARCHAR}
+      #{tel,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR}, now(),
+      now(), #{telArea,jdbcType=VARCHAR}, #{icCode,jdbcType=VARCHAR}
       )
   </insert>
   <insert id="insertSelective" keyColumn="gid" keyProperty="gid" parameterType="abc.ney.armee.appris.dal.meta.po.Staff" useGeneratedKeys="true">

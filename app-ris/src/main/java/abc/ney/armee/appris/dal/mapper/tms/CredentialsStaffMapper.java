@@ -16,4 +16,6 @@ public interface CredentialsStaffMapper {
     List<Long> deleteByCredentialsIdList(List<Long> credentialsId);
 
     Long deleteByCredentialId(Long credentialId);
+
+    Long deleteByStaffId(Long staffId);
 }

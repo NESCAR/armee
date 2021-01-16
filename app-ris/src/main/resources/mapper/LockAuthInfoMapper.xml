@@ -4,11 +4,13 @@
   <resultMap id="BaseResultMap" type="abc.ney.armee.appris.dal.meta.po.LockAuthInfo">
     <id column="gid" jdbcType="BIGINT" property="gid" />
     <result column="device_id" jdbcType="BIGINT" property="deviceId" />
+    <result column="driver_id" jdbcType="BIGINT" property="driverId" />
     <result column="start_time" jdbcType="TIMESTAMP" property="startTime" />
     <result column="end_time" jdbcType="TIMESTAMP" property="endTime" />
+    <result column="downed" jdbcType="BOOLEAN" property="downed" />
   </resultMap>
   <sql id="Base_Column_List">
-    gid, device_id, start_time, end_time
+    gid, device_id, driver_id, start_time, end_time, downed
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
     select 
@@ -16,28 +18,32 @@
     from lock_auth_info
     where gid = #{gid,jdbcType=BIGINT}
   </select>
-  <select id="countCoveredInfo" parameterType="abc.ney.armee.appris.dal.meta.po.LockAuthInfo" resultType="java.lang.Integer">
-    select count(gid) from lock_auth_info
-    where device_id=#{deviceId,jdbcType=BIGINT} and !(
-        DATE_SUB(start_time, INTERVAL 10 MINUTE) > #{endTime,jdbcType=TIMESTAMP} or
-        DATE_ADD(end_time, INTERVAL 10 MINUTE) &lt; #{startTime,jdbcType=TIMESTAMP}
-        )
+
+  <select id="selectDownloadInfoOfDevices" resultMap="java.util.List">
+    select <include refid="Base_Column_List"/>
+    from lock_auth_info
+    where downed = false and DATE_SUB(start_time, INTERVAL 10 MINUTE) &lt; now() and
+          end_time > now()
   </select>
+
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
     delete from lock_auth_info
     where gid = #{gid,jdbcType=BIGINT}
   </delete>
   <insert id="insert" keyColumn="gid" keyProperty="gid" parameterType="abc.ney.armee.appris.dal.meta.po.LockAuthInfo" useGeneratedKeys="true">
-    insert into lock_auth_info (device_id, start_time, end_time
-      )
-    values (#{deviceId,jdbcType=BIGINT}, #{startTime,jdbcType=TIMESTAMP}, #{endTime,jdbcType=TIMESTAMP}
-      )
+    insert into lock_auth_info (device_id, driver_id, start_time, 
+      end_time)
+    values (#{deviceId,jdbcType=BIGINT}, #{driverId,jdbcType=BIGINT}, #{startTime,jdbcType=TIMESTAMP}, 
+      #{endTime,jdbcType=TIMESTAMP})
   </insert>
   <insert id="insertSelective" keyColumn="gid" keyProperty="gid" parameterType="abc.ney.armee.appris.dal.meta.po.LockAuthInfo" useGeneratedKeys="true">
     insert into lock_auth_info
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="deviceId != null">
         device_id,
+      </if>
+      <if test="driverId != null">
+        driver_id,
       </if>
       <if test="startTime != null">
         start_time,
@@ -49,6 +55,9 @@
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="deviceId != null">
         #{deviceId,jdbcType=BIGINT},
+      </if>
+      <if test="driverId != null">
+        #{driverId,jdbcType=BIGINT},
       </if>
       <if test="startTime != null">
         #{startTime,jdbcType=TIMESTAMP},
@@ -64,6 +73,9 @@
       <if test="deviceId != null">
         device_id = #{deviceId,jdbcType=BIGINT},
       </if>
+      <if test="driverId != null">
+        driver_id = #{driverId,jdbcType=BIGINT},
+      </if>
       <if test="startTime != null">
         start_time = #{startTime,jdbcType=TIMESTAMP},
       </if>
@@ -76,8 +88,17 @@
   <update id="updateByPrimaryKey" parameterType="abc.ney.armee.appris.dal.meta.po.LockAuthInfo">
     update lock_auth_info
     set device_id = #{deviceId,jdbcType=BIGINT},
+      driver_id = #{driverId,jdbcType=BIGINT},
       start_time = #{startTime,jdbcType=TIMESTAMP},
       end_time = #{endTime,jdbcType=TIMESTAMP}
     where gid = #{gid,jdbcType=BIGINT}
   </update>
+
+  <select id="countCoveredInfo" parameterType="abc.ney.armee.appris.dal.meta.po.LockAuthInfo" resultType="java.lang.Integer">
+    select count(gid) from lock_auth_info
+    where device_id=#{deviceId,jdbcType=BIGINT} and !(
+          DATE_SUB(start_time, INTERVAL 10 MINUTE) > #{endTime,jdbcType=TIMESTAMP} or
+          DATE_ADD(end_time, INTERVAL 10 MINUTE) &lt; #{startTime,jdbcType=TIMESTAMP}
+      )
+  </select>
 </mapper>

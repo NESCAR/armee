@@ -1,6 +1,7 @@
 package abc.ney.armee.appris.service;
 
 import abc.ney.armee.appris.dal.meta.dto.StaffCredentialsDto;
+import abc.ney.armee.appris.dal.meta.po.Staff;
 import abc.ney.armee.appris.dal.meta.vo.StaffVo;
 
 import java.util.List;
@@ -37,6 +38,13 @@ public interface AdminService {
      * @return 司机列表
      */
     List<StaffVo> queryDriver();
+
+    /**
+     * 查询司机信息
+     * @param driverId 司机唯一ID
+     * @return 司机信息
+     */
+    Staff queryDriver(Long driverId);
     /**
      * 更新管理员信息<br>
      * 包括更新staff credential credentials_staff credentials_authorities
@@ -49,8 +57,8 @@ public interface AdminService {
      * 更新司机信息<br>
      * 包括staff credential credentials_staff credentials_authorities<br>
      * @apiNote 超级管理员和管理员均可操作，但是最多升级到管理员
-     * @param staffCredentialsDto
-     * @return
+     * @param staffCredentialsDto staffCredentialsDto
+     * @return 是否更新成功
      */
     Map<Long, Boolean> updateDriver(StaffCredentialsDto staffCredentialsDto);
 

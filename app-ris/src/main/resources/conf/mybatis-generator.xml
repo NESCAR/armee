@@ -112,11 +112,11 @@
 <!--            <property name="useActualColumnNames" value="false"/>-->
 <!--            <generatedKey column="gid" sqlStatement="JDBC" identity="true"/>-->
 <!--        </table>-->
-<!--            <table tableName="lock_auth_info" domainObjectName="LockAuthInfo" enableCountByExample="false"-->
-<!--                   enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false"-->
-<!--                   selectByExampleQueryId="false">-->
-<!--                <property name="useActualColumnNames" value="false"/>-->
-<!--                <generatedKey column="gid" sqlStatement="JDBC" identity="true"/>-->
-<!--            </table>-->
+            <table tableName="lock_auth_info" domainObjectName="LockAuthInfo" enableCountByExample="false"
+                   enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false"
+                   selectByExampleQueryId="false">
+                <property name="useActualColumnNames" value="false"/>
+                <generatedKey column="gid" sqlStatement="JDBC" identity="true"/>
+            </table>
     </context>
 </generatorConfiguration>

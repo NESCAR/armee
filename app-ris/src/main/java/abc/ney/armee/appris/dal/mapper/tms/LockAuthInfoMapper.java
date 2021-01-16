@@ -2,6 +2,8 @@ package abc.ney.armee.appris.dal.mapper.tms;
 
 import abc.ney.armee.appris.dal.meta.po.LockAuthInfo;
 
+import java.util.List;
+
 public interface LockAuthInfoMapper {
     int deleteByPrimaryKey(Long gid);
 
@@ -10,7 +12,6 @@ public interface LockAuthInfoMapper {
     int insertSelective(LockAuthInfo record);
 
     LockAuthInfo selectByPrimaryKey(Long gid);
-
     /**
      * 查询范围覆盖的个数
      * @param lockAuthInfo 查询的时间范围信息
@@ -21,4 +22,12 @@ public interface LockAuthInfoMapper {
     int updateByPrimaryKeySelective(LockAuthInfo record);
 
     int updateByPrimaryKey(LockAuthInfo record);
+
+    /**
+     * 找到在当前时间下，需要发送的时间。满足以下条件：<br>
+     * （1）starttime - 10min < now()<br>
+     * （2）endtime > now()
+     * @return 所有设备的需要下发的授权时间信息
+     */
+    List<LockAuthInfo> selectDownloadInfoOfDevices();
 }

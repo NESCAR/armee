@@ -8,9 +8,13 @@ public class LockAuthInfo implements Serializable {
 
     private Long deviceId;
 
+    private Long driverId;
+
     private Date startTime;
 
     private Date endTime;
+
+    private Boolean downed;
 
     private static final long serialVersionUID = 1L;
 
@@ -30,6 +34,14 @@ public class LockAuthInfo implements Serializable {
         this.deviceId = deviceId;
     }
 
+    public Long getDriverId() {
+        return driverId;
+    }
+
+    public void setDriverId(Long driverId) {
+        this.driverId = driverId;
+    }
+
     public Date getStartTime() {
         return startTime;
     }
@@ -46,6 +58,13 @@ public class LockAuthInfo implements Serializable {
         this.endTime = endTime;
     }
 
+    public Boolean getDowned() {
+        return downed;
+    }
+
+    public void setDowned(Boolean downed) {
+        this.downed = downed;
+    }
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
@@ -54,9 +73,11 @@ public class LockAuthInfo implements Serializable {
         sb.append("Hash = ").append(hashCode());
         sb.append(", gid=").append(gid);
         sb.append(", deviceId=").append(deviceId);
+        sb.append(", driverId=").append(driverId);
         sb.append(", startTime=").append(startTime);
         sb.append(", endTime=").append(endTime);
         sb.append("]");
         return sb.toString();
     }
+
 }

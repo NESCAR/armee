@@ -55,16 +55,22 @@ public class AdminServiceImpl implements AdminService {
 
     @Override
     public List<StaffVo> queryAdmin() {
-        List<StaffVo> superAdminList = staffVoMapper.selectStaffVoByAuthorityId(ServiceConstant.AUTHORITY_ROLE_SUPER_ADMIN_ID);
-        List<StaffVo> adminList = staffVoMapper.selectStaffVoByAuthorityId(ServiceConstant.AUTHORITY_ROLE_ADMIN_ID);
+        List<StaffVo> superAdminList = staffVoMapper.selectStaffVoByAuthorityId(AuthorityRole.ROLE_SUPER_ADMIN.getId());
+        List<StaffVo> adminList = staffVoMapper.selectStaffVoByAuthorityId(AuthorityRole.ROLE_ADMIN.getId());
         superAdminList.addAll(adminList);
         return superAdminList;
     }
     @Override
     public List<StaffVo> queryDriver() {
-        List<StaffVo> driverList = staffVoMapper.selectStaffVoByAuthorityId(ServiceConstant.AUTHORITY_ROLE_COMMON_STAFF);
+        List<StaffVo> driverList = staffVoMapper.selectStaffVoByAuthorityId(AuthorityRole.ROLE_COMMON_STAFF.getId());
         return driverList;
     }
+
+    @Override
+    public Staff queryDriver(Long driverId) {
+        return staffMapper.selectByPrimaryKey(driverId);
+    }
+
     @Transactional(propagation = Propagation.REQUIRED)
     @Override
     public Map<Long, Boolean> updateAdmin(StaffCredentialsDto staffCredentialsDto) {
@@ -216,7 +222,7 @@ public class AdminServiceImpl implements AdminService {
         }
         // staff <--> credentials_staff <--> credentials <--> credentials_authorities <--> authority
         // 删除前四个，最后一个共用不需要删除
-        credentialsStaffMapper.deleteByCredentialId(credentialsStaff.getCredentialId());
+        credentialsStaffMapper.deleteByStaffId(staffId);
         credentialsAuthoritiesMapper.deleteByCredentialId(credentialsAuthorities.getCredentialsId());
         staffMapper.deleteByPrimaryKey(staffId);
         credentialsMapper.deleteByPrimaryKey(credentialsAuthorities.getCredentialsId());
