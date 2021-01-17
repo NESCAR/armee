@@ -19,11 +19,11 @@
     where gid = #{gid,jdbcType=BIGINT}
   </select>
 
-  <select id="selectDownloadInfoOfDevices" resultMap="java.util.List">
+  <select id="selectDownloadInfoOfDevices" resultMap="BaseResultMap">
     select <include refid="Base_Column_List"/>
     from lock_auth_info
-    where downed = false and DATE_SUB(start_time, INTERVAL 10 MINUTE) &lt; now() and
-          end_time > now()
+    where downed = false and DATE_SUB(start_time, INTERVAL 10 MINUTE) &lt; utc_timestamp() and
+          end_time > utc_timestamp()
   </select>
 
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">

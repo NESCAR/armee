@@ -11,6 +11,9 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import javax.annotation.Resource;
 import java.sql.Timestamp;
+import java.time.LocalDateTime;
+import java.util.Date;
+import java.util.List;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
@@ -23,7 +26,26 @@ public class TestLockInfoManService {
     public void setLockInfoManService(LockInfoManService lockInfoManService) {
         this.lockInfoManService = lockInfoManService;
     }
-    @Test
+
+//    @Test
+    public void testFindDownloadInfo() {
+        List<LockAuthInfo> downinfo = lockInfoManService.findDownloadInfo();
+        log.info(downinfo.toString());
+    }
+//    @Test
+    public void testAddLockAuthInfo() {
+        LockAuthInfo lockAuthInfo = new LockAuthInfo();
+        lockAuthInfo.setDowned(false);lockAuthInfo.setEndTime(Timestamp.valueOf("2021-1-17 18:00:00"));
+        lockAuthInfo.setStartTime(Timestamp.valueOf("2021-1-20 09:00:00"));
+        lockAuthInfo.setDeviceId(1L);lockAuthInfo.setDriverId(12L);
+        Boolean res1 = lockInfoManService.addLockAuthInfo(lockAuthInfo);
+        lockAuthInfo.setDowned(false);lockAuthInfo.setEndTime(Timestamp.valueOf("2021-1-17 23:00:00"));
+        lockAuthInfo.setStartTime(Timestamp.valueOf("2021-1-17 19:00:00"));
+        Boolean res2 = lockInfoManService.addLockAuthInfo(lockAuthInfo);
+        log.info("result 1 : " + res1);
+        log.info("result 2 : " + res2);
+    }
+//    @Test
     public void testCovered() {
         Timestamp st1 = Timestamp.valueOf("2021-1-16 1:21:21");
         Timestamp et1 = Timestamp.valueOf("2021-1-16 5:22:21");

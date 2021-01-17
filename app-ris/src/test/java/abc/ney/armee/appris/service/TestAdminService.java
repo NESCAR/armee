@@ -39,23 +39,34 @@ public class TestAdminService {
 //    @Test
     public void testInsertAdmin() {
         StaffCredentialsDto staffCredentialsDto1 = new StaffCredentialsDto();
-        staffCredentialsDto1.setAuthority("ROLE_ADMIN");staffCredentialsDto1.setName("omiga");
-        staffCredentialsDto1.setRealName("张子");staffCredentialsDto1.setEmail("zzh@zju.edu.cn");
-        staffCredentialsDto1.setNo("009");staffCredentialsDto1.setPassword("1234");
+        staffCredentialsDto1.setAuthority("ROLE_ADMIN");staffCredentialsDto1.setName("scc");
+        staffCredentialsDto1.setRealName("胡婧");staffCredentialsDto1.setEmail("hujing@zju.edu.cn");
+        staffCredentialsDto1.setNo("012");staffCredentialsDto1.setPassword("1234");
         staffCredentialsDto1.setTel("12345678990");staffCredentialsDto1.setPosition("管理员");
         staffCredentialsDto1.setTelArea("86");
-        StaffCredentialsDto staffCredentialsDto2 = new StaffCredentialsDto();
-        staffCredentialsDto2.setAuthority("ROLE_ADMIN");staffCredentialsDto2.setName("oie");
-        staffCredentialsDto2.setRealName("徐");staffCredentialsDto2.setEmail("xushuai@zju.edu.cn");
-        staffCredentialsDto2.setNo("010");staffCredentialsDto2.setPassword("321");
-        staffCredentialsDto2.setTel("13123123123");staffCredentialsDto2.setPosition("管理员");
-        staffCredentialsDto2.setTelArea("86");
+//        StaffCredentialsDto staffCredentialsDto2 = new StaffCredentialsDto();
+//        staffCredentialsDto2.setAuthority("ROLE_ADMIN");staffCredentialsDto2.setName("oie");
+//        staffCredentialsDto2.setRealName("徐");staffCredentialsDto2.setEmail("xushuai@zju.edu.cn");
+//        staffCredentialsDto2.setNo("010");staffCredentialsDto2.setPassword("321");
+//        staffCredentialsDto2.setTel("13123123123");staffCredentialsDto2.setPosition("管理员");
+//        staffCredentialsDto2.setTelArea("86");
         Map<String, Boolean> res1 = adminService.insertAdmin(staffCredentialsDto1);
-        Map<String, Boolean> res2 = adminService.insertAdmin(staffCredentialsDto2);
+//        Map<String, Boolean> res2 = adminService.insertAdmin(staffCredentialsDto2);
         log.info(res1.toString());
-        log.info(res2.toString());
+//        log.info(res2.toString());
     }
-    @Test
+//    @Test
+    public void testInsertDriver() {
+        StaffCredentialsDto staffCredentialsDto1 = new StaffCredentialsDto();
+        staffCredentialsDto1.setAuthority("ROLE_COMMON_STAFF");staffCredentialsDto1.setName("liying");
+        staffCredentialsDto1.setRealName("李颖");staffCredentialsDto1.setEmail("liying@zju.edu.cn");
+        staffCredentialsDto1.setNo("015");staffCredentialsDto1.setPassword("1234");
+        staffCredentialsDto1.setTel("12345678990");staffCredentialsDto1.setPosition("司机");
+        staffCredentialsDto1.setTelArea("86");staffCredentialsDto1.setIcCode("1230989");
+        Map<String, Boolean> res1 = adminService.insertDriver(staffCredentialsDto1);
+        log.info(res1.toString());
+    }
+//    @Test
     public void testDeleteAdmins() {
         List<Long> ids = new LinkedList<>();
 //        ids.add(4L);ids.add(5L);

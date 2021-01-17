@@ -31,7 +31,7 @@ public class LockInfoManServiceImpl implements LockInfoManService {
         if (covered(lockAuthInfo)) {
             return false;
         }
-        if (lockAuthInfoMapper.insert(lockAuthInfo) != ServiceConstant.MYSQL_OP_ERR_RTN) {
+        if (lockAuthInfoMapper.insert(lockAuthInfo) == ServiceConstant.MYSQL_OP_ERR_RTN) {
             return false;
         }
         return true;
