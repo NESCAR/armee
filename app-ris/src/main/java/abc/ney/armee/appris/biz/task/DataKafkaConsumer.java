@@ -28,17 +28,17 @@ import java.util.Optional;
  */
 @Slf4j
 @Component
-public class KafkaConsumer extends KafkaConsumerImpl<ConsumerRecord<MsgKey, byte[]>> {
+public class DataKafkaConsumer extends KafkaConsumerImpl<ConsumerRecord<MsgKey, byte[]>> {
     public static final long POLL_DURATION = 1L;
     private boolean start = false;
     TsdbService tsi;
     @Autowired
-    public KafkaConsumer(TsdbService tsdbService) {
+    public DataKafkaConsumer(TsdbService tsdbService) {
         super(ConfArguments.KAFKA_TOPIC_DATA);
-        log.info("Creating KafkaConsumer");
+        log.info("Creating DataKafkaConsumer");
         log.info("TsdbService : " + tsdbService.toString());
         tsi = tsdbService;
-        log.info("KafkaConsumer Task Created...");
+        log.info("DataKafkaConsumer Task Created...");
         start = true;
     }
 

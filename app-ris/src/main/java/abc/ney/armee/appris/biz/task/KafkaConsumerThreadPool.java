@@ -2,7 +2,6 @@ package abc.ney.armee.appris.biz.task;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.ComponentScan;
 import org.springframework.stereotype.Component;
 
 import java.util.concurrent.LinkedBlockingDeque;
@@ -18,10 +17,10 @@ import java.util.concurrent.TimeUnit;
 public class KafkaConsumerThreadPool {
     ThreadPoolExecutor tpe;
     @Autowired
-    public KafkaConsumerThreadPool(KafkaConsumer kafkaConsumer) {
+    public KafkaConsumerThreadPool(DataKafkaConsumer dataKafkaConsumer) {
         log.info("Creating ThreadPoolExecutor");
         tpe = new ThreadPoolExecutor(1, 2, 1, TimeUnit.SECONDS, new LinkedBlockingDeque<>());
-        tpe.submit(kafkaConsumer);
+        tpe.submit(dataKafkaConsumer);
         log.info("ThreadPoolExecutor Running");
     }
 }
