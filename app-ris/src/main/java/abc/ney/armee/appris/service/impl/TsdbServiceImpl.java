@@ -1,8 +1,7 @@
 package abc.ney.armee.appris.service.impl;
 
-import abc.ney.armee.appris.config.ApolloConfiger;
-import abc.ney.armee.appris.dal.mapper.msgmap.InfluxMapper;
-import abc.ney.armee.appris.dal.mapper.msgmap.InfluxMapperRegister;
+import abc.ney.armee.appris.dal.mapper.tsmap.InfluxMapper;
+import abc.ney.armee.appris.dal.mapper.tsmap.InfluxMapperRegister;
 import abc.ney.armee.appris.service.TsdbService;
 import abc.ney.armee.enginee.data.influxdb.InfluxConnection;
 import icu.nescar.armee.jet.broker.config.Jt808MsgType;
@@ -12,10 +11,8 @@ import io.github.hylexus.jt.data.msg.MsgType;
 import lombok.extern.slf4j.Slf4j;
 import org.influxdb.dto.QueryResult;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
-import javax.annotation.Resource;
 import java.util.*;
 import java.util.concurrent.TimeUnit;
 

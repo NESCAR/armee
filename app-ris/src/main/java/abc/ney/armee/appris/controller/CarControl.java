@@ -59,7 +59,6 @@ public class CarControl {
         southwardCmdService.sendLockInfo(device.getImei(), String.valueOf(driver.getGid()), randomSixNum, st, et);
         return new BaseResp<>(ResultStatus.http_status_ok);
     }
-    // TODO et更改为时间偏移
     @ApiOperation(value = "汽车上锁，需要通过IC卡解锁", tags = {"汽车控制"}, notes = "汽车上锁")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "deviceId", value = "设备gid", required = true),

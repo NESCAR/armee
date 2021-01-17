@@ -1,4 +1,4 @@
-package abc.ney.armee.appris.dal.mapper.msgmap;
+package abc.ney.armee.appris.dal.mapper.tsmap;
 
 import io.github.hylexus.jt.data.msg.MsgType;
 import io.github.hylexus.jt808.support.MsgHandlerMapping;
@@ -33,8 +33,6 @@ public class InfluxMapperRegister {
         if (msgType == null) {
             throw new NullPointerException("MsgKey is marked non-null but is null");
         } else {
-            // TODO
-            // 给MsgKey添加方法getMsgId
             return this.register.containsKey(msgType.getMsgId());
         }
     }

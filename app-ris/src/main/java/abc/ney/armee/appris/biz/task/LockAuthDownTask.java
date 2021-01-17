@@ -17,6 +17,10 @@ import org.springframework.stereotype.Component;
 import java.sql.Timestamp;
 import java.util.List;
 
+/**
+ * 授权信息下发任务
+ * @author neyzoter
+ */
 @Component
 @Slf4j
 public class LockAuthDownTask implements Runnable {

@@ -14,10 +14,10 @@ import java.util.concurrent.TimeUnit;
  */
 @Slf4j
 @Component
-public class KafkaConsumerThreadPool {
+public class DataKafkaConsumerThreadPool {
     ThreadPoolExecutor tpe;
     @Autowired
-    public KafkaConsumerThreadPool(DataKafkaConsumer dataKafkaConsumer) {
+    public DataKafkaConsumerThreadPool(DataKafkaConsumer dataKafkaConsumer) {
         log.info("Creating ThreadPoolExecutor");
         tpe = new ThreadPoolExecutor(1, 2, 1, TimeUnit.SECONDS, new LinkedBlockingDeque<>());
         tpe.submit(dataKafkaConsumer);

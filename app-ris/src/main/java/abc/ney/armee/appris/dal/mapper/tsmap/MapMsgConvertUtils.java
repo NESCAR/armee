@@ -1,4 +1,4 @@
-package abc.ney.armee.appris.dal.mapper.msgmap;
+package abc.ney.armee.appris.dal.mapper.tsmap;
 
 import com.alibaba.fastjson.JSONObject;
 

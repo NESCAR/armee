@@ -81,7 +81,7 @@ public class DataKafkaConsumer extends KafkaConsumerImpl<ConsumerRecord<MsgKey, 
         Optional<MsgType> jmt = Jt808MsgType.CLIENT_AUTH.parseFromInt(msgId);
         if (jmt.isPresent()) {
             try {
-                // TODO 把influxdb打开
+                log.info("Insert into InfluxDB...");
                 tsi.insert(mk, SerializationUtil.deserialize(byteMsg));
             } catch (Exception e) {
                 e.printStackTrace();

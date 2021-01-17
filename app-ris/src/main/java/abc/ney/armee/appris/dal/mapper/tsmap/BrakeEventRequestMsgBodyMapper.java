@@ -1,7 +1,7 @@
-package abc.ney.armee.appris.dal.mapper.msgmap;
+package abc.ney.armee.appris.dal.mapper.tsmap;
 
 import icu.nescar.armee.jet.broker.config.Jt808MsgType;
-import icu.nescar.armee.jet.broker.msg.req.AlarmUploadRequestMsgBody;
+import icu.nescar.armee.jet.broker.msg.req.BrakeEventRequestMsgBody;
 import io.github.hylexus.jt.data.msg.MsgType;
 
 import java.util.HashSet;
@@ -9,10 +9,11 @@ import java.util.Map;
 import java.util.Set;
 
 /**
- * AlarmUploadRequestMsgBody消息映射器
+ * BrakeEventRequestMsgBody的映射器
  * @author neyzoter
  */
-public class AlarmUploadRequestMsgBodyMapper implements InfluxMapper {
+public class BrakeEventRequestMsgBodyMapper implements InfluxMapper {
+
     public static final String time = "time";
     @Override
     public Map<String, Object> fields(Object msg, boolean of) {
@@ -28,20 +29,19 @@ public class AlarmUploadRequestMsgBodyMapper implements InfluxMapper {
     @Override
     public String getTime(Object msg) {
         checkType(msg);
-        return ((AlarmUploadRequestMsgBody)msg).getTime();
+        return ((BrakeEventRequestMsgBody)msg).getTime();
     }
 
     @Override
     public Set<MsgType> getSupportedMsgTypes() {
         Set<MsgType> set = new HashSet<>();
-        set.add(Jt808MsgType.CLIENT_ALARM_INFO_UPLOAD);
+        set.add(Jt808MsgType.CLIENT_BRAKE_INFO_UPLOAD);
         return set;
     }
 
     private void checkType(Object msg) throws ClassCastException {
-        if (! (msg instanceof AlarmUploadRequestMsgBody)) {
-            throw new ClassCastException("AlarmUploadRequestMsgBody required");
+        if (! (msg instanceof BrakeEventRequestMsgBody)) {
+            throw new ClassCastException("BrakeEventRequestMsgBody required");
         }
     }
-
 }

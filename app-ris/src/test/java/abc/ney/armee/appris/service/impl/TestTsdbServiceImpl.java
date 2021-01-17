@@ -1,7 +1,7 @@
 package abc.ney.armee.appris.service.impl;
 
-import abc.ney.armee.appris.dal.mapper.msgmap.InfluxMapperRegister;
-import abc.ney.armee.appris.dal.mapper.msgmap.LocationUploadRequestMsgBodyMapper;
+import abc.ney.armee.appris.dal.mapper.tsmap.InfluxMapperRegister;
+import abc.ney.armee.appris.dal.mapper.tsmap.LocationUploadRequestMsgBodyMapper;
 import abc.ney.armee.appris.service.TsdbService;
 import icu.nescar.armee.jet.broker.config.Jt808MsgType;
 import icu.nescar.armee.jet.broker.ext.producer.MsgKey;

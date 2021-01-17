@@ -1,7 +1,7 @@
-package abc.ney.armee.appris.dal.mapper.msgmap;
+package abc.ney.armee.appris.dal.mapper.tsmap;
 
 import icu.nescar.armee.jet.broker.config.Jt808MsgType;
-import icu.nescar.armee.jet.broker.msg.req.LockUploadRequestMsgBody;
+import icu.nescar.armee.jet.broker.msg.req.RssUploadRequestMsgBody;
 import io.github.hylexus.jt.data.msg.MsgType;
 
 import java.util.HashSet;
@@ -9,10 +9,11 @@ import java.util.Map;
 import java.util.Set;
 
 /**
- * LockUploadRequestMsgBody消息映射器
+ * RssUploadRequestMsgBody的映射器
  * @author neyzoter
  */
-public class LockUploadRequestMsgBodyMapper implements InfluxMapper {
+public class RssUploadRequestMsgBodyMapper implements InfluxMapper {
+
     public static final String time = "time";
     @Override
     public Map<String, Object> fields(Object msg, boolean of) {
@@ -28,19 +29,19 @@ public class LockUploadRequestMsgBodyMapper implements InfluxMapper {
     @Override
     public String getTime(Object msg) {
         checkType(msg);
-        return ((LockUploadRequestMsgBody)msg).getTime();
+        return ((RssUploadRequestMsgBody)msg).getTime();
     }
 
     @Override
     public Set<MsgType> getSupportedMsgTypes() {
         Set<MsgType> set = new HashSet<>();
-        set.add(Jt808MsgType.CLIENT_LOCK_INFO_UPLOAD);
+        set.add(Jt808MsgType.CLIENT_RSSEVENT_INFO_UPLOAD);
         return set;
     }
 
     private void checkType(Object msg) throws ClassCastException {
-        if (! (msg instanceof LockUploadRequestMsgBody)) {
-            throw new ClassCastException("LockUploadRequestMsgBody required");
+        if (! (msg instanceof RssUploadRequestMsgBody)) {
+            throw new ClassCastException("RssUploadRequestMsgBody required");
         }
     }
 }

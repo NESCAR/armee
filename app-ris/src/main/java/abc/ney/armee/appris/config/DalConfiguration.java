@@ -1,6 +1,6 @@
 package abc.ney.armee.appris.config;
 
-import abc.ney.armee.appris.dal.mapper.msgmap.*;
+import abc.ney.armee.appris.dal.mapper.tsmap.*;
 import icu.nescar.armee.jet.broker.config.Jt808MsgType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;

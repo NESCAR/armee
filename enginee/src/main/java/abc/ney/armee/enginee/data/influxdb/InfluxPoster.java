@@ -195,19 +195,16 @@ public class InfluxPoster {
         }
 
         public Builder precision(String p) {
-            // TODO 检查
             this.precision = p;
             return this;
         }
 
         public Builder host(String h) {
-            // TODO 检查
             this.host = h;
             return this;
         }
 
         public Builder port(String p) {
-            // TODO 检查
             this.port = p;
             return this;
         }
