@@ -243,6 +243,10 @@ public class AdminServiceImpl implements AdminService {
         credentials.setPassword(encodePsw);
         credentials.setEnabled(Credentials.ENABLE);credentials.setVersion(Credentials.VERSION);
         Staff staff = staffCredentialsDto.toStaff();
+        // 如果是司机，必须有IC code
+        if (ar.getId().equals(AuthorityRole.ROLE_COMMON_STAFF.getId()) && staff.getIcCode() == null) {
+            throw new IllegalArgumentException("司机无IC卡信息");
+        }
         if (credentialsMapper.insert(credentials) == ServiceConstant.MYSQL_OP_ERR_RTN) {
             map.put(staffCredentialsDto.getName(), false);
             throw new IllegalArgumentException("credentials 插入失败");
