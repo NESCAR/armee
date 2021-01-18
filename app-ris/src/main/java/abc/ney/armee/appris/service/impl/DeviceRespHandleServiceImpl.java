@@ -23,7 +23,7 @@ public class DeviceRespHandleServiceImpl implements DeviceRespHandleService {
      */
     private void register() {
         // todo 确定MsgType
-        handlerMap.put(Jt808MsgType.CLIENT_BINDING_INFO_UPLOAD.getMsgId(),
+        handlerMap.put(Jt808MsgType.CLIENT_SETTINGS_UPDATE_INFO_UPLOAD.getMsgId(),
                 new LockInfoSettingsHandler());
     }
     @Override

@@ -30,4 +30,11 @@ public interface LockAuthInfoMapper {
      * @return 所有设备的需要下发的授权时间信息
      */
     List<LockAuthInfo> selectDownloadInfoOfDevices();
+
+    /**
+     * 根据lockAuthInfo信息查询数据
+     * @param lockAuthInfo  包含设备信息、开始时间、结束时间
+     * @return 查询到达的信息
+     */
+    List<LockAuthInfo> selectByDidStEt(LockAuthInfo lockAuthInfo);
 }

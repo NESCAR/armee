@@ -45,6 +45,13 @@ public interface AdminService {
      * @return 司机信息
      */
     Staff queryDriver(Long driverId);
+
+    /**
+     * 通过ic卡信息查询司机信息
+     * @param icCode ic卡号
+     * @return 司机信息
+     */
+    Staff queryDriverByIcCode(String icCode);
     /**
      * 更新管理员信息<br>
      * 包括更新staff credential credentials_staff credentials_authorities

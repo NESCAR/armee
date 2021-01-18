@@ -2,6 +2,7 @@ package abc.ney.armee.appris.service;
 
 import abc.ney.armee.appris.dal.meta.po.LockAuthInfo;
 
+import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.List;
 
@@ -32,4 +33,19 @@ public interface LockInfoManService {
      * @return 所有设备的需要下发的授权时间信息
      */
     List<LockAuthInfo> findDownloadInfo();
+
+    /**
+     * 根据设备id、授权开始时间、授权结束时间来找到对应的记录
+     * @param lockAuthInfo 授权信息
+     * @return 授权信息
+     */
+    List<LockAuthInfo> findLockInfoByDidStEt(LockAuthInfo lockAuthInfo);
+
+    /**
+     * 根据授权信息的gid更新记录
+     * @param lockAuthInfo 授权信息，gid不能null
+     * @return 更新成功结果
+     */
+    Boolean updateLockInfoByPrimaryKey(LockAuthInfo lockAuthInfo);
+
 }

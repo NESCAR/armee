@@ -26,6 +26,15 @@ public class TestLockInfoManService {
     public void setLockInfoManService(LockInfoManService lockInfoManService) {
         this.lockInfoManService = lockInfoManService;
     }
+    @Test
+    public void testUpdateLockInfoByPrimaryKey() {
+        LockAuthInfo lockAuthInfo = new LockAuthInfo();
+        lockAuthInfo.setDeviceId(1L);lockAuthInfo.setStartTime(Timestamp.valueOf("2021-01-17 14:00:00"));
+        lockAuthInfo.setEndTime(Timestamp.valueOf("2021-01-17 20:00:00"));
+        lockAuthInfo.setGid(2L);
+        lockAuthInfo.setDowned(true);
+        log.info("update result : " + lockInfoManService.updateLockInfoByPrimaryKey(lockAuthInfo));
+    }
 
 //    @Test
     public void testFindDownloadInfo() {

@@ -34,7 +34,7 @@ public class DataKafkaConsumer extends KafkaConsumerImpl<ConsumerRecord<MsgKey, 
     TsdbService tsi;
     @Autowired
     public DataKafkaConsumer(TsdbService tsdbService) {
-        super(ConfArguments.KAFKA_TOPIC_DATA);
+        super(ConfArguments.KAFKA_TOPIC_DATA, "Data_", "1");
         log.info("Creating DataKafkaConsumer");
         log.info("TsdbService : " + tsdbService.toString());
         tsi = tsdbService;

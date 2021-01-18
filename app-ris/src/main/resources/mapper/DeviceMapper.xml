@@ -141,6 +141,42 @@
     </set>
     where gid = #{gid,jdbcType=BIGINT}
   </update>
+  <update id="updateByImeiSelective" parameterType="abc.ney.armee.appris.dal.meta.po.Device">
+    update device
+    <set>
+      <if test="gid != null">
+        gid = #{gid,jdbcType=VARCHAR}
+      </if>
+      <if test="imsi != null">
+        imsi = #{imsi,jdbcType=VARCHAR},
+      </if>
+      <if test="psw != null">
+        psw = #{psw,jdbcType=VARCHAR},
+      </if>
+      <if test="lockStatus != null">
+        lock_status = #{lockStatus,jdbcType=INTEGER},
+      </if>
+      <if test="lockStartTime != null">
+        lock_start_time = #{lockStartTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lockEndTime != null">
+        lock_end_time = #{lockEndTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="licensePlate != null">
+        license_plate = #{licensePlate,jdbcType=VARCHAR},
+      </if>
+      <if test="driverGid != null">
+        driver_gid = #{driverGid,jdbcType=BIGINT},
+      </if>
+      <if test="gmtCreate != null">
+        gmt_create = #{gmtCreate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="gmtUpdate != null">
+        gmt_update = #{gmtUpdate,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where imei = #{imei,jdbcType=VARCHAR}
+  </update>
   <update id="updateByPrimaryKey" parameterType="abc.ney.armee.appris.dal.meta.po.Device">
     update device
     set imei = #{imei,jdbcType=VARCHAR},

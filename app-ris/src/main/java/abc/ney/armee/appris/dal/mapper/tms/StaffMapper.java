@@ -11,6 +11,8 @@ public interface StaffMapper {
 
     Staff selectByPrimaryKey(Long gid);
 
+    Staff selectByIcCode(String icCode);
+
     int updateByPrimaryKeySelective(Staff record);
 
     int updateByPrimaryKey(Staff record);

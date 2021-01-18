@@ -36,7 +36,15 @@ public class CarServiceImpl implements CarService {
 
     @Override
     public boolean updateDevicePsw(Long gid, String psw) {
-        return !(deviceMapper.updatePswByPrimaryKey(gid, psw) == ServiceConstant.MYSQL_OP_ERR_RTN);
+        return deviceMapper.updatePswByPrimaryKey(gid, psw) != ServiceConstant.MYSQL_NO_UPDATE_MATCHED_RTN;
+    }
+
+    @Override
+    public boolean updateDeviceByImei(Device device) {
+        if (device.getImei() == null) {
+            return false;
+        }
+        return deviceMapper.updateByImeiSelective(device) != ServiceConstant.MYSQL_NO_UPDATE_MATCHED_RTN;
     }
 
     @Override

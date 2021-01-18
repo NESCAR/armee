@@ -2,6 +2,7 @@ package abc.ney.armee.appris.service;
 
 import abc.ney.armee.appris.dal.meta.dto.StaffCredentialsDto;
 import abc.ney.armee.appris.dal.meta.po.AuthorityRole;
+import abc.ney.armee.appris.dal.meta.po.Staff;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -27,6 +28,11 @@ public class TestAdminService {
         this.adminService = adminService;
     }
 
+    @Test
+    public void testQueryDriverByIcCode() {
+        Staff driver = adminService.queryDriverByIcCode("1230980");
+        log.info(driver.toString());
+    }
 //    @Test
     public void testUpdateAdmin() {
         StaffCredentialsDto staffCredentialsDto2 = new StaffCredentialsDto();

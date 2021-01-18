@@ -30,7 +30,7 @@ public class DeviceInfoKafkaConsumer extends KafkaConsumerImpl<ConsumerRecord<Ms
     CarService carService;
     @Autowired
     public DeviceInfoKafkaConsumer(CarService carService) {
-        super(ConfArguments.KAFKA_TOPIC_DATA);
+        super(ConfArguments.KAFKA_TOPIC_DATA, "DeviceInfo_", "2");
         log.info("Creating DeviceInfoKafkaConsumer");
         log.info("carService : " + carService.toString());
         this.carService = carService;

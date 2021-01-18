@@ -29,9 +29,6 @@ public class DalConfiguration {
         imr.registerMapper(Jt808MsgType.CLIENT_RSSEVENT_INFO_UPLOAD, new RssUploadRequestMsgBodyMapper());
         imr.registerMapper(Jt808MsgType.CLIENT_TEBS_STATUS_INFO_UPLOAD, new TEBStatusRequestMsgBodyMapper());
         imr.registerMapper(Jt808MsgType.CLIENT_ALARM_INFO_UPLOAD, new AlarmUploadRequestMsgBodyMapper());
-        imr.registerMapper(Jt808MsgType.CLIENT_BINDING_INFO_UPLOAD, new BindingUploadRequestMsgBodyMapper());
         imr.registerMapper(Jt808MsgType.CLIENT_LOCK_INFO_UPLOAD, new LockUploadRequestMsgBodyMapper());
-        imr.registerMapper(Jt808MsgType.CLIENT_TEBS_ACCEPT_REPLY, new TEBSAcceptRequestMsgBodyMapper());
-        imr.registerMapper(Jt808MsgType.CLIENT_UNLOCK_INFO_UPLOAD, new UnlockUploadRequestMsgBodyMapper());
     }
 }

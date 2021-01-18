@@ -284,7 +284,7 @@ CREATE TABLE `staff` (
   `gmt_create` timestamp(6) DEFAULT NULL COMMENT '创建时间',
   `gmt_update` timestamp(6) DEFAULT NULL COMMENT '更新时间',
   `tel_area` varchar(16) DEFAULT '86' COMMENT '手机号区号',
-  `ic_code` varchar(255) DEFAULT NULL COMMENT 'ic卡信息(如果有的话)',
+  `ic_code` varchar(255) DEFAULT NULL UNIQUE COMMENT 'ic卡信息(如果有的话)',
   PRIMARY KEY (`gid`)
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;

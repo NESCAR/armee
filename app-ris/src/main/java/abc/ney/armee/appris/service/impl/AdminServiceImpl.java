@@ -71,6 +71,11 @@ public class AdminServiceImpl implements AdminService {
         return staffMapper.selectByPrimaryKey(driverId);
     }
 
+    @Override
+    public Staff queryDriverByIcCode(String icCode) {
+        return staffMapper.selectByIcCode(icCode);
+    }
+
     @Transactional(propagation = Propagation.REQUIRED)
     @Override
     public Map<Long, Boolean> updateAdmin(StaffCredentialsDto staffCredentialsDto) {
@@ -247,21 +252,21 @@ public class AdminServiceImpl implements AdminService {
         if (ar.getId().equals(AuthorityRole.ROLE_COMMON_STAFF.getId()) && staff.getIcCode() == null) {
             throw new IllegalArgumentException("司机无IC卡信息");
         }
-        if (credentialsMapper.insert(credentials) == ServiceConstant.MYSQL_OP_ERR_RTN) {
+        if (credentialsMapper.insert(credentials) == ServiceConstant.MYSQL_INSERT_ERR_RTN) {
             map.put(staffCredentialsDto.getName(), false);
             throw new IllegalArgumentException("credentials 插入失败");
         }
-        if (staffMapper.insert(staff) == ServiceConstant.MYSQL_OP_ERR_RTN) {
+        if (staffMapper.insert(staff) == ServiceConstant.MYSQL_INSERT_ERR_RTN) {
             map.put(staffCredentialsDto.getName(), false);
             throw new IllegalArgumentException("staff 插入失败");
         }
         if (credentialsAuthoritiesMapper.insert(new CredentialsAuthorities(
-                credentials.getId(), ar.getId())) == ServiceConstant.MYSQL_OP_ERR_RTN) {
+                credentials.getId(), ar.getId())) == ServiceConstant.MYSQL_INSERT_ERR_RTN) {
             map.put(staffCredentialsDto.getName(), false);
             throw new IllegalArgumentException("credentials_authorities 插入失败");
         }
         if (credentialsStaffMapper.insert(new CredentialsStaff(credentials.getId(), staff.getGid()))
-                == ServiceConstant.MYSQL_OP_ERR_RTN) {
+                == ServiceConstant.MYSQL_INSERT_ERR_RTN) {
             map.put(staffCredentialsDto.getName(), false);
             throw new IllegalArgumentException("credentials_staff 插入失败");
         }

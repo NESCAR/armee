@@ -22,6 +22,12 @@
     from staff
     where gid = #{gid,jdbcType=BIGINT}
   </select>
+  <select id="selectByIcCode" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List"></include>
+    from staff
+    where ic_code = #{icCode,jdbcType=VARCHAR}
+  </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
     delete from staff
     where gid = #{gid,jdbcType=BIGINT}

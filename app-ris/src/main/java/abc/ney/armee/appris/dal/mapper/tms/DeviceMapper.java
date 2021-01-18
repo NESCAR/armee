@@ -16,4 +16,6 @@ public interface DeviceMapper {
     int updateByPrimaryKey(Device record);
 
     int updatePswByPrimaryKey(Long gid, String psw);
+
+    int updateByImeiSelective(Device record);
 }
