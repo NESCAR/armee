@@ -11,6 +11,8 @@ public interface DeviceMapper {
 
     Device selectByPrimaryKey(Long gid);
 
+    Device selectByImei(String imei);
+
     int updateByPrimaryKeySelective(Device record);
 
     int updateByPrimaryKey(Device record);

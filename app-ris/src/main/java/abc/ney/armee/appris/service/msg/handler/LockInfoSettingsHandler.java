@@ -40,6 +40,7 @@ public class LockInfoSettingsHandler implements UpMsgHandler {
         carService.updateDeviceByImei(device);
         // step3. 更新lock_auth_info的downed
         //        downed
+        device = carService.queryDeviceByImei(key.getTerminalId());
         LockAuthInfo lockAuthInfo = new LockAuthInfo();
         lockAuthInfo.setDeviceId(device.getGid());lockAuthInfo.setStartTime(device.getLockStartTime());
         lockAuthInfo.setEndTime(device.getLockEndTime());

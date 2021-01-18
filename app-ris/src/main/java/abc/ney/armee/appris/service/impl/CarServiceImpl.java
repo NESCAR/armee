@@ -23,6 +23,11 @@ public class CarServiceImpl implements CarService {
     }
 
     @Override
+    public Device queryDeviceByImei(String imei) {
+        return deviceMapper.selectByImei(imei);
+    }
+
+    @Override
     public Staff queryDriverByGid(Long gid) {
         return staffMapper.selectByPrimaryKey(gid);
     }

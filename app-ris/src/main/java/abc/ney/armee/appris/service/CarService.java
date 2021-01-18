@@ -13,6 +13,13 @@ public interface CarService {
     Device queryDeviceByGid(Long gid);
 
     /**
+     * 根据imei号查询设备信息
+     * @param imei 设备imei
+     * @return 设备信息
+     */
+    Device queryDeviceByImei(String imei);
+
+    /**
      * 查询驾驶员信息
      * @param gid 驾驶员gid
      * @return 驾驶员信息
