@@ -17,9 +17,9 @@ import org.springframework.transaction.annotation.Transactional;
 import java.sql.Timestamp;
 import java.util.List;
 
-@Component
+@Component("authUpdateSuccessRequestMsgBodyHandler")
 @Slf4j
-public class LockInfoSettingsHandler implements UpMsgHandler {
+public class AuthUpdateSuccessRequestMsgBodyHandler implements UpMsgHandler {
     CarService carService;
     LockInfoManService lockInfoManService;
     AdminService adminService;
@@ -31,6 +31,7 @@ public class LockInfoSettingsHandler implements UpMsgHandler {
         String icId = authUpdateSuccessRequestMsgBody.getDriverId();
         Staff driver = adminService.queryDriverByIcCode(icId);
         Long driverId = driver.getGid();
+        log.debug("db  <<<<<<  " + driver.toString());
         // step2. 更新设备（汽车）的状态:
         //        开始、结束时间；绑定司机信息gid
         Device device = new Device();
@@ -38,13 +39,14 @@ public class LockInfoSettingsHandler implements UpMsgHandler {
         device.setImei(key.getTerminalId());device.setLockStartTime(Timestamp.valueOf(authUpdateSuccessRequestMsgBody.getLockTimeStart()));
         device.setLockEndTime(Timestamp.valueOf(authUpdateSuccessRequestMsgBody.getLockTimeEnd()));device.setDriverGid(driverId);
         carService.updateDeviceByImei(device);
+        log.debug("db  >>>>>>  " + device.toString());
         // step3. 更新lock_auth_info的downed
         //        downed
         device = carService.queryDeviceByImei(key.getTerminalId());
+        log.debug("db  <<<<<<  " + device.toString());
         LockAuthInfo lockAuthInfo = new LockAuthInfo();
         lockAuthInfo.setDeviceId(device.getGid());lockAuthInfo.setStartTime(device.getLockStartTime());
         lockAuthInfo.setEndTime(device.getLockEndTime());
-        // todo 打印出来，为什么是null？
         List<LockAuthInfo> lockAuthInfoList = lockInfoManService.findLockInfoByDidStEt(lockAuthInfo);
         if (lockAuthInfoList.size() > 1) {
             throw new IllegalArgumentException("数据库查询到过多记录");
@@ -52,8 +54,10 @@ public class LockInfoSettingsHandler implements UpMsgHandler {
             throw new IllegalArgumentException("数据库未查询到记录");
         }
         lockAuthInfo.setGid(lockAuthInfoList.get(0).getGid());
+        log.debug("db  <<<<<<  " + lockAuthInfo.toString());
         lockAuthInfo.setDowned(true);
         lockInfoManService.updateLockInfoByPrimaryKey(lockAuthInfo);
+        log.debug("db  >>>>>>  " + lockAuthInfo.toString());
     }
 
     @Autowired
