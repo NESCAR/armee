@@ -82,4 +82,5 @@ public class CarServiceImpl implements CarService {
         }
         return deviceLockRecordMapper.insertSelective(record) != ServiceConstant.MYSQL_INSERT_ERR_RTN;
     }
+
 }

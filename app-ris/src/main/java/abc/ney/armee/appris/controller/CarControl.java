@@ -1,5 +1,6 @@
 package abc.ney.armee.appris.controller;
 
+import abc.ney.armee.appris.biz.task.CommandKafkaProducer;
 import abc.ney.armee.appris.biz.util.PswGen;
 import abc.ney.armee.appris.dal.meta.po.Device;
 import abc.ney.armee.appris.dal.meta.po.LockAuthInfo;
@@ -7,6 +8,10 @@ import abc.ney.armee.appris.dal.meta.po.Staff;
 import abc.ney.armee.appris.service.*;
 import abc.ney.armee.appris.service.impl.LockInfoManServiceImpl;
 import abc.ney.armee.enginee.net.http.ResultStatus;
+import icu.nescar.armee.jet.broker.config.Jt808MsgType;
+import icu.nescar.armee.jet.broker.ext.producer.MsgKey;
+import icu.nescar.armee.jet.broker.ext.producer.kafka.msg.KafkaMsgKey;
+import icu.nescar.armee.jet.broker.msg.comd.LockControlMsgBody;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
@@ -35,6 +40,7 @@ public class CarControl {
     SmsService smsService;
     LockInfoManService lockInfoManService;
     AdminService adminService;
+    CommandKafkaProducer commandKafkaProducer;
     @ApiOperation(value = "汽车上锁，需要通过输入密码实现开锁", tags = {"汽车控制"}, notes = "汽车上锁")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "deviceId", value = "设备gid", required = true),
@@ -62,6 +68,7 @@ public class CarControl {
     @ApiOperation(value = "汽车上锁，需要通过IC卡解锁", tags = {"汽车控制"}, notes = "汽车上锁")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "deviceId", value = "设备gid", required = true),
+            @ApiImplicitParam(name = "driverId", value = "司机gid", required = true),
             @ApiImplicitParam(name = "st", value = "开始时间", required = true),
             @ApiImplicitParam(name = "et", value = "结束时间", required = true)
     })
@@ -83,6 +90,20 @@ public class CarControl {
         }
     }
 
+    @ApiOperation(value = "汽车立即上锁", tags = {"汽车控制"}, notes = "汽车上锁")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "deviceId", value = "设备gid", required = true),
+    })
+    @PostMapping(value = "/lockIm")
+    public BaseResp<String> lockIm(Long deviceId) {
+        Device car = carService.queryDeviceByGid(deviceId);
+        KafkaMsgKey key = new KafkaMsgKey(car.getImei(), Jt808MsgType.CMD_LOCK_INFO_SETTINGS.getMsgId());
+        LockControlMsgBody lockControlMsgBody = new LockControlMsgBody();
+        lockControlMsgBody.setLockControl((byte)Device.LOCK_STATUS);
+        commandKafkaProducer.send(key, lockControlMsgBody);
+        return new BaseResp<>(ResultStatus.http_status_ok, "立即上锁信息已发送");
+    }
+
     @Autowired
     private void setSouthwardCmdService(SouthwardCmdService southwardCmdService) {
         this.southwardCmdService = southwardCmdService;
@@ -102,5 +123,9 @@ public class CarControl {
     @Autowired
     public void setAdminService(AdminService adminService) {
         this.adminService = adminService;
+    }
+    @Autowired
+    public void setCommandKafkaProducer(CommandKafkaProducer commandKafkaProducer) {
+        this.commandKafkaProducer = commandKafkaProducer;
     }
 }

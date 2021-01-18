@@ -15,6 +15,7 @@ import java.util.Map;
 @Component
 public class DeviceRespHandleServiceImpl implements DeviceRespHandleService {
     private UpMsgHandler authUpdateSuccessRequestHandler;
+    private UpMsgHandler lockStatusUploadRequestHandler;
     private final Map<Integer, UpMsgHandler> handlerMap;
     public DeviceRespHandleServiceImpl() {
         handlerMap = new HashMap<>();
@@ -31,9 +32,15 @@ public class DeviceRespHandleServiceImpl implements DeviceRespHandleService {
     public void setAuthUpdateSuccessRequestHandler(UpMsgHandler authUpdateSuccessRequestHandler) {
         this.authUpdateSuccessRequestHandler = authUpdateSuccessRequestHandler;
     }
+    @Resource(name = "lockStatusUploadRequestHandler")
+    public void setLockStatusUploadRequestHandler(UpMsgHandler lockStatusUploadRequestHandler) {
+        this.lockStatusUploadRequestHandler = lockStatusUploadRequestHandler;
+    }
     @PostConstruct
     public void register() {
         this.handlerMap.put(Jt808MsgType.CLIENT_SETTINGS_UPDATE_INFO_UPLOAD.getMsgId(),
                 this.authUpdateSuccessRequestHandler);
+        this.handlerMap.put(Jt808MsgType.CLIENT_LOCK_INFO_UPLOAD.getMsgId(),
+                this.lockStatusUploadRequestHandler);
     }
 }
