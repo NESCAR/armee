@@ -1,6 +1,7 @@
 package abc.ney.armee.appris.service;
 
 import abc.ney.armee.appris.dal.meta.po.Device;
+import abc.ney.armee.appris.dal.meta.po.DeviceLockRecord;
 import abc.ney.armee.appris.dal.meta.po.Staff;
 
 public interface CarService {
@@ -42,10 +43,17 @@ public interface CarService {
     boolean updateDevicePsw(Long gid, String psw);
 
     /**
-     * 根据设备imei号，更新设备信息<br>
+     * 根据设备imei号，更新设备信息
      * @return 是否更新/匹配成功
      */
     boolean updateDeviceByImei(Device device);
+
+    /**
+     * 根据gid，更新设备信息
+     * @param device
+     * @return 是否更新/匹配成功
+     */
+    boolean updateDeviceByGid(Device device);
 
     /**
      * 设备是否上锁
@@ -54,6 +62,11 @@ public interface CarService {
      */
     boolean isLocked(Long gid);
 
-
+    /**
+     * 添加设备上锁/解锁信息
+     * @param record 上锁/解锁记录
+     * @return 是否成功
+     */
+    boolean addLockRecord(DeviceLockRecord record);
 
 }

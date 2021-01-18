@@ -9,7 +9,7 @@ import abc.ney.armee.appris.service.LockInfoManService;
 import abc.ney.armee.enginee.tool.TimeConverter;
 import icu.nescar.armee.jet.broker.config.Jt808MsgType;
 import icu.nescar.armee.jet.broker.ext.producer.kafka.msg.KafkaMsgKey;
-import icu.nescar.armee.jet.broker.msg.command.LockInfoSettingsMsgBody;
+import icu.nescar.armee.jet.broker.msg.comd.AuthInfoSettingsMsgBody;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -30,23 +30,36 @@ public class LockAuthDownTask implements Runnable {
     CarService carService;
     @Override
     public void run() {
+        // step1. 查询可以下发的授权信息
         List<LockAuthInfo> undownedLockAuthInfo = lockInfoManService.findDownloadInfo();
-        LockInfoSettingsMsgBody lockInfoSettingsMsgBody = new LockInfoSettingsMsgBody();
+        if (undownedLockAuthInfo.size() == 0) {
+            log.info("未发现可以下发的消息");
+        }
+        AuthInfoSettingsMsgBody authInfoSettingsMsgBody = new AuthInfoSettingsMsgBody();
+        // step2. 针对每个授权信息处理
         for (LockAuthInfo lai : undownedLockAuthInfo) {
+            // step2.1 检查汽车是否上锁
+            //         如果当前处于未上锁状态，不下发授权信息
             Staff driver = adminService.queryDriver(lai.getDriverId());
             Device car = carService.queryDeviceByGid(lai.getDeviceId());
+            if (car.getLockStatus() == Device.LOCK_STATUS) {
+                log.info(String.format("[device imei : %s] 汽车处于上锁状态，不能下发授权信息", car.getImei()));
+                continue;
+            }
+            // step2.2 下发授权信息
             if (driver.getIcCode() == null) {
                 log.warn("司机无IC卡信息");
             }
-            lockInfoSettingsMsgBody.setICID(driver.getIcCode());lockInfoSettingsMsgBody.setCarID(car.getImei());
-            lockInfoSettingsMsgBody.setLockTimeStart(TimeConverter.timestamp2BcdString(
+            authInfoSettingsMsgBody.setTerminalID(car.getImei());
+            authInfoSettingsMsgBody.setTerminalID(driver.getIcCode());
+            authInfoSettingsMsgBody.setLockTimeStart(TimeConverter.timestamp2BcdString(
                     new Timestamp(lai.getStartTime().getTime())));
-            lockInfoSettingsMsgBody.setLockTimeEnd(TimeConverter.timestamp2BcdString(
+            authInfoSettingsMsgBody.setLockTimeEnd(TimeConverter.timestamp2BcdString(
                     new Timestamp(lai.getEndTime().getTime())));
             KafkaMsgKey key = new KafkaMsgKey(car.getImei(), Jt808MsgType.CMD_LOCK_INFO_SETTINGS.getMsgId());
-            commandKafkaProducer.send(key, lockInfoSettingsMsgBody);
+            commandKafkaProducer.send(key, authInfoSettingsMsgBody);
             log.info("Kafka (Topic : Command) send , key : " + key.toString() +
-                    " value : " + lockInfoSettingsMsgBody.toString());
+                    " value : " + authInfoSettingsMsgBody.toString());
         }
     }
     @Autowired

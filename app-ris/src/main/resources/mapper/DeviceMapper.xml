@@ -153,9 +153,6 @@
       <if test="gid != null">
         gid = #{gid,jdbcType=VARCHAR}
       </if>
-      <if test="imsi != null">
-        imsi = #{imsi,jdbcType=VARCHAR},
-      </if>
       <if test="psw != null">
         psw = #{psw,jdbcType=VARCHAR},
       </if>

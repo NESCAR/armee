@@ -26,7 +26,7 @@ public class TestLockInfoManService {
     public void setLockInfoManService(LockInfoManService lockInfoManService) {
         this.lockInfoManService = lockInfoManService;
     }
-    @Test
+//    @Test
     public void testUpdateLockInfoByPrimaryKey() {
         LockAuthInfo lockAuthInfo = new LockAuthInfo();
         lockAuthInfo.setDeviceId(1L);lockAuthInfo.setStartTime(Timestamp.valueOf("2021-01-17 14:00:00"));
@@ -41,18 +41,19 @@ public class TestLockInfoManService {
         List<LockAuthInfo> downinfo = lockInfoManService.findDownloadInfo();
         log.info(downinfo.toString());
     }
-//    @Test
+    @Test
     public void testAddLockAuthInfo() {
         LockAuthInfo lockAuthInfo = new LockAuthInfo();
-        lockAuthInfo.setDowned(false);lockAuthInfo.setEndTime(Timestamp.valueOf("2021-1-17 18:00:00"));
-        lockAuthInfo.setStartTime(Timestamp.valueOf("2021-1-20 09:00:00"));
+        lockAuthInfo.setDowned(false);
+        lockAuthInfo.setStartTime(Timestamp.valueOf("2021-1-18 17:00:00"));
+        lockAuthInfo.setEndTime(Timestamp.valueOf("2021-1-18 18:00:00"));
         lockAuthInfo.setDeviceId(1L);lockAuthInfo.setDriverId(12L);
         Boolean res1 = lockInfoManService.addLockAuthInfo(lockAuthInfo);
-        lockAuthInfo.setDowned(false);lockAuthInfo.setEndTime(Timestamp.valueOf("2021-1-17 23:00:00"));
-        lockAuthInfo.setStartTime(Timestamp.valueOf("2021-1-17 19:00:00"));
-        Boolean res2 = lockInfoManService.addLockAuthInfo(lockAuthInfo);
+//        lockAuthInfo.setDowned(false);lockAuthInfo.setEndTime(Timestamp.valueOf("2021-1-17 23:00:00"));
+//        lockAuthInfo.setStartTime(Timestamp.valueOf("2021-1-17 19:00:00"));
+//        Boolean res2 = lockInfoManService.addLockAuthInfo(lockAuthInfo);
         log.info("result 1 : " + res1);
-        log.info("result 2 : " + res2);
+//        log.info("result 2 : " + res2);
     }
 //    @Test
     public void testCovered() {

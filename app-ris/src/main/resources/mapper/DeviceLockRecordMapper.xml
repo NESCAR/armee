@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="abc.ney.armee.appris.dal.mapper.tms.DeviceLockRecordMapper">
+  <resultMap id="BaseResultMap" type="abc.ney.armee.appris.dal.meta.po.DeviceLockRecord">
+    <id column="gid" jdbcType="BIGINT" property="gid" />
+    <result column="device_id" jdbcType="BIGINT" property="deviceId" />
+    <result column="change_time" jdbcType="TIMESTAMP" property="changeTime" />
+    <result column="lock_status" jdbcType="INTEGER" property="lockStatus" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    gid, device_id, change_time, lock_status
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from device_lock_record
+    where gid = #{gid,jdbcType=BIGINT}
+  </select>
+  <select id="countByDidTime" parameterType="abc.ney.armee.appris.dal.meta.po.DeviceLockRecord" resultType="java.lang.Integer">
+    select count(gid)
+    from device_lock_record
+    where device_id=#{deviceId,jdbcType=BIGINT} and change_time=#{changeTime,jdbcType=TIMESTAMP}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from device_lock_record
+    where gid = #{gid,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" keyColumn="gid" keyProperty="gid" parameterType="abc.ney.armee.appris.dal.meta.po.DeviceLockRecord" useGeneratedKeys="true">
+    insert into device_lock_record (device_id, change_time, lock_status
+      )
+    values (#{deviceId,jdbcType=BIGINT}, #{changeTime,jdbcType=TIMESTAMP}, #{lockStatus,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" keyColumn="gid" keyProperty="gid" parameterType="abc.ney.armee.appris.dal.meta.po.DeviceLockRecord" useGeneratedKeys="true">
+    insert into device_lock_record
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="deviceId != null">
+        device_id,
+      </if>
+      <if test="changeTime != null">
+        change_time,
+      </if>
+      <if test="lockStatus != null">
+        lock_status,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="deviceId != null">
+        #{deviceId,jdbcType=BIGINT},
+      </if>
+      <if test="changeTime != null">
+        #{changeTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lockStatus != null">
+        #{lockStatus,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="abc.ney.armee.appris.dal.meta.po.DeviceLockRecord">
+    update device_lock_record
+    <set>
+      <if test="deviceId != null">
+        device_id = #{deviceId,jdbcType=BIGINT},
+      </if>
+      <if test="changeTime != null">
+        change_time = #{changeTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lockStatus != null">
+        lock_status = #{lockStatus,jdbcType=INTEGER},
+      </if>
+    </set>
+    where gid = #{gid,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="abc.ney.armee.appris.dal.meta.po.DeviceLockRecord">
+    update device_lock_record
+    set device_id = #{deviceId,jdbcType=BIGINT},
+      change_time = #{changeTime,jdbcType=TIMESTAMP},
+      lock_status = #{lockStatus,jdbcType=INTEGER}
+    where gid = #{gid,jdbcType=BIGINT}
+  </update>
+</mapper>

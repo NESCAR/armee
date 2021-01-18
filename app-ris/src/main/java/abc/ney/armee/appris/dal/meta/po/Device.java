@@ -28,6 +28,9 @@ public class Device implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
+    public static final int LOCK_STATUS = 1;
+    public static final int UN_LOCK_STATUS = 0;
+
     public Long getGid() {
         return gid;
     }
