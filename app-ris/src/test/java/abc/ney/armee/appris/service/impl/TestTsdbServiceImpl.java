@@ -43,7 +43,7 @@ public class TestTsdbServiceImpl {
         int i = 0;
         while (i++ < 10) {
             try {
-                msg.setTime(String.valueOf(System.currentTimeMillis()));
+                msg.setLocationTime(String.valueOf(System.currentTimeMillis()));
                 tsdbService.insert(mk, msg);
                 log.info(msg.toString() + " send");
                 Thread.sleep(1000);

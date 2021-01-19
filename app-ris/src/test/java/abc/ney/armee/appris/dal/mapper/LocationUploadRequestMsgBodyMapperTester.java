@@ -30,7 +30,7 @@ public class LocationUploadRequestMsgBodyMapperTester {
     public void testFields() {
         LocationUploadRequestMsgBodyMapper mapper = new LocationUploadRequestMsgBodyMapper();
         LocationUploadRequestMsgBody body = new LocationUploadRequestMsgBody();
-        body.setTime(String.valueOf(System.currentTimeMillis()));
+        body.setLocationTime(String.valueOf(System.currentTimeMillis()));
         body.setStatus(10);body.setSpeed((short) 70);body.setLng(30.0);
         body.setLat(23.0);body.setHeight((short) 12);body.setDirection((short) 12);
         body.setWarningFlag(0);

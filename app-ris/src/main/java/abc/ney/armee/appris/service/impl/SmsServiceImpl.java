@@ -13,7 +13,7 @@ import com.aliyuncs.profile.DefaultProfile;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
-@Service
+//@Service
 @Slf4j
 public class SmsServiceImpl implements SmsService {
     String accessKeyId;

@@ -272,5 +272,13 @@ https://portal.influxdata.com/downloads/
 
 ### 7.2 接口设置
 
+## 所有配置信息汇总
+### vm options
+
+```
+-Dding.notif.secret=xxxx
+-Dding.notif.access_token=xxxx
+```
+
 
 

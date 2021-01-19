@@ -13,7 +13,7 @@ import java.util.Set;
  * @author neyzoter
  */
 public class LocationUploadRequestMsgBodyMapper implements InfluxMapper {
-    public static final String time = "time";
+    public static final String time = "LocationTime";
     @Override
     public Map<String, Object> fields(Object msg, boolean of) {
         checkType(msg);
@@ -29,7 +29,7 @@ public class LocationUploadRequestMsgBodyMapper implements InfluxMapper {
     @Override
     public String getTime(Object msg) throws ClassCastException {
         checkType(msg);
-        return ((LocationUploadRequestMsgBody)msg).getTime();
+        return ((LocationUploadRequestMsgBody)msg).getLocationTime();
     }
 
     @Override

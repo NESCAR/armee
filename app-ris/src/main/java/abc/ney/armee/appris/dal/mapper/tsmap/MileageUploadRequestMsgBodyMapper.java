@@ -14,7 +14,7 @@ import java.util.Set;
  */
 public class MileageUploadRequestMsgBodyMapper implements InfluxMapper {
 
-    public static final String time = "time";
+    public static final String time = "mileageTime";
     @Override
     public Map<String, Object> fields(Object msg, boolean of) {
         checkType(msg);
@@ -29,7 +29,7 @@ public class MileageUploadRequestMsgBodyMapper implements InfluxMapper {
     @Override
     public String getTime(Object msg) {
         checkType(msg);
-        return ((MileageUploadRequestMsgBody)msg).getTime();
+        return ((MileageUploadRequestMsgBody)msg).getMileageTime();
     }
 
     @Override

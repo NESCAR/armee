@@ -24,11 +24,8 @@ public class DalConfiguration {
     private void configInfluxMapperRegister() {
         imr.registerMapper(Jt808MsgType.CLIENT_LOCATION_INFO_UPLOAD, new LocationUploadRequestMsgBodyMapper());
         imr.registerMapper(Jt808MsgType.CLIENT_AXLE_LOAD_INFO_UPLOAD, new AxleLoadUploadRequestMsgBodyMapper());
-        imr.registerMapper(Jt808MsgType.CLIENT_BRAKE_INFO_UPLOAD, new BrakeEventRequestMsgBodyMapper());
         imr.registerMapper(Jt808MsgType.CLIENT_MILEAGE_INFO_UPLOAD, new MileageUploadRequestMsgBodyMapper());
         imr.registerMapper(Jt808MsgType.CLIENT_RSSEVENT_INFO_UPLOAD, new RssUploadRequestMsgBodyMapper());
         imr.registerMapper(Jt808MsgType.CLIENT_TEBS_STATUS_INFO_UPLOAD, new TEBStatusRequestMsgBodyMapper());
-        imr.registerMapper(Jt808MsgType.CLIENT_ALARM_INFO_UPLOAD, new AlarmUploadRequestMsgBodyMapper());
-        imr.registerMapper(Jt808MsgType.CLIENT_LOCK_INFO_UPLOAD, new LockUploadRequestMsgBodyMapper());
     }
 }

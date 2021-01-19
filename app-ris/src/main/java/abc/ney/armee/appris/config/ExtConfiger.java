@@ -27,4 +27,7 @@ public class ExtConfiger {
     public static final String ALIYUN_ACCESSKEY_ID = "aliyun.accesskey.id";
     public static final String ALIYUN_ACCESSKEY_SECRET = "aliyun.accesskey.secret";
 
+    public static final String DING_NOTIFICATION_SECRET_PROPERTY_NAME = "ding.notif.secret";
+    public static final String DING_NOTIFICATION_ACCESS_TOKEN_PROPERTY_NAME = "ding.notif.access_token";
+
 }

@@ -14,7 +14,7 @@ import java.util.Set;
  */
 public class AxleLoadUploadRequestMsgBodyMapper implements InfluxMapper {
 
-    public static final String time = "time";
+    public static final String time = "axleTime";
     @Override
     public Map<String, Object> fields(Object msg, boolean of) {
         checkType(msg);
@@ -29,7 +29,7 @@ public class AxleLoadUploadRequestMsgBodyMapper implements InfluxMapper {
     @Override
     public String getTime(Object msg) {
         checkType(msg);
-        return ((AxleLoadUploadRequestMsgBody)msg).getTime();
+        return ((AxleLoadUploadRequestMsgBody)msg).getAxleTime();
     }
 
     @Override

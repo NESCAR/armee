@@ -14,7 +14,7 @@ import java.util.Set;
  */
 public class RssUploadRequestMsgBodyMapper implements InfluxMapper {
 
-    public static final String time = "time";
+    public static final String time = "rssTime";
     @Override
     public Map<String, Object> fields(Object msg, boolean of) {
         checkType(msg);
@@ -29,7 +29,7 @@ public class RssUploadRequestMsgBodyMapper implements InfluxMapper {
     @Override
     public String getTime(Object msg) {
         checkType(msg);
-        return ((RssUploadRequestMsgBody)msg).getTime();
+        return ((RssUploadRequestMsgBody)msg).getRssTime();
     }
 
     @Override

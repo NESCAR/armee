@@ -21,3 +21,6 @@ apollo-*.sha1
 
 # mac
 *.DS_Store
+
+# 不能上传的密钥
+/script/security/
