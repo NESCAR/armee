@@ -6,10 +6,12 @@ import abc.ney.armee.appris.dal.meta.po.Staff;
 import abc.ney.armee.appris.service.AdminService;
 import abc.ney.armee.appris.service.CarService;
 import abc.ney.armee.appris.service.LockInfoManService;
+import abc.ney.armee.appris.service.MobileNotification;
 import icu.nescar.armee.jet.broker.ext.producer.MsgKey;
 import icu.nescar.armee.jet.broker.msg.req.AuthUpdateSuccessRequestMsgBody;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
@@ -23,6 +25,7 @@ public class AuthUpdateSuccessRequestHandler implements UpMsgHandler {
     CarService carService;
     LockInfoManService lockInfoManService;
     AdminService adminService;
+    MobileNotification mobileNotification;
     @Transactional(propagation = Propagation.REQUIRED)
     @Override
     public void process(MsgKey key, Object value) {
@@ -58,6 +61,8 @@ public class AuthUpdateSuccessRequestHandler implements UpMsgHandler {
         lockAuthInfo.setDowned(true);
         lockInfoManService.updateLockInfoByPrimaryKey(lockAuthInfo);
         log.debug("[To DB]  >>>>>>  " + lockAuthInfo.toString());
+        mobileNotification.sendLockAuthInfo(driver.getTel(), new Timestamp(lockAuthInfo.getStartTime().getTime()),
+                new Timestamp(lockAuthInfo.getEndTime().getTime()), device.getLicensePlate(), null);
     }
 
     @Autowired
@@ -71,5 +76,9 @@ public class AuthUpdateSuccessRequestHandler implements UpMsgHandler {
     @Autowired
     public void setAdminService(AdminService adminService) {
         this.adminService = adminService;
+    }
+    @Autowired
+    public void setMobileNotification(@Qualifier("dingNotification") MobileNotification mobileNotification) {
+        this.mobileNotification = mobileNotification;
     }
 }

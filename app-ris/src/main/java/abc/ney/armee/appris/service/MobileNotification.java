@@ -1,7 +1,6 @@
 package abc.ney.armee.appris.service;
 
 import java.sql.Timestamp;
-import java.util.List;
 
 /**
  * 移动端消息推送服务

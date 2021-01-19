@@ -16,7 +16,6 @@ import javax.crypto.spec.SecretKeySpec;
 import java.net.URLEncoder;
 import java.sql.Timestamp;
 import java.util.Arrays;
-import java.util.List;
 
 @Slf4j
 @Service("dingNotification")
@@ -53,7 +52,7 @@ public class DingNotification implements MobileNotification {
             markdown.setText(
                     String.format("#### 授权信息 @%s\n\n", atMobile) +
                     String.format("> 车牌: %s\n\n", license) +
-                    String.format("> 位置: %s\n\n", location) +
+                    String.format("> 位置: %s\n\n", location != null ? location : "未知") +
                     String.format("> 授权时间段: %s ~ %s", st.toString(), et.toString()));
             request.setMarkdown(markdown);
             OapiRobotSendResponse response = client.execute(request);
