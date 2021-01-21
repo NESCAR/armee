@@ -24,3 +24,7 @@ apollo-*.sha1
 
 # 不能上传的密钥
 /script/security/
+
+# jar
+*.jar
+!taobao-sdk-java-auto_1479188381469-20210119.jar

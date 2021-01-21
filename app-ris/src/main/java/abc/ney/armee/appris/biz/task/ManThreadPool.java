@@ -15,7 +15,7 @@ import java.util.concurrent.TimeUnit;
 public class ManThreadPool {
     public final int CORE_POOL_SIZE = 1;
     public final int INITIAL_DELAY_MIN_FOR_LOCK_AUTH = 10;
-    public final int PERIOD_MIN_FOR_LOCK_AUTH = 20;
+    public final int PERIOD_MIN_FOR_LOCK_AUTH = 10;
 
     @Autowired
     public ManThreadPool(LockAuthDownTask lockAuthDownTask) {

@@ -51,12 +51,12 @@ public class LockAuthDownTask implements Runnable {
                 log.warn("司机无IC卡信息");
             }
             authInfoSettingsMsgBody.setTerminalID(car.getImei());
-            authInfoSettingsMsgBody.setTerminalID(driver.getIcCode());
+            authInfoSettingsMsgBody.setDriverID(driver.getIcCode());
             authInfoSettingsMsgBody.setLockTimeStart(TimeConverter.timestamp2BcdString(
                     new Timestamp(lai.getStartTime().getTime())));
             authInfoSettingsMsgBody.setLockTimeEnd(TimeConverter.timestamp2BcdString(
                     new Timestamp(lai.getEndTime().getTime())));
-            KafkaMsgKey key = new KafkaMsgKey(car.getImei(), Jt808MsgType.CMD_LOCK_INFO_SETTINGS.getMsgId());
+            KafkaMsgKey key = new KafkaMsgKey(car.getImei(), Jt808MsgType.CMD_AUTH_INFO_SETTINGS.getMsgId());
             commandKafkaProducer.send(key, authInfoSettingsMsgBody);
             log.info("Kafka (Topic : Command) send , key : " + key.toString() +
                     " value : " + authInfoSettingsMsgBody.toString());
