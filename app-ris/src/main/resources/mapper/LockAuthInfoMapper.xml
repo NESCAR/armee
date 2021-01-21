@@ -38,6 +38,10 @@
     delete from lock_auth_info
     where gid = #{gid,jdbcType=BIGINT}
   </delete>
+  <delete id="deleteByDeviceId" parameterType="java.lang.Long">
+    delete from lock_auth_info
+    where device_id = #{deviceId, jdbcType=BIGINT}
+  </delete>
   <insert id="insert" keyColumn="gid" keyProperty="gid" parameterType="abc.ney.armee.appris.dal.meta.po.LockAuthInfo" useGeneratedKeys="true">
     insert into lock_auth_info (device_id, driver_id, start_time, 
       end_time, downed)

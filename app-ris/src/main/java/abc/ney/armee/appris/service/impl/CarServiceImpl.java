@@ -2,6 +2,7 @@ package abc.ney.armee.appris.service.impl;
 
 import abc.ney.armee.appris.dal.mapper.tms.DeviceLockRecordMapper;
 import abc.ney.armee.appris.dal.mapper.tms.DeviceMapper;
+import abc.ney.armee.appris.dal.mapper.tms.LockAuthInfoMapper;
 import abc.ney.armee.appris.dal.mapper.tms.StaffMapper;
 import abc.ney.armee.appris.dal.meta.po.Device;
 import abc.ney.armee.appris.dal.meta.po.DeviceLockRecord;
@@ -10,8 +11,11 @@ import abc.ney.armee.appris.dal.meta.po.Staff;
 import abc.ney.armee.appris.service.CarService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 @Service
 @Slf4j
@@ -22,6 +26,13 @@ public class CarServiceImpl implements CarService {
     StaffMapper staffMapper;
     @Resource
     DeviceLockRecordMapper deviceLockRecordMapper;
+    @Resource
+    LockAuthInfoMapper lockAuthInfoMapper;
+
+    @Override
+    public Boolean addDevice(Device device) {
+        return deviceMapper.insertSelective(device) != ServiceConstant.MYSQL_INSERT_ERR_RTN;
+    }
 
     @Override
     public Device queryDeviceByGid(Long gid) {
@@ -31,6 +42,11 @@ public class CarServiceImpl implements CarService {
     @Override
     public Device queryDeviceByImei(String imei) {
         return deviceMapper.selectByImei(imei);
+    }
+
+    @Override
+    public List<Device> queryDevice() {
+        return deviceMapper.select();
     }
 
     @Override
@@ -66,6 +82,17 @@ public class CarServiceImpl implements CarService {
             return false;
         }
         return deviceMapper.updateByPrimaryKeySelective(device) != ServiceConstant.MYSQL_INSERT_ERR_RTN;
+    }
+
+    @Transactional(propagation = Propagation.REQUIRED)
+    @Override
+    public void deleteDeviceByGid(Long deviceId) {
+        // step1. 删除上锁/解锁记录
+        deviceLockRecordMapper.deleteByDeviceId(deviceId);
+        // step2. 删除设备授权信息
+        lockAuthInfoMapper.deleteByDeviceId(deviceId);
+        // step3. 删除设备
+        deviceMapper.deleteByPrimaryKey(deviceId);
     }
 
     @Override

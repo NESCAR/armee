@@ -12,10 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 /**
  * 用户管理Controller
@@ -91,14 +88,14 @@ public class UserManage {
 
     @ApiOperation(value = "查询管理员", tags = {"用户管理"}, notes = "查询管理员")
     @PreAuthorize("hasRole('ROLE_SUPER_ADMIN')")
-    @GetMapping("/queryAdmin")
+    @PostMapping("/queryAdmin")
     public BaseResp<List<StaffVo>> queryAdmin() {
         List<StaffVo> adminList = adminService.queryAdmin();
         return new BaseResp<>(ResultStatus.http_status_ok, "管理员信息", adminList);
     }
     @ApiOperation(value = "查询司机", tags = {"用户管理"}, notes = "查询管理员")
     @PreAuthorize("hasAnyRole('ROLE_SUPER_ADMIN', 'ROLE_ADMIN')")
-    @GetMapping("/queryDriver")
+    @PostMapping("/queryDriver")
     public BaseResp<List<StaffVo>> queryDriver() {
         List<StaffVo> driverList = adminService.queryDriver();
         return new BaseResp<>(ResultStatus.http_status_ok, "司机信息", driverList);
@@ -106,7 +103,7 @@ public class UserManage {
 
     @ApiOperation(value = "更新管理员", tags = {"用户管理"}, notes = "更新管理员")
     @PreAuthorize("hasRole('ROLE_SUPER_ADMIN')")
-    @GetMapping("/updateAdmin")
+    @PostMapping("/updateAdmin")
     public BaseResp<Map<Long, Boolean>> updateAdmin(@RequestBody StaffCredentialsDto staffCredentialsDto) {
         Map<Long, Boolean> res = adminService.updateAdmin(staffCredentialsDto);
         Set<Map.Entry<Long, Boolean>> set = res.entrySet();
@@ -120,7 +117,7 @@ public class UserManage {
     }
     @ApiOperation(value = "更新司机", tags = {"用户管理"}, notes = "更新管理员")
     @PreAuthorize("hasAnyRole('ROLE_SUPER_ADMIN', 'ROLE_ADMIN')")
-    @GetMapping("/updateDriver")
+    @PostMapping("/updateDriver")
     public BaseResp<Map<Long, Boolean>> updateDriver(@RequestBody StaffCredentialsDto staffCredentialsDto) {
         Map<Long, Boolean> res = adminService.updateDriver(staffCredentialsDto);
         Set<Map.Entry<Long, Boolean>> set = res.entrySet();
@@ -135,18 +132,18 @@ public class UserManage {
 
     @ApiOperation(value = "删除管理员", tags = {"用户管理"}, notes = "更新管理员")
     @PreAuthorize("hasAnyRole('ROLE_SUPER_ADMIN')")
-    @GetMapping("/deleteAdmin")
+    @PostMapping("/deleteAdmin")
     public BaseResp<Map<Long, Boolean>> deleteAdmin(@RequestBody List<Long> deleteId) {
-        Map<Long, Boolean> res = null;
-        return new BaseResp<>(ResultStatus.http_status_ok, "", res);
+        Map<Long, Boolean> res = adminService.deleteAdmins(deleteId);
+        return new BaseResp<>(ResultStatus.http_status_ok, "删除结果", res);
     }
 
 
     @ApiOperation(value = "删除司机", tags = {"用户管理"}, notes = "更新管理员")
     @PreAuthorize("hasAnyRole('ROLE_SUPER_ADMIN', 'ROLE_ADMIN')")
-    @GetMapping("/deleteDriver")
+    @PostMapping("/deleteDriver")
     public BaseResp<Map<Long, Boolean>> deleteDrive(@RequestBody List<Long> deleteId) {
-        Map<Long, Boolean> res = null;
+        Map<Long, Boolean> res = adminService.deleteDrivers(deleteId);
         return new BaseResp<>(ResultStatus.http_status_ok, "", res);
     }
 

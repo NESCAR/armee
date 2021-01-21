@@ -25,6 +25,10 @@
     delete from device_lock_record
     where gid = #{gid,jdbcType=BIGINT}
   </delete>
+  <delete id="deleteByDeviceId" parameterType="java.lang.Long">
+    delete from device_lock_record
+    where device_id = #{deviceId, jdbcType=BIGINT}
+  </delete>
   <insert id="insert" keyColumn="gid" keyProperty="gid" parameterType="abc.ney.armee.appris.dal.meta.po.DeviceLockRecord" useGeneratedKeys="true">
     insert into device_lock_record (device_id, change_time, lock_status
       )

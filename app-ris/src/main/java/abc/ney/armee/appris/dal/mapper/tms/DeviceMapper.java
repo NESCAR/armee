@@ -2,6 +2,8 @@ package abc.ney.armee.appris.dal.mapper.tms;
 
 import abc.ney.armee.appris.dal.meta.po.Device;
 
+import java.util.List;
+
 public interface DeviceMapper {
     int deleteByPrimaryKey(Long gid);
 
@@ -12,6 +14,8 @@ public interface DeviceMapper {
     Device selectByPrimaryKey(Long gid);
 
     Device selectByImei(String imei);
+
+    List<Device> select();
 
     int updateByPrimaryKeySelective(Device record);
 

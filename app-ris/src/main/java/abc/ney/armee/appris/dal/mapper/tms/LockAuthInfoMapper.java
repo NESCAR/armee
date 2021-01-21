@@ -7,6 +7,8 @@ import java.util.List;
 public interface LockAuthInfoMapper {
     int deleteByPrimaryKey(Long gid);
 
+    int deleteByDeviceId(Long deviceId);
+
     int insert(LockAuthInfo record);
 
     int insertSelective(LockAuthInfo record);
