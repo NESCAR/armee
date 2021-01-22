@@ -54,7 +54,7 @@ CREATE TABLE `credentials` (
   `version` int(11) DEFAULT NULL COMMENT '版本号',
   PRIMARY KEY (`id`),
   UNIQUE KEY `name` (`name`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -63,7 +63,7 @@ CREATE TABLE `credentials` (
 
 LOCK TABLES `credentials` WRITE;
 /*!40000 ALTER TABLE `credentials` DISABLE KEYS */;
-INSERT INTO `credentials` VALUES (1,1,'super_admin','$2a$10$BurTWIy5NTF9GJJH4magz.9Bd4bBurWYG8tmXxeQh1vs7r/wnCFG2',1),(2,1,'zzh','$2a$10$/JJEQGzC29sl/CRsG7hG9OU7LJK0hbGU1UQdgEKAc3tJMLRbKc6fG',1),(3,1,'sxx','$2a$10$mRyFwCiNgtUfZxRQSWUlx.UEZbyXQT7nQUQjUAthp1o4SPpd5N8sy',1);
+INSERT INTO `credentials` VALUES (1,1,'super_admin','$2a$10$BurTWIy5NTF9GJJH4magz.9Bd4bBurWYG8tmXxeQh1vs7r/wnCFG2',1),(10,1,'scc','$2a$10$U02FTQ9xPad3IAecgSvjJOw7xxY4QI7dXXkjakr1YUpmw02BudVkq',1),(11,1,'hujing','$2a$10$44t1aBnsgyIP9oCV0YxcrOzYfLvO2QJS.FsiUMNF.GzNrAHJTHOiW',1),(12,1,'liying','$2a$10$zPNt1GSVtend7u7noFiJ..RL7Tbvgq6tWeBNoohNpQpkZxJW2cJZC',1);
 /*!40000 ALTER TABLE `credentials` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -90,7 +90,7 @@ CREATE TABLE `credentials_authorities` (
 
 LOCK TABLES `credentials_authorities` WRITE;
 /*!40000 ALTER TABLE `credentials_authorities` DISABLE KEYS */;
-INSERT INTO `credentials_authorities` VALUES (1,1),(2,2),(3,2);
+INSERT INTO `credentials_authorities` VALUES (1,1),(10,2),(11,3),(12,3);
 /*!40000 ALTER TABLE `credentials_authorities` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -117,7 +117,7 @@ CREATE TABLE `credentials_staff` (
 
 LOCK TABLES `credentials_staff` WRITE;
 /*!40000 ALTER TABLE `credentials_staff` DISABLE KEYS */;
-INSERT INTO `credentials_staff` VALUES (1,1),(NULL,2),(NULL,3);
+INSERT INTO `credentials_staff` VALUES (1,1),(10,10),(11,11),(12,12);
 /*!40000 ALTER TABLE `credentials_staff` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -141,9 +141,11 @@ CREATE TABLE `device` (
   `gmt_create` datetime(6) DEFAULT NULL COMMENT '创建时间',
   `gmt_update` datetime(6) DEFAULT NULL COMMENT '更改时间',
   PRIMARY KEY (`gid`),
+  UNIQUE KEY `imei` (`imei`),
+  UNIQUE KEY `imsi` (`imsi`),
   KEY `driver_gid_cons` (`driver_gid`),
   CONSTRAINT `driver_gid_cons` FOREIGN KEY (`driver_gid`) REFERENCES `staff` (`gid`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -152,8 +154,36 @@ CREATE TABLE `device` (
 
 LOCK TABLES `device` WRITE;
 /*!40000 ALTER TABLE `device` DISABLE KEYS */;
-INSERT INTO `device` VALUES (1,'123','123','123',0,NULL,NULL,'浙A 123456',NULL,'2021-01-15 20:32:34.000000','2021-01-15 20:32:36.000000');
+INSERT INTO `device` VALUES (1,'768901005626','123','123',0,'1970-01-01 00:00:00.001000','2021-01-17 04:00:00.000000','浙A 123456',12,'2021-01-15 20:32:34.000000','2021-01-18 06:58:49.106000'),(3,'980987878','1231231','123',0,NULL,NULL,'浙A 20228',NULL,NULL,NULL);
 /*!40000 ALTER TABLE `device` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `device_lock_record`
+--
+
+DROP TABLE IF EXISTS `device_lock_record`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `device_lock_record` (
+  `gid` bigint(20) unsigned NOT NULL AUTO_INCREMENT COMMENT '记录编号',
+  `device_id` bigint(20) unsigned DEFAULT NULL COMMENT '汽车唯一ID',
+  `change_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '上锁/解锁时间',
+  `lock_status` int(2) NOT NULL COMMENT '上锁状态，1：上锁；0：未上锁',
+  PRIMARY KEY (`gid`),
+  KEY `device_id_cons` (`device_id`),
+  CONSTRAINT `device_id_cons` FOREIGN KEY (`device_id`) REFERENCES `device` (`gid`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `device_lock_record`
+--
+
+LOCK TABLES `device_lock_record` WRITE;
+/*!40000 ALTER TABLE `device_lock_record` DISABLE KEYS */;
+INSERT INTO `device_lock_record` VALUES (1,1,'2021-01-16 20:01:01',0),(2,1,'2021-01-16 23:01:01',1);
+/*!40000 ALTER TABLE `device_lock_record` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -165,13 +195,17 @@ DROP TABLE IF EXISTS `lock_auth_info`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `lock_auth_info` (
   `gid` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '鉴权信息',
-  `device_id` bigint(20) unsigned DEFAULT NULL COMMENT '挂车唯一ID',
+  `device_id` bigint(20) unsigned NOT NULL COMMENT '挂车唯一ID',
+  `driver_id` bigint(20) unsigned NOT NULL COMMENT '司机唯一ID',
   `start_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '授权开始时间',
   `end_time` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT '授权结束时间',
+  `downed` tinyint(1) NOT NULL DEFAULT '0',
   PRIMARY KEY (`gid`),
   KEY `lock_auth_info_device_cons` (`device_id`),
-  CONSTRAINT `lock_auth_info_device_cons` FOREIGN KEY (`device_id`) REFERENCES `device` (`gid`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+  KEY `lock_auth_info_staff_cons` (`driver_id`),
+  CONSTRAINT `lock_auth_info_device_cons` FOREIGN KEY (`device_id`) REFERENCES `device` (`gid`),
+  CONSTRAINT `lock_auth_info_staff_cons` FOREIGN KEY (`driver_id`) REFERENCES `staff` (`gid`)
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -180,7 +214,7 @@ CREATE TABLE `lock_auth_info` (
 
 LOCK TABLES `lock_auth_info` WRITE;
 /*!40000 ALTER TABLE `lock_auth_info` DISABLE KEYS */;
-INSERT INTO `lock_auth_info` VALUES (1,1,'2021-01-15 13:31:17','2021-01-15 14:31:24');
+INSERT INTO `lock_auth_info` VALUES (1,1,12,'2021-01-16 17:00:00','2021-01-16 20:00:00',1),(2,1,12,'2021-01-16 22:00:00','2021-01-17 04:00:00',1),(3,1,12,'2021-01-18 03:52:05','2021-01-18 20:00:00',0),(4,1,12,'2021-01-19 17:00:00','2021-01-19 20:00:00',0),(6,1,12,'2021-01-18 01:00:00','2021-01-18 02:00:00',0),(7,1,12,'2021-01-22 00:09:24','2021-01-28 05:00:00',0);
 /*!40000 ALTER TABLE `lock_auth_info` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -285,8 +319,9 @@ CREATE TABLE `staff` (
   `gmt_update` datetime(6) DEFAULT NULL COMMENT '更新时间',
   `tel_area` varchar(16) DEFAULT '86' COMMENT '手机号区号',
   `ic_code` varchar(255) DEFAULT NULL COMMENT 'ic卡信息(如果有的话)',
-  PRIMARY KEY (`gid`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+  PRIMARY KEY (`gid`),
+  UNIQUE KEY `ic_code` (`ic_code`)
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -295,7 +330,7 @@ CREATE TABLE `staff` (
 
 LOCK TABLES `staff` WRITE;
 /*!40000 ALTER TABLE `staff` DISABLE KEYS */;
-INSERT INTO `staff` VALUES (1,'宋超超','armee_0001','超级管理员','15109890989','sonechaochao@gmail.com','2021-01-15 16:55:37.000000','2021-01-15 16:55:37.000000','86',NULL),(2,'张子豪','123','管理员','12345678990','zzh@zju.edu.cn',NULL,NULL,'86',NULL),(3,'徐帅','1234','管理员','13123123123','xushuai@zju.edu.cn',NULL,NULL,'86',NULL);
+INSERT INTO `staff` VALUES (1,'宋超超','armee_0001','超级管理员','15109890989','sonechaochao@gmail.com','2021-01-15 16:55:37.000000','2021-01-15 16:55:37.000000','86',NULL),(10,'胡婧','012','管理员','12345678990','hujing@zju.edu.cn','2021-01-17 09:35:29.000000','2021-01-17 09:35:29.000000','86',NULL),(11,'胡婧','012','司机','12345678990','hujing@zju.edu.cn','2021-01-17 09:39:23.000000','2021-01-17 09:39:23.000000','86','1230989'),(12,'李颖','015','司机','12345678990','liying@zju.edu.cn','2021-01-17 09:40:33.000000','2021-01-17 09:40:33.000000','86','1230980');
 /*!40000 ALTER TABLE `staff` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -308,4 +343,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2021-01-15 21:25:01
+-- Dump completed on 2021-01-22 16:38:04
