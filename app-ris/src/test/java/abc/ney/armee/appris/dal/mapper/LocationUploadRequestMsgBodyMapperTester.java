@@ -15,6 +15,7 @@ import org.springframework.data.redis.core.ZSetOperations;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import java.sql.Timestamp;
+import java.util.Arrays;
 import java.util.Optional;
 import java.util.Set;
 
@@ -32,8 +33,10 @@ public class LocationUploadRequestMsgBodyMapperTester {
     public void testFields() {
         LocationUploadRequestMsgBodyMapper mapper = new LocationUploadRequestMsgBodyMapper();
         LocationUploadRequestMsgBody body = new LocationUploadRequestMsgBody();
-        body.setLocationTime(TimeConverter.timestamp2BcdByte(
-                new Timestamp(System.currentTimeMillis())));
+        byte[] timeByte = TimeConverter.timestamp2BcdByte(
+                new Timestamp(System.currentTimeMillis()));
+        body.setLocationTime(timeByte);
+        System.out.println("时间：" + Arrays.toString(timeByte));
         body.setStatus(10);body.setSpeed((short) 70);body.setLng(30.0);
         body.setLat(23.0);body.setHeight((short) 12);body.setDirection((short) 12);
         body.setWarningFlag(0);

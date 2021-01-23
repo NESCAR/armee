@@ -20,5 +20,7 @@ public class TestTimeConverter {
         // 2021-01-17 12:01:09
         byte[] tbFormat = {21, 1, 17, 12, 1, 9};
         System.out.println(TimeConverter.bcdByte2Timestamp(tbFormat));
+
+        System.out.println(TimeConverter.bcdByte2RfcString(tbFormat));
     }
 }

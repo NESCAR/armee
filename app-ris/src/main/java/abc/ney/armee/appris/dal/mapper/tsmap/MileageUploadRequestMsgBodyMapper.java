@@ -15,16 +15,19 @@ import java.util.Set;
  */
 public class MileageUploadRequestMsgBodyMapper implements InfluxMapper {
 
-    public static final String time = "mileageTime";
+    public static final String TIME_VARIABLE_STR = "mileageTime";
     @Override
     public Map<String, Object> fields(Object msg, boolean of) {
         checkType(msg);
         Map<String, Object> map = MapMsgConvertUtils.objectToMap(msg);
+        String timeStr = getTime(msg);
         // 移除 传感数据外的无关数据
         if (of) {
-            map.remove(time);
+            map.remove(TIME_VARIABLE_STR);
         }
-        return map;
+        System.out.println("rfc time : " + timeStr);
+        System.out.println("time serie data : " + map.toString());
+        return MapMsgConvertUtils.objectToMap(msg);
     }
 
     @Override
