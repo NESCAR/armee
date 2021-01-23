@@ -4,6 +4,7 @@ import abc.ney.armee.enginee.tool.TimeConverter;
 import icu.nescar.armee.jet.broker.config.Jt808MsgType;
 import icu.nescar.armee.jet.broker.msg.req.MileageUploadRequestMsgBody;
 import io.github.hylexus.jt.data.msg.MsgType;
+import lombok.extern.slf4j.Slf4j;
 
 import java.util.HashSet;
 import java.util.Map;
@@ -13,6 +14,7 @@ import java.util.Set;
  * MileageUploadRequestMsgBody的映射器
  * @author neyzoter
  */
+@Slf4j
 public class MileageUploadRequestMsgBodyMapper implements InfluxMapper {
 
     public static final String TIME_VARIABLE_STR = "mileageTime";
@@ -20,14 +22,12 @@ public class MileageUploadRequestMsgBodyMapper implements InfluxMapper {
     public Map<String, Object> fields(Object msg, boolean of) {
         checkType(msg);
         Map<String, Object> map = MapMsgConvertUtils.objectToMap(msg);
-        String timeStr = getTime(msg);
         // 移除 传感数据外的无关数据
         if (of) {
             map.remove(TIME_VARIABLE_STR);
         }
-        System.out.println("rfc time : " + timeStr);
-        System.out.println("time serie data : " + map.toString());
-        return MapMsgConvertUtils.objectToMap(msg);
+        log.info(getTime(msg) + " : " + map.toString());
+        return map;
     }
 
     @Override

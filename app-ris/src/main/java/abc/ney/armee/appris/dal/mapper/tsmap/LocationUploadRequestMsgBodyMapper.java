@@ -5,6 +5,7 @@ import icu.nescar.armee.jet.broker.config.Jt808MsgType;
 import icu.nescar.armee.jet.broker.msg.req.AxleLoadUploadRequestMsgBody;
 import icu.nescar.armee.jet.broker.msg.req.LocationUploadRequestMsgBody;
 import io.github.hylexus.jt.data.msg.MsgType;
+import lombok.extern.slf4j.Slf4j;
 
 import java.util.HashSet;
 import java.util.Map;
@@ -14,20 +15,19 @@ import java.util.Set;
  * 位置信息上传映射器
  * @author neyzoter
  */
+@Slf4j
 public class LocationUploadRequestMsgBodyMapper implements InfluxMapper {
     public static final String TIME_VARIABLE_STR = "locationTime";
     @Override
     public Map<String, Object> fields(Object msg, boolean of) {
         checkType(msg);
         Map<String, Object> map = MapMsgConvertUtils.objectToMap(msg);
-        String timeStr = getTime(msg);
         // 移除 传感数据外的无关数据
         if (of) {
             map.remove(TIME_VARIABLE_STR);
         }
-        System.out.println("rfc time : " + timeStr);
-        System.out.println("time serie data : " + map.toString());
-        return MapMsgConvertUtils.objectToMap(msg);
+        log.info(getTime(msg) + " : " + map.toString());
+        return map;
     }
 
     @Override
