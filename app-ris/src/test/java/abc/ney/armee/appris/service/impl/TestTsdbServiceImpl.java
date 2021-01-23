@@ -3,12 +3,14 @@ package abc.ney.armee.appris.service.impl;
 import abc.ney.armee.appris.dal.mapper.tsmap.InfluxMapperRegister;
 import abc.ney.armee.appris.dal.mapper.tsmap.LocationUploadRequestMsgBodyMapper;
 import abc.ney.armee.appris.service.TsdbService;
+import abc.ney.armee.enginee.tool.TimeConverter;
 import icu.nescar.armee.jet.broker.config.Jt808MsgType;
 import icu.nescar.armee.jet.broker.ext.producer.MsgKey;
 import icu.nescar.armee.jet.broker.ext.producer.kafka.msg.KafkaMsgKey;
 import icu.nescar.armee.jet.broker.msg.req.LocationUploadRequestMsgBody;
 import lombok.extern.slf4j.Slf4j;
 
+import java.sql.Timestamp;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
@@ -43,7 +45,7 @@ public class TestTsdbServiceImpl {
         int i = 0;
         while (i++ < 10) {
             try {
-                msg.setLocationTime(String.valueOf(System.currentTimeMillis()));
+                msg.setLocationTime(TimeConverter.timestamp2BcdByte(new Timestamp(System.currentTimeMillis())));
                 tsdbService.insert(mk, msg);
                 log.info(msg.toString() + " send");
                 Thread.sleep(1000);

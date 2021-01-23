@@ -1,6 +1,8 @@
 package abc.ney.armee.appris.dal.mapper.tsmap;
 
+import abc.ney.armee.enginee.tool.TimeConverter;
 import icu.nescar.armee.jet.broker.config.Jt808MsgType;
+import icu.nescar.armee.jet.broker.msg.req.AxleLoadUploadRequestMsgBody;
 import icu.nescar.armee.jet.broker.msg.req.LocationUploadRequestMsgBody;
 import io.github.hylexus.jt.data.msg.MsgType;
 
@@ -29,7 +31,8 @@ public class LocationUploadRequestMsgBodyMapper implements InfluxMapper {
     @Override
     public String getTime(Object msg) throws ClassCastException {
         checkType(msg);
-        return ((LocationUploadRequestMsgBody)msg).getLocationTime();
+        return TimeConverter.bcdByte2RfcString(
+                ((LocationUploadRequestMsgBody)msg).getLocationTime());
     }
 
     @Override

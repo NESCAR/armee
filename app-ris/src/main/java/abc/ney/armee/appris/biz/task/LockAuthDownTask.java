@@ -52,9 +52,9 @@ public class LockAuthDownTask implements Runnable {
             }
             authInfoSettingsMsgBody.setTerminalID(car.getImei());
             authInfoSettingsMsgBody.setDriverID(driver.getIcCode());
-            authInfoSettingsMsgBody.setLockTimeStart(TimeConverter.timestamp2BcdString(
+            authInfoSettingsMsgBody.setLockTimeStart(TimeConverter.timestamp2BcdByte(
                     new Timestamp(lai.getStartTime().getTime())));
-            authInfoSettingsMsgBody.setLockTimeEnd(TimeConverter.timestamp2BcdString(
+            authInfoSettingsMsgBody.setLockTimeEnd(TimeConverter.timestamp2BcdByte(
                     new Timestamp(lai.getEndTime().getTime())));
             KafkaMsgKey key = new KafkaMsgKey(car.getImei(), Jt808MsgType.CMD_AUTH_INFO_SETTINGS.getMsgId());
             commandKafkaProducer.send(key, authInfoSettingsMsgBody);

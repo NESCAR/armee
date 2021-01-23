@@ -21,9 +21,9 @@ public interface InfluxMapper {
     Map<String, Object> fields(Object msg, boolean of);
 
     /**
-     * 获取时间
+     * 获取RFC格式时间
      * @param msg 消息
-     * @return 时间
+     * @return RFC格式时间
      */
     String getTime(Object msg);
 

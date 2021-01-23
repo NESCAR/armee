@@ -2,6 +2,7 @@ package abc.ney.armee.appris.dal.mapper;
 
 import abc.ney.armee.appris.dal.mapper.tsmap.LocationUploadRequestMsgBodyMapper;
 import abc.ney.armee.appris.dal.mapper.tsmap.MapMsgConvertUtils;
+import abc.ney.armee.enginee.tool.TimeConverter;
 import icu.nescar.armee.jet.broker.config.Jt808MsgType;
 import icu.nescar.armee.jet.broker.msg.req.LocationUploadRequestMsgBody;
 import io.github.hylexus.jt.data.msg.MsgType;
@@ -13,6 +14,7 @@ import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.ZSetOperations;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import java.sql.Timestamp;
 import java.util.Optional;
 import java.util.Set;
 
@@ -30,7 +32,8 @@ public class LocationUploadRequestMsgBodyMapperTester {
     public void testFields() {
         LocationUploadRequestMsgBodyMapper mapper = new LocationUploadRequestMsgBodyMapper();
         LocationUploadRequestMsgBody body = new LocationUploadRequestMsgBody();
-        body.setLocationTime(String.valueOf(System.currentTimeMillis()));
+        body.setLocationTime(TimeConverter.timestamp2BcdByte(
+                new Timestamp(System.currentTimeMillis())));
         body.setStatus(10);body.setSpeed((short) 70);body.setLng(30.0);
         body.setLat(23.0);body.setHeight((short) 12);body.setDirection((short) 12);
         body.setWarningFlag(0);

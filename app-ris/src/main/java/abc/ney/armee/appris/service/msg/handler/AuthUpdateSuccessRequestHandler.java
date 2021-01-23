@@ -7,6 +7,7 @@ import abc.ney.armee.appris.service.AdminService;
 import abc.ney.armee.appris.service.CarService;
 import abc.ney.armee.appris.service.LockInfoManService;
 import abc.ney.armee.appris.service.MobileNotification;
+import abc.ney.armee.enginee.tool.TimeConverter;
 import icu.nescar.armee.jet.broker.ext.producer.MsgKey;
 import icu.nescar.armee.jet.broker.msg.req.AuthUpdateSuccessRequestMsgBody;
 import lombok.extern.slf4j.Slf4j;
@@ -39,8 +40,8 @@ public class AuthUpdateSuccessRequestHandler implements UpMsgHandler {
         //        开始、结束时间；绑定司机信息gid
         Device device = new Device();
         device.setGmtUpdate(new Timestamp(System.currentTimeMillis()));
-        device.setImei(key.getTerminalId());device.setLockStartTime(Timestamp.valueOf(authUpdateSuccessRequestMsgBody.getLockTimeStart()));
-        device.setLockEndTime(Timestamp.valueOf(authUpdateSuccessRequestMsgBody.getLockTimeEnd()));device.setDriverGid(driverId);
+        device.setImei(key.getTerminalId());device.setLockStartTime(TimeConverter.bcdByte2Timestamp(authUpdateSuccessRequestMsgBody.getLockTimeStart()));
+        device.setLockEndTime(TimeConverter.bcdByte2Timestamp(authUpdateSuccessRequestMsgBody.getLockTimeEnd()));device.setDriverGid(driverId);
         carService.updateDeviceByImei(device);
         log.debug("[To DB]  >>>>>>  " + device.toString());
         // step3. 更新lock_auth_info的downed

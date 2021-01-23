@@ -34,7 +34,7 @@ public class LockStatusUploadRequestHandler implements UpMsgHandler {
         // step2. 增加device lock record
         DeviceLockRecord deviceLockRecord = new DeviceLockRecord();
         deviceLockRecord.setDeviceId(device.getGid());
-        deviceLockRecord.setChangeTime(TimeConverter.bcdString2Timestamp(lockStatusUploadRequest.getLockStatusTime()));
+        deviceLockRecord.setChangeTime(TimeConverter.bcdByte2Timestamp(lockStatusUploadRequest.getLockStatusTime()));
         deviceLockRecord.setLockStatus((int)lockStatusUploadRequest.getLockStatus());
         carService.addLockRecord(deviceLockRecord);
         log.debug("[To DB]  >>>>>>  " + deviceLockRecord.toString());
