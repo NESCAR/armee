@@ -33,7 +33,7 @@ public class TestInfluxMapper {
                         TimeConverter.timestamp2BcdByte(new Timestamp(System.currentTimeMillis())));
                 tsdbService.insert(key, locationUploadRequestMsgBody);
                 try {
-                    Thread.sleep(200);
+                    Thread.sleep(400);
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
