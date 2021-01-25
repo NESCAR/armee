@@ -8,19 +8,15 @@ public class TestTimeConverter {
         testTimestamp2BcdString();
     }
     public static void testTimestamp2BcdString() {
-        Timestamp ts = Timestamp.valueOf("2020-1-2 12:00:00");
-        System.out.println(TimeConverter.timestamp2BcdString(ts));
-
-        // 2021-01-17 12:01:09
-        String tsFormat = "210117120109";
-        System.out.println(TimeConverter.bcdString2Timestamp(tsFormat));
-
+        // to 23 3 21 23 9 35
+        Timestamp ts = Timestamp.valueOf("2017-3-15 17:09:23");
         System.out.println(Arrays.toString(TimeConverter.timestamp2BcdByte(ts)));
 
-        // 2021-01-17 12:01:09
-        byte[] tbFormat = {21, 1, 17, 12, 1, 9};
+        // 2017-3-15 17:09:23
+        byte[] tbFormat = {23, 3, 21, 23, 9, 35};
+        System.out.println(TimeConverter.bcdByte2RfcString(tbFormat));
+        System.out.println(TimeConverter.bcdByte2SqlTimestampString(tbFormat));
         System.out.println(TimeConverter.bcdByte2Timestamp(tbFormat));
 
-        System.out.println(TimeConverter.bcdByte2RfcString(tbFormat));
     }
 }
