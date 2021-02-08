@@ -32,12 +32,12 @@ public interface AdminService {
      * 查询管理员
      * @return 管理员列表
      */
-    List<StaffVo> queryAdmin();
+    List<StaffCredentialsDto> queryAdmin();
     /**
      * 查询司机
      * @return 司机列表
      */
-    List<StaffVo> queryDriver();
+    List<StaffCredentialsDto> queryDriver();
 
     /**
      * 查询司机信息

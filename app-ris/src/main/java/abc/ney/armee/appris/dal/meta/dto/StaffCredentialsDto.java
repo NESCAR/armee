@@ -52,13 +52,11 @@ public class StaffCredentialsDto implements Serializable {
      * 密码
      */
     private String password;
-
     /**
      * 权限
      * @see abc.ney.armee.appris.dal.meta.po.AuthorityRole
      */
     private String authority;
-
     /**
      * 转化为Staff
      * @return Staff

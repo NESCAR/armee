@@ -45,9 +45,9 @@ public class TestLockInfoManService {
     public void testAddLockAuthInfo() {
         LockAuthInfo lockAuthInfo = new LockAuthInfo();
         lockAuthInfo.setDowned(false);
-        lockAuthInfo.setStartTime(Timestamp.valueOf("2021-1-21 16:00:00"));
-        lockAuthInfo.setEndTime(Timestamp.valueOf("2021-1-21 21:00:00"));
-        lockAuthInfo.setDeviceId(1L);lockAuthInfo.setDriverId(12L);
+        lockAuthInfo.setStartTime(Timestamp.valueOf("2021-1-28 16:00:00"));
+        lockAuthInfo.setEndTime(Timestamp.valueOf("2021-2-28 21:00:00"));
+        lockAuthInfo.setDeviceId(1L);lockAuthInfo.setDriverId(13L);
         Boolean res1 = lockInfoManService.addLockAuthInfo(lockAuthInfo);
 //        lockAuthInfo.setDowned(false);lockAuthInfo.setEndTime(Timestamp.valueOf("2021-1-17 23:00:00"));
 //        lockAuthInfo.setStartTime(Timestamp.valueOf("2021-1-17 19:00:00"));

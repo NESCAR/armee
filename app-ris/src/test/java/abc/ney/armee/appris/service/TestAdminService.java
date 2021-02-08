@@ -28,7 +28,7 @@ public class TestAdminService {
         this.adminService = adminService;
     }
 
-    @Test
+//    @Test
     public void testQueryDriverByIcCode() {
         Staff driver = adminService.queryDriverByIcCode("1230980");
         log.info(driver.toString());
@@ -61,11 +61,11 @@ public class TestAdminService {
         log.info(res1.toString());
 //        log.info(res2.toString());
     }
-//    @Test
+    @Test
     public void testInsertDriver() {
         StaffCredentialsDto staffCredentialsDto1 = new StaffCredentialsDto();
-        staffCredentialsDto1.setAuthority("ROLE_COMMON_STAFF");staffCredentialsDto1.setName("liying");
-        staffCredentialsDto1.setRealName("李颖");staffCredentialsDto1.setEmail("liying@zju.edu.cn");
+        staffCredentialsDto1.setAuthority("ROLE_COMMON_STAFF");staffCredentialsDto1.setName("zhangsan");
+        staffCredentialsDto1.setRealName("张三");staffCredentialsDto1.setEmail("zhangsan@zju.edu.cn");
         staffCredentialsDto1.setNo("015");staffCredentialsDto1.setPassword("1234");
         staffCredentialsDto1.setTel("12345678990");staffCredentialsDto1.setPosition("司机");
         staffCredentialsDto1.setTelArea("86");staffCredentialsDto1.setIcCode("1230989");

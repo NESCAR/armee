@@ -89,15 +89,15 @@ public class UserManage {
     @ApiOperation(value = "查询管理员", tags = {"用户管理"}, notes = "查询管理员")
     @PreAuthorize("hasRole('ROLE_SUPER_ADMIN')")
     @PostMapping("/queryAdmin")
-    public BaseResp<List<StaffVo>> queryAdmin() {
-        List<StaffVo> adminList = adminService.queryAdmin();
+    public BaseResp<List<StaffCredentialsDto>> queryAdmin() {
+        List<StaffCredentialsDto> adminList = adminService.queryAdmin();
         return new BaseResp<>(ResultStatus.http_status_ok, "管理员信息", adminList);
     }
     @ApiOperation(value = "查询司机", tags = {"用户管理"}, notes = "查询管理员")
     @PreAuthorize("hasAnyRole('ROLE_SUPER_ADMIN', 'ROLE_ADMIN')")
     @PostMapping("/queryDriver")
-    public BaseResp<List<StaffVo>> queryDriver() {
-        List<StaffVo> driverList = adminService.queryDriver();
+    public BaseResp<List<StaffCredentialsDto>> queryDriver() {
+        List<StaffCredentialsDto> driverList = adminService.queryDriver();
         return new BaseResp<>(ResultStatus.http_status_ok, "司机信息", driverList);
     }
 

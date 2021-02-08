@@ -29,10 +29,12 @@ public class AdminServiceImpl implements AdminService {
     StaffMapper staffMapper;
     @Resource
     CredentialsStaffMapper credentialsStaffMapper;
-    @Resource
-    StaffVoMapper staffVoMapper;
+//    @Resource
+//    StaffVoMapper staffVoMapper;
     @Resource
     AuthorityMapper authorityMapper;
+    @Resource
+    StaffCredentialsDtoMapper staffCredentialsDtoMapper;
 
     public AdminServiceImpl() {
         encoder = new BCryptPasswordEncoder();
@@ -54,15 +56,18 @@ public class AdminServiceImpl implements AdminService {
     }
 
     @Override
-    public List<StaffVo> queryAdmin() {
-        List<StaffVo> superAdminList = staffVoMapper.selectStaffVoByAuthorityId(AuthorityRole.ROLE_SUPER_ADMIN.getId());
-        List<StaffVo> adminList = staffVoMapper.selectStaffVoByAuthorityId(AuthorityRole.ROLE_ADMIN.getId());
+    public List<StaffCredentialsDto> queryAdmin() {
+        List<StaffCredentialsDto> superAdminList =
+                staffCredentialsDtoMapper.selectStaffCredentialsDtoByAuthority(AuthorityRole.ROLE_SUPER_ADMIN.getAuthority());
+        List<StaffCredentialsDto> adminList =
+                staffCredentialsDtoMapper.selectStaffCredentialsDtoByAuthority(AuthorityRole.ROLE_ADMIN.getAuthority());
         superAdminList.addAll(adminList);
         return superAdminList;
     }
     @Override
-    public List<StaffVo> queryDriver() {
-        List<StaffVo> driverList = staffVoMapper.selectStaffVoByAuthorityId(AuthorityRole.ROLE_COMMON_STAFF.getId());
+    public List<StaffCredentialsDto> queryDriver() {
+        List<StaffCredentialsDto> driverList =
+                staffCredentialsDtoMapper.selectStaffCredentialsDtoByAuthority(AuthorityRole.ROLE_COMMON_STAFF.getAuthority());
         return driverList;
     }
 
