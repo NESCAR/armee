@@ -24,6 +24,7 @@ import java.util.Set;
 @RestController
 @RequestMapping(value = "carInfo")
 @PreAuthorize("hasAnyRole('ROLE_SUPER_ADMIN', 'ROLE_ADMIN')")
+//@CrossOrigin(origins = "*", maxAge = 3600, allowedHeaders = {"Authorization"})
 public class CarInfo {
     TsdbService tsdbService;
 
@@ -46,7 +47,7 @@ public class CarInfo {
     @ApiOperation(value = "查询汽车时序数据", tags = {"汽车信息"}, notes = "数据查询")
     @PostMapping("/queryTsData")
     public BaseResp<QueryResult> queryTsData(@RequestBody CarQueryParam carQueryParam) {
-//        log.info("car query param " + carQueryParam.toString());
+        log.info("car query param " + carQueryParam.toString());
         QueryResult qr = tsdbService.query(carQueryParam.getFields(), carQueryParam.getTags(), carQueryParam.getRetentionPolicy(), carQueryParam.getSt(), carQueryParam.getEt());
         return new BaseResp<>(ResultStatus.http_status_ok, "查询成功", qr);
     }

@@ -35,6 +35,7 @@ import java.util.Random;
 @RestController
 @RequestMapping(value = "carControl")
 @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_SUPER_ADMIN')")
+//@CrossOrigin(origins = "*", maxAge = 3600, allowedHeaders = {"Authorization"})
 public class CarControl {
     CarService carService;
     LockInfoManService lockInfoManService;

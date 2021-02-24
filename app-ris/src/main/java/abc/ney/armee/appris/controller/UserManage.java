@@ -21,6 +21,7 @@ import java.util.*;
 @Slf4j
 @RestController
 @RequestMapping(value = "userManage")
+//@CrossOrigin(origins = "*", maxAge = 3600, allowedHeaders = {"Authorization"})
 public class UserManage {
     AdminService adminService;
 

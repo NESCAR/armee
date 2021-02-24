@@ -8,6 +8,8 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.oauth2.provider.client.JdbcClientDetailsService;
 import org.springframework.stereotype.Service;
 
+import java.util.Arrays;
+
 /**
  * 用户的JDB服务
  * @author Charles Song
@@ -37,8 +39,7 @@ public class JdbcUserDetails implements UserDetailsService {
             throw new UsernameNotFoundException("User '" + username + "' can not be found");
         }
         System.out.println(credentialsAuthority.toString());
-        System.out.println(credentialsAuthority.getAuthorities().toString());
-
+        System.out.println(credentialsAuthority.getGrantedAuthorities().get(0).getAuthority());
         //此处授权也可以用credentials.getAuthorities(),但是在资源服务器解析的时候要引入自定义的com.oauth2.authorization.userdetails.Authority类否则会报找不到类对象而解析失败
         return new User(credentialsAuthority.getName(), credentialsAuthority.getPassword(), credentialsAuthority.isEnabled(), true, true, true, credentialsAuthority.getGrantedAuthorities());
     }
