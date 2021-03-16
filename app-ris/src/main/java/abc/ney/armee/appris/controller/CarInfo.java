@@ -24,7 +24,7 @@ import java.util.Set;
 @RestController
 @RequestMapping(value = "carInfo")
 @PreAuthorize("hasAnyRole('ROLE_SUPER_ADMIN', 'ROLE_ADMIN')")
-//@CrossOrigin(origins = "*", maxAge = 3600, allowedHeaders = {"Authorization"})
+@CrossOrigin(origins = "http://localhost:3000", methods = {RequestMethod.GET, RequestMethod.POST},maxAge = 3600, allowedHeaders = "*")
 public class CarInfo {
     TsdbService tsdbService;
 
