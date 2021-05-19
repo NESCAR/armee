@@ -34,7 +34,7 @@ public class TestUpMsgHandler {
         MsgKey key = new KafkaMsgKey("123",
                 Jt808MsgType.CLIENT_SETTINGS_UPDATE_INFO_UPLOAD.getMsgId());
         AuthUpdateSuccessRequestMsgBody authUpdateSuccessRequestMsgBody = new AuthUpdateSuccessRequestMsgBody();
-        authUpdateSuccessRequestMsgBody.setDriverId("1230980");
+        authUpdateSuccessRequestMsgBody.setDriverID("1230980");
         authUpdateSuccessRequestMsgBody.setLockTimeStart(
                 TimeConverter.timestamp2BcdByte(Timestamp.valueOf("2021-01-17 09:00:00")));
         authUpdateSuccessRequestMsgBody.setLockTimeEnd(

@@ -10,8 +10,8 @@ import java.io.IOException;
 
 
 /*全局跨域配置*/
-//@Order(Ordered.HIGHEST_PRECEDENCE)
-//@Configuration
+@Order(Ordered.HIGHEST_PRECEDENCE)
+@Configuration
 public class CorsFilter implements Filter {
 
     @Override

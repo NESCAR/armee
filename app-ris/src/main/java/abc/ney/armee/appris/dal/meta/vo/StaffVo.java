@@ -6,6 +6,9 @@ import lombok.ToString;
 
 /**
  * 员工信息VO
+ * 存活在业务层的数据分层
+ * 主要对应页面显示的数据对象
+ * vo value object
  * @author neyzoter
  */
 @Setter

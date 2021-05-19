@@ -9,6 +9,7 @@ import java.util.Set;
 
 /**
  * 汽车查询信息
+ * dto 数据传输对象 向数据库查询所需的数据对象（比如一个表有100列 但我只需要10列的时候）
  */
 @Setter
 @Getter
@@ -20,6 +21,7 @@ public class CarQueryParam {
     private Set<String> fields;
     /**
      * 标签
+     * 在influxdb中有索引属性的值叫tag 没有索引属性的value值叫field
      */
     private Map<String, String> tags;
     /**

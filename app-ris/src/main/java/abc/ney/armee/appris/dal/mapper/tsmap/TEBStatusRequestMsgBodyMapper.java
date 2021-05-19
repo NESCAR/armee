@@ -35,7 +35,7 @@ public class TEBStatusRequestMsgBodyMapper implements InfluxMapper {
     public String getTime(Object msg) {
         checkType(msg);
         return TimeConverter.bcdByte2RfcString(
-                ((TEBStatusRequestMsgBody)msg).getTime());
+                ((TEBStatusRequestMsgBody)msg).getTebsTime());
     }
 
     @Override

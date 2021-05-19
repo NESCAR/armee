@@ -32,7 +32,7 @@ public class AuthUpdateSuccessRequestHandler implements UpMsgHandler {
     public void process(MsgKey key, Object value) {
         AuthUpdateSuccessRequestMsgBody authUpdateSuccessRequestMsgBody = (AuthUpdateSuccessRequestMsgBody) value;
         // step1. 找到ic卡对应司机
-        String icId = authUpdateSuccessRequestMsgBody.getDriverId();
+        String icId = authUpdateSuccessRequestMsgBody.getDriverID();
         Staff driver = adminService.queryDriverByIcCode(icId);
         Long driverId = driver.getGid();
         log.debug("[From DB]  <<<<<<  " + driver.toString());

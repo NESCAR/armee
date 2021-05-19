@@ -6,7 +6,13 @@ import lombok.Data;
 
 import java.io.Serializable;
 import java.util.Date;
-
+/**
+ * 车辆 信息VO
+ * 存活在业务层的数据分层
+ * 主要对应页面显示的数据对象
+ * vo value object
+ *
+ */
 @Data
 public class DeviceVo implements Serializable {
     private static final long serialVersionUID = -92724186878799795L;

@@ -6,7 +6,9 @@ import lombok.Setter;
 import lombok.ToString;
 
 import java.io.Serializable;
-
+/**
+ * 职工查询信息
+ */
 @Setter
 @Getter
 @ToString

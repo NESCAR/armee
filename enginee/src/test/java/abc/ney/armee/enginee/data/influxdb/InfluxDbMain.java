@@ -34,7 +34,7 @@ public class InfluxDbMain {
             if (j++ > 1000) {
                 j--;
             }
-            System.out.println("Millis : " + time);
+            System.out.println(" 测试Millis : " + time);
             influxConnection.insert(measurement, tag, field, time, TimeUnit.MILLISECONDS);
             try {
                 Thread.sleep(10);

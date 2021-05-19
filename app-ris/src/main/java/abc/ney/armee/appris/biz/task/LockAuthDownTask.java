@@ -50,7 +50,6 @@ public class LockAuthDownTask implements Runnable {
             if (driver.getIcCode() == null) {
                 log.warn("司机无IC卡信息");
             }
-            authInfoSettingsMsgBody.setTerminalID(car.getImei());
             authInfoSettingsMsgBody.setDriverID(driver.getIcCode());
             authInfoSettingsMsgBody.setLockTimeStart(TimeConverter.timestamp2BcdByte(
                     new Timestamp(lai.getStartTime().getTime())));

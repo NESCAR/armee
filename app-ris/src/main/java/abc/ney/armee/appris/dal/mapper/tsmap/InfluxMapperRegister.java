@@ -16,6 +16,7 @@ import java.util.function.Supplier;
 
 /**
  * 时序数据库映射器登记
+ * 根据msgtype去拿到对应的mapper（然后根据不同的数据进行数据库的增删改查操作）
  * @author neyzoter
  */
 @Component

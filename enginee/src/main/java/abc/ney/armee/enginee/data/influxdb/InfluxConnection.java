@@ -32,6 +32,7 @@ public class InfluxConnection {
     private String database;
     /**
      * 保留策略<br>
+     *     influxdb是通过保存策略来设定数据的保留时间来清理空间的
      * 首先需要在influxdb中创建策略，如create retention policy "ONE_DAY" on "ris" duration 1d replication 1 default
      */
     private String retentionPolicy;

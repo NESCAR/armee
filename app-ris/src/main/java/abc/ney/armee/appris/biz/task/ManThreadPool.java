@@ -20,6 +20,7 @@ public class ManThreadPool {
     @Autowired
     public ManThreadPool(LockAuthDownTask lockAuthDownTask) {
         ScheduledExecutorService ses = Executors.newScheduledThreadPool(CORE_POOL_SIZE);
+        //定时的线程池
         ses.scheduleAtFixedRate(lockAuthDownTask, INITIAL_DELAY_MIN_FOR_LOCK_AUTH,
                 PERIOD_MIN_FOR_LOCK_AUTH, TimeUnit.SECONDS);
     }

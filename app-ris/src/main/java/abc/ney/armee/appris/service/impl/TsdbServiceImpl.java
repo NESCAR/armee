@@ -24,11 +24,11 @@ import java.util.concurrent.TimeUnit;
 @Slf4j
 public class TsdbServiceImpl implements TsdbService {
     /**
-     * 测量对象
+     * 测量对象 measurement对应 table
      */
     public static final String MEASUREMENT = "Trailer";
     /**
-     * 中断ID的tag名称
+     * 终端ID的tag名称
      */
     public static final String TERMINAL_ID_TAG = "terminalId";
     /**
