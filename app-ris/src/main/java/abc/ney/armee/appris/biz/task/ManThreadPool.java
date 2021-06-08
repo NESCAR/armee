@@ -3,6 +3,7 @@ package abc.ney.armee.appris.biz.task;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
@@ -23,5 +24,8 @@ public class ManThreadPool {
         //定时的线程池
         ses.scheduleAtFixedRate(lockAuthDownTask, INITIAL_DELAY_MIN_FOR_LOCK_AUTH,
                 PERIOD_MIN_FOR_LOCK_AUTH, TimeUnit.SECONDS);
+
+
+
     }
 }

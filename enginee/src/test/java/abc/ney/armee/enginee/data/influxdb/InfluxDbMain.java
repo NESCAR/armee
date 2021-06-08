@@ -20,16 +20,17 @@ public class InfluxDbMain {
      */
     public static void testInfluxConnection() {
         String measurement = "Trailer";
+
         InfluxConnection influxConnection = new InfluxConnection(null, null,"http://influxdb:8086", "ris","ONE_MONTH");
         HashMap<String, String> tag = new HashMap<>();
-        tag.put("imei", "1232123EF");
+        tag.put("imei", "109876EF");
         HashMap<String, Object> field = new HashMap<>();
         int j = 0;
         for (int i = 0; i < 10000; i++) {
             long time = System.currentTimeMillis();
             field.clear();
             field.put("panel", Math.abs(j * 0.1 + Math.random() * 5));
-            field.put("speed", Math.abs(j * 0.04  + Math.random() * 5));
+            field.put("speed", 1);
             field.put("moment", Math.abs(j * 0.08 + Math.random() * 5));
             if (j++ > 1000) {
                 j--;

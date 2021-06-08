@@ -29,12 +29,17 @@ public class CANRequestMsgBodyMapper implements InfluxMapper {
         if (of) {
             map.remove(TIME_VARIABLE_STR);
             map.remove(MSG_ITEM);
+            map.remove(CAN_ID);
         }
-        //TODO 针对canmsg body将其map数据解析出来返回所需的can数据
-        CANMsgRequestMsgBody canData = (CANMsgRequestMsgBody)map.get("canData");
-        map.put("canData",MapMsgConvertUtils.objectToMap(canData));
-        log.info(getTime(msg) + " : " + map.toString());
-        return map;
+        //重构了map的结构 将canid和candata中的数据放入新map
+        //TODO 是否应该把canID去掉
+//        Object canID=map.get("canID");
+
+        Object canData = map.get("canData");
+        Map<String,Object> newMap=MapMsgConvertUtils.objectToMap(canData);
+//        newMap.put("canID",canID);
+        log.info(getTime(msg) + " : " + newMap.toString());
+        return newMap;
     }
 
     @Override

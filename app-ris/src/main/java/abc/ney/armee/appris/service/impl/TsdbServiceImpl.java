@@ -64,8 +64,9 @@ public class TsdbServiceImpl implements TsdbService {
     @Override
     public void insert(MsgKey mk, Object o) {
         InfluxConnection ic = threadLocal4Influx.get();
+        System.out.println(ic.ping());
 //        InfluxConnection ic = new InfluxConnection(null, null, "http://influxdb:8086",
-//                "ris","ONE_DAY");
+//                "ris","ONE_MONTH");
         int msgid = mk.getMsgId();
         Optional<MsgType> mt = Jt808MsgType.CLIENT_AUTH.parseFromInt(msgid);
         if (mt.isPresent()) {

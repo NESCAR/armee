@@ -59,8 +59,10 @@ public class AuthUpdateSuccessRequestHandler implements UpMsgHandler {
         }
         lockAuthInfo.setGid(lockAuthInfoList.get(0).getGid());
         log.debug("[From DB]  <<<<<<  " + lockAuthInfo.toString());
-        lockAuthInfo.setDowned(true);
-        lockInfoManService.updateLockInfoByPrimaryKey(lockAuthInfo);
+
+        //下发一条消息后就将该位置设为true 授权更新成功只更改授权信息的起始时间
+//        lockAuthInfo.setDowned(true);
+//        lockInfoManService.updateLockInfoByPrimaryKey(lockAuthInfo);
         log.debug("[To DB]  >>>>>>  " + lockAuthInfo.toString());
         mobileNotification.sendLockAuthInfo(driver.getTel(), new Timestamp(lockAuthInfo.getStartTime().getTime()),
                 new Timestamp(lockAuthInfo.getEndTime().getTime()), device.getLicensePlate(), null);

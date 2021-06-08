@@ -110,11 +110,11 @@
         </dependency>
 
         <!--swagger2依赖，构建API文档-->
-<!--        <dependency>-->
-<!--            <groupId>com.spring4all</groupId>-->
-<!--            <artifactId>spring-boot-starter-swagger</artifactId>-->
-<!--            <version>1.5.1.RELEASE</version>-->
-<!--        </dependency>-->
+        <dependency>
+            <groupId>com.spring4all</groupId>
+            <artifactId>spring-boot-starter-swagger</artifactId>
+            <version>1.5.1.RELEASE</version>
+        </dependency>
         <dependency>
             <groupId>io.springfox</groupId>
             <artifactId>springfox-swagger2</artifactId>

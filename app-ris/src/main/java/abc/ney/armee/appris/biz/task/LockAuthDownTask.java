@@ -59,6 +59,15 @@ public class LockAuthDownTask implements Runnable {
             commandKafkaProducer.send(key, authInfoSettingsMsgBody);
             log.info("Kafka (Topic : Command) send , key : " + key.toString() +
                     " value : " + authInfoSettingsMsgBody.toString());
+
+            //step3 下发授权信息后将下发信息的标志位改成已下发
+            //当消息下发后，将下发消息的数据库的位置设为true，说明已下发。消息下发一次。
+            log.debug("[From DB]  <<<<<<  " + lai.toString());
+            lai.setDowned(true);
+            lockInfoManService.updateLockInfoByPrimaryKey(lai);
+            log.debug("[To DB]  >>>>>>  " + lai.toString());
+            log.info("消息成功下发");
+
         }
     }
     @Autowired
