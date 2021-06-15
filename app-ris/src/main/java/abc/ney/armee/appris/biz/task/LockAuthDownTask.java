@@ -10,12 +10,17 @@ import abc.ney.armee.enginee.tool.TimeConverter;
 import icu.nescar.armee.jet.broker.config.Jt808MsgType;
 import icu.nescar.armee.jet.broker.ext.producer.kafka.msg.KafkaMsgKey;
 import icu.nescar.armee.jet.broker.msg.comd.AuthInfoSettingsMsgBody;
+import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.sql.Array;
 import java.sql.Timestamp;
+import java.util.Arrays;
 import java.util.List;
+
+import static abc.ney.armee.appris.biz.util.LongToBytes.longToByteArray;
 
 /**
  * 授权信息下发任务
@@ -28,6 +33,7 @@ public class LockAuthDownTask implements Runnable {
     CommandKafkaProducer commandKafkaProducer;
     AdminService adminService;
     CarService carService;
+    @SneakyThrows
     @Override
     public void run() {
         // step1. 查询可以下发的授权信息
@@ -50,7 +56,18 @@ public class LockAuthDownTask implements Runnable {
             if (driver.getIcCode() == null) {
                 log.warn("司机无IC卡信息");
             }
-            authInfoSettingsMsgBody.setDriverID(driver.getIcCode());
+            long icCode = driver.getIcCode();
+            //将8个字节的long转换成6个字节
+            //TODO 但是仍然存在问题 就是如果超出六个字节的话怎么处理 实际上感觉这边应该换成byte[]类型
+            byte[] a=longToByteArray(icCode);
+            byte[] b=new byte[6];
+            Arrays.fill(b,(byte)'#');
+            for(int i=0;i<a.length;i++){
+                b[i]=a[i];
+            }
+
+            authInfoSettingsMsgBody.setDriverID(b);
+
             authInfoSettingsMsgBody.setLockTimeStart(TimeConverter.timestamp2BcdByte(
                     new Timestamp(lai.getStartTime().getTime())));
             authInfoSettingsMsgBody.setLockTimeEnd(TimeConverter.timestamp2BcdByte(
@@ -62,11 +79,11 @@ public class LockAuthDownTask implements Runnable {
 
             //step3 下发授权信息后将下发信息的标志位改成已下发
             //当消息下发后，将下发消息的数据库的位置设为true，说明已下发。消息下发一次。
-            log.debug("[From DB]  <<<<<<  " + lai.toString());
-            lai.setDowned(true);
-            lockInfoManService.updateLockInfoByPrimaryKey(lai);
-            log.debug("[To DB]  >>>>>>  " + lai.toString());
-            log.info("消息成功下发");
+//            log.debug("[From DB]  <<<<<<  " + lai.toString());
+//            lai.setDowned(true);
+//            lockInfoManService.updateLockInfoByPrimaryKey(lai);
+//            log.debug("[To DB]  >>>>>>  " + lai.toString());
+//            log.info("消息成功下发");
 
         }
     }

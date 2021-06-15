@@ -22,7 +22,7 @@ public class Staff implements Serializable {
 
     private String telArea;
 
-    private String icCode;
+    private Long icCode;
 
     private static final long serialVersionUID = 1L;
 
@@ -98,12 +98,12 @@ public class Staff implements Serializable {
         this.telArea = telArea == null ? null : telArea.trim();
     }
 
-    public String getIcCode() {
+    public Long getIcCode() {
         return icCode;
     }
 
-    public void setIcCode(String icCode) {
-        this.icCode = icCode == null ? null : icCode.trim();
+    public void setIcCode(Long icCode) {
+        this.icCode = icCode == null ? null : icCode;
     }
 
     @Override
