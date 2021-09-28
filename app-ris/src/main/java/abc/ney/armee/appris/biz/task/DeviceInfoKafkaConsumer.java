@@ -21,7 +21,11 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
-
+/**
+ * Kafka消费者 设备topic的 非时序数据
+ * @author whale
+ *
+ */
 @Slf4j
 @Component
 public class DeviceInfoKafkaConsumer extends KafkaConsumerImpl<ConsumerRecord<MsgKey, byte[]>> {

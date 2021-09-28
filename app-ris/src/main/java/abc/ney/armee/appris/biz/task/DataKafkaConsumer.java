@@ -23,8 +23,9 @@ import java.util.List;
 import java.util.Optional;
 
 /**
- * Kafka消费者
+ * Kafka消费者 topic data主题的
  * @author neyzoter
+ * 将上传的时序消息存入influxdb数据库
  */
 @Slf4j
 @Component
