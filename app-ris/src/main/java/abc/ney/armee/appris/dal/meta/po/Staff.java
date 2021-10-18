@@ -1,5 +1,7 @@
 package abc.ney.armee.appris.dal.meta.po;
 
+import org.apache.kafka.common.protocol.types.Field;
+
 import java.io.Serializable;
 import java.util.Date;
 
@@ -22,7 +24,7 @@ public class Staff implements Serializable {
 
     private String telArea;
 
-    private Long icCode;
+    private String icCode;
 
     private static final long serialVersionUID = 1L;
 
@@ -98,11 +100,11 @@ public class Staff implements Serializable {
         this.telArea = telArea == null ? null : telArea.trim();
     }
 
-    public Long getIcCode() {
+    public String getIcCode() {
         return icCode;
     }
 
-    public void setIcCode(Long icCode) {
+    public void setIcCode(String icCode) {
         this.icCode = icCode == null ? null : icCode;
     }
 

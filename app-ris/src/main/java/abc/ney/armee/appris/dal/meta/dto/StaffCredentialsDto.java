@@ -29,7 +29,7 @@ public class StaffCredentialsDto implements Serializable {
     /**
      * IC卡，如果有的话
      */
-    private Long icCode;
+    private String icCode;
     /**
      * 职位
      */

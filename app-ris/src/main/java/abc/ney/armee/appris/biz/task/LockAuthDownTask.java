@@ -56,17 +56,15 @@ public class LockAuthDownTask implements Runnable {
             if (driver.getIcCode() == null) {
                 log.warn("司机无IC卡信息");
             }
-            long icCode = driver.getIcCode();
-            //将8个字节的long转换成6个字节
-            //TODO 但是仍然存在问题 就是如果超出六个字节的话怎么处理 实际上感觉这边应该换成byte[]类型
-            byte[] a=longToByteArray(icCode);
-            byte[] b=new byte[6];
-            Arrays.fill(b,(byte)'#');
-            for(int i=0;i<a.length;i++){
-                b[i]=a[i];
+            String icCode = driver.getIcCode();
+            StringBuilder icCodeStringBuilder = new StringBuilder(icCode);
+            //直接前端不允许输入超过6个字节的数 如果不满6个字节就在开头补0
+            //在终端解析的时候会把0去掉 解析出iccode
+            for (int i = 0; i < 6 - icCode.length(); i++) {
+                icCodeStringBuilder.insert(0,"0");
             }
-
-            authInfoSettingsMsgBody.setDriverID(b);
+            icCode = icCodeStringBuilder.toString();
+            authInfoSettingsMsgBody.setDriverID(icCode);
 
             authInfoSettingsMsgBody.setLockTimeStart(TimeConverter.timestamp2BcdByte(
                     new Timestamp(lai.getStartTime().getTime())));
@@ -77,13 +75,13 @@ public class LockAuthDownTask implements Runnable {
             log.info("Kafka (Topic : Command) send , key : " + key.toString() +
                     " value : " + authInfoSettingsMsgBody.toString());
 
-            //step3 下发授权信息后将下发信息的标志位改成已下发
-            //当消息下发后，将下发消息的数据库的位置设为true，说明已下发。消息下发一次。
-//            log.debug("[From DB]  <<<<<<  " + lai.toString());
-//            lai.setDowned(true);
-//            lockInfoManService.updateLockInfoByPrimaryKey(lai);
-//            log.debug("[To DB]  >>>>>>  " + lai.toString());
-//            log.info("消息成功下发");
+//            step3 下发授权信息后将下发信息的标志位改成已下发
+//            当消息下发后，将下发消息的数据库的位置设为true，说明已下发。消息下发一次。
+            log.debug("[From DB]  <<<<<<  " + lai.toString());
+            lai.setDowned(true);
+            lockInfoManService.updateLockInfoByPrimaryKey(lai);
+            log.debug("[To DB]  >>>>>>  " + lai.toString());
+            log.info("消息成功下发");
 
         }
     }
