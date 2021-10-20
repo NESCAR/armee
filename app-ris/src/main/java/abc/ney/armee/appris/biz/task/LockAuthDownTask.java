@@ -45,7 +45,7 @@ public class LockAuthDownTask implements Runnable {
         // step2. 针对每个授权信息处理
         for (LockAuthInfo lai : undownedLockAuthInfo) {
             // step2.1 检查汽车是否上锁
-            //         如果当前处于未上锁状态，不下发授权信息
+            //         如果当前处于上锁状态，不下发授权信息
             Staff driver = adminService.queryDriver(lai.getDriverId());
             Device car = carService.queryDeviceByGid(lai.getDeviceId());
             if (car.getLockStatus() == Device.LOCK_STATUS) {
@@ -77,11 +77,11 @@ public class LockAuthDownTask implements Runnable {
 
 //            step3 下发授权信息后将下发信息的标志位改成已下发
 //            当消息下发后，将下发消息的数据库的位置设为true，说明已下发。消息下发一次。
-            log.debug("[From DB]  <<<<<<  " + lai.toString());
-            lai.setDowned(true);
-            lockInfoManService.updateLockInfoByPrimaryKey(lai);
-            log.debug("[To DB]  >>>>>>  " + lai.toString());
-            log.info("消息成功下发");
+//            log.debug("[From DB]  <<<<<<  " + lai.toString());
+//            lai.setDowned(true);
+//            lockInfoManService.updateLockInfoByPrimaryKey(lai);
+//            log.debug("[To DB]  >>>>>>  " + lai.toString());
+            log.info("消息成功下发一次");
 
         }
     }

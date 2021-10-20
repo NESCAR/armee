@@ -7,10 +7,7 @@ import icu.nescar.armee.jet.broker.msg.req.LocationUploadRequestMsgBody;
 import io.github.hylexus.jt.data.msg.MsgType;
 import lombok.extern.slf4j.Slf4j;
 
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 /**
  * @Auther whale
@@ -45,8 +42,7 @@ public class CANRequestMsgBodyMapper implements InfluxMapper {
     @Override
     public String getTime(Object msg) throws ClassCastException {
         checkType(msg);
-        return TimeConverter.bcdByte2RfcString(
-                ((CANMsgRequestMsgBody)msg).getCanTime());
+        return ((CANMsgRequestMsgBody)msg).getCanTime();
     }
 
     @Override

@@ -2,7 +2,6 @@ package abc.ney.armee.appris.dal.mapper.tsmap;
 
 import abc.ney.armee.enginee.tool.TimeConverter;
 import icu.nescar.armee.jet.broker.config.Jt808MsgType;
-import icu.nescar.armee.jet.broker.msg.req.AxleLoadUploadRequestMsgBody;
 import icu.nescar.armee.jet.broker.msg.req.LocationUploadRequestMsgBody;
 import io.github.hylexus.jt.data.msg.MsgType;
 import lombok.extern.slf4j.Slf4j;

@@ -32,8 +32,7 @@ public class TestCanRequestMsgMapper {
         boolean run = true;
         while (run) {
             for (int i = 0; i < 1000; i++) {
-                canMsgRequestMsgBody.setCanTime(
-                        TimeConverter.timestamp2BcdByte(new Timestamp(System.currentTimeMillis())));
+//                canMsgRequestMsgBody.setCanTime();
                 tsdbService.insert(key, canMsgRequestMsgBody);
                 try {
                     Thread.sleep(400);
