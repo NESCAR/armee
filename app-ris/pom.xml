@@ -17,7 +17,7 @@
         <swagger.version>2.9.2</swagger.version>
         <spring-security-oauth.version>2.3.6.RELEASE</spring-security-oauth.version>
         <mybatis-generator.version>1.4.0</mybatis-generator.version>
-        <mysql-conn.version>5.1.39</mysql-conn.version>
+        <mysql-conn.version>8.0.28</mysql-conn.version>
     </properties>
 
     <dependencies>
